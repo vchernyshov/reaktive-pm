@@ -1,0 +1,44 @@
+<resources>
+
+    <string name="app_name">reaktive-pm</string>
+    <string name="ok_button">OK</string>
+
+    <!-- Launch -->
+    <string name="launch_title">ReaktivePm samples</string>
+    <string name="launch_main_sample">Main Sample</string>
+    <string name="launch_counter_sample">Counter Sample</string>
+    <string name="launch_form_validation_sample">Form Validation</string>
+
+    <!-- Auth by phone -->
+    <string name="auth_by_phone_screen_text">Please confirm your country code and enter your phone number.</string>
+    <string name="auth_by_phone_screen_title">@string/app_name</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="invalid_phone_number">Invalid phone number</string>
+    <string name="send_phone_button">Send phone</string>
+
+    <!-- Choose Country -->
+    <string name="choose_country_screen_title">Choose a country</string>
+    <string name="choose_country_search_hint">Search</string>
+    <string name="send_code_button">Send code</string>
+
+    <!-- Code Confirmation -->
+    <string name="code_confirmation_screen_text">Please enter confirmation code from the notification.</string>
+    <string name="code_confirmation_screen_title">@string/app_name</string>
+    <string name="code_confirmation_hint">Code</string>
+    <string name="enter_confirmation_code">Enter confirmation code</string>
+    <string name="invalid_confirmation_code">Enter four digits</string>
+
+    <!-- Main -->
+    <string name="main_logout_action">Logout</string>
+
+    <!--  Form Validation  -->
+    <string name="fv_title">Form Validation</string>
+    <string name="fv_name_hint">Name</string>
+    <string name="fv_validate_button">Validate</string>
+    <string name="fv_email_hint">E-mail</string>
+    <string name="fv_phone_hint">Phone</string>
+    <string name="fv_password_hint">Password</string>
+    <string name="fv_confirm_password_hint">Confirm Password</string>
+    <string name="fv_terms_checkbox">Accept Terms of Use</string>
+
+</resources>

@@ -1,0 +1,3 @@
+include ':rpm'
+include ':app'
+rootProject.name = "reaktive-pm"
