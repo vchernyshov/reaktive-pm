@@ -36,6 +36,22 @@ object Deps {
             val material = AndroidLibrary(
                 name = "com.google.android.material:material:${Versions.material}"
             )
+
+            val coreKtx = AndroidLibrary(
+                name = "androidx.core:core-ktx:${Versions.coreKtx}"
+            )
+
+            val constraint = AndroidLibrary(
+                name = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
+            )
+
+            val timber = AndroidLibrary(
+                name = "com.jakewharton.timber:timber:${Versions.timber}"
+            )
+
+            val libphonenumber = AndroidLibrary(
+                name = "com.googlecode.libphonenumber:libphonenumber:${Versions.libphonenumber}"
+            )
         }
     }
 }
@@ -46,6 +62,10 @@ object Versions {
     val reaktive = "1.1.12"
     val appCompat = "1.2.0-alpha03"
     val material = "1.2.0-alpha05"
+    val coreKtx = "1.2.0"
+    val constraint = "1.1.3"
+    val timber = "4.7.1"
+    val libphonenumber = "8.11.1"
 
     object Android {
 
