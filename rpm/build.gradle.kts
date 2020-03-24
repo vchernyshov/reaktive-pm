@@ -21,8 +21,8 @@ dependencies {
     androidLibrary(Deps.Libs.Android.appCompat)
     androidLibrary(Deps.Libs.Android.material)
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}")
-    testImplementation("com.badoo.reaktive:reaktive-testing:1.1.12")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
-    testImplementation("org.mockito:mockito-inline:2.8.47")
+    "androidTestImplementation"("org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}")
+    "androidTestImplementation"("com.badoo.reaktive:reaktive-testing:1.1.12")
+    "androidTestImplementation"("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    "androidTestImplementation"("org.mockito:mockito-inline:2.8.47")
 }

@@ -11,16 +11,16 @@ object Deps {
 
             val reaktive = MultiPlatformLibrary(
                 common = "com.badoo.reaktive:reaktive:${Versions.reaktive}",
-                android = "com.badoo.reaktive:reaktive-android-debug${Versions.reaktive}",
-                iosX64 = "com.badoo.reaktive:reaktive-iossim${Versions.reaktive}",
-                iosArm64 = "com.badoo.reaktive:reaktive-ios64${Versions.reaktive}"
+                android = "com.badoo.reaktive:reaktive-android-debug:${Versions.reaktive}",
+                iosX64 = "com.badoo.reaktive:reaktive-iossim:${Versions.reaktive}",
+                iosArm64 = "com.badoo.reaktive:reaktive-ios64:${Versions.reaktive}"
             )
 
             val reaktiveUtils = MultiPlatformLibrary(
                 common = "com.badoo.reaktive:utils:${Versions.reaktive}",
-                android = "com.badoo.reaktive:utils-android-debug${Versions.reaktive}",
-                iosX64 = "com.badoo.reaktive:utils-iossim${Versions.reaktive}",
-                iosArm64 = "com.badoo.reaktive:utils-ios64${Versions.reaktive}"
+                android = "com.badoo.reaktive:utils-android-debug:${Versions.reaktive}",
+                iosX64 = "com.badoo.reaktive:utils-iossim:${Versions.reaktive}",
+                iosArm64 = "com.badoo.reaktive:utils-ios64:${Versions.reaktive}"
             )
         }
 
