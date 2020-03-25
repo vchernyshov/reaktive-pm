@@ -12,6 +12,7 @@ pluginManagement {
 enableFeaturePreview("GRADLE_METADATA")
 
 include(":rpm")
-include(":app")
+include(":app-common")
+include(":app-android")
 
 rootProject.name = "reaktive-pm"
