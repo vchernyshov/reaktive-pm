@@ -19,7 +19,7 @@ inline fun <T, R> DialogControl<T, R>.bindTo(
     var alert: UIAlertController? = null
 
     val closeDialog: () -> Unit = {
-        alert?.dismissModalViewControllerAnimated(true)
+        alert?.dismissViewControllerAnimated(true, {})
         alert = null
     }
 
