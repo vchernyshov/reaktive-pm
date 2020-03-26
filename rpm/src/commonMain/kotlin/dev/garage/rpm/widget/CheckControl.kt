@@ -28,9 +28,9 @@ class CheckControl internal constructor(initialChecked: Boolean) : PresentationM
 
     override fun onCreate() {
         super.onCreate()
-        checkedChanges.observable
+        checkedChanges.observable()
             .filter { it != checked.value }
-            .subscribe(checked.consumer)
+            .subscribe(checked.consumer())
             .untilDestroy()
     }
 }

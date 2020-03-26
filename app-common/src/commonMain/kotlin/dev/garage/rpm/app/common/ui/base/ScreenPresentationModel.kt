@@ -23,7 +23,7 @@ abstract class ScreenPresentationModel : PresentationModel(), NavigationalPm {
 
     open val backAction = action<Unit> {
         this.map { Back }
-            .doOnBeforeNext { navigationMessages.consumer.accept(it) }
+            .doOnBeforeNext { navigationMessages.consumer().accept(it) }
     }
 
     protected fun sendMessage(message: NavigationMessage) {

@@ -58,7 +58,7 @@ class ChooseCountryPm(private val phoneUtil: PhoneUtil) : ScreenPresentationMode
 
     val openSearchClicks = action<Unit> {
         this.map { SEARCH_OPENED }
-            .doOnBeforeNext(mode.consumer::accept)
+            .doOnBeforeNext(mode.consumer()::accept)
     }
 
     val countryClicks = action<Country> {

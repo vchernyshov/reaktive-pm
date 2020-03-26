@@ -41,7 +41,7 @@ class DialogControl<T, R> internal constructor() : PresentationModel() {
      */
     fun show(data: T) {
         dismiss()
-        displayed.consumer.accept(Displayed(data))
+        displayed.consumer().accept(Displayed(data))
     }
 
     /**
@@ -54,8 +54,8 @@ class DialogControl<T, R> internal constructor() : PresentationModel() {
 
         dismiss()
 
-        return result.observable
-            .doOnBeforeSubscribe { displayed.consumer.accept(Displayed(data)) }
+        return result.observable()
+            .doOnBeforeSubscribe { displayed.consumer().accept(Displayed(data)) }
             .takeUntil(
                 displayed.observable
                     .skip(1)
@@ -78,7 +78,7 @@ class DialogControl<T, R> internal constructor() : PresentationModel() {
      */
     fun dismiss() {
         if (displayed.valueOrNull is Displayed<*>) {
-            displayed.consumer.accept(Absent)
+            displayed.consumer().accept(Absent)
         }
     }
 

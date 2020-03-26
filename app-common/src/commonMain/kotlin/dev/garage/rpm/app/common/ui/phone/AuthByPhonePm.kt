@@ -57,7 +57,7 @@ class AuthByPhonePm(
 
     val sendButtonEnabled = state(false) {
         combineLatest(
-            phoneNumber.textChanges.observable,
+            phoneNumber.textChanges.observable(),
             chosenCountry.observable
         ) { number: String, country: Country ->
             phoneUtil.isValidPhone(country, number)
@@ -66,7 +66,7 @@ class AuthByPhonePm(
 
     val countryClicks = action<Unit> {
         this.map { AppNavigationMessage.ChooseCountry }
-            .doOnBeforeNext(navigationMessages.consumer::accept)
+            .doOnBeforeNext(navigationMessages.consumer()::accept)
     }
 
     val chooseCountry = action<Country> {
@@ -93,7 +93,7 @@ class AuthByPhonePm(
         super.onCreate()
 
         combineLatest(
-            phoneNumber.textChanges.observable,
+            phoneNumber.textChanges.observable(),
             chosenCountry.observable
         ) { number: String, country: Country ->
             phoneUtil.formatPhoneNumber(country, number)

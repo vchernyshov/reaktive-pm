@@ -166,7 +166,7 @@ abstract class PresentationModel {
 
         if (this is NavigationalPm && parent is NavigationalPm) {
             navigationMessages.observable
-                .subscribe(parent.navigationMessages.consumer)
+                .subscribe(parent.navigationMessages.consumer())
                 .untilDestroy()
         }
     }
@@ -239,7 +239,7 @@ abstract class PresentationModel {
      *
      * Use to subscribe the state to some [Observable] source.
      */
-    protected val <T> State<T>.consumer: Consumer<T> get() = relay
+    protected fun <T> State<T>.consumer(): Consumer<T> = relay
 
     /**
      * Accept the given [value] by the [State].
@@ -252,7 +252,7 @@ abstract class PresentationModel {
      *
      * Use to subscribe to this [Action]s source.
      */
-    protected val <T> Action<T>.observable: Observable<T> get() = relay
+    protected fun <T> Action<T>.observable(): Observable<T> = relay
 
     /**
      * Accept the given [value] by the [Action].
@@ -265,7 +265,7 @@ abstract class PresentationModel {
      *
      * Use to subscribe the command to some [Observable] source.
      */
-    protected val <T> Command<T>.consumer: Consumer<T> get() = relay
+    protected fun <T> Command<T>.consumer(): Consumer<T> = relay
 
     /**
      * Accept the given [value] to the [Command].

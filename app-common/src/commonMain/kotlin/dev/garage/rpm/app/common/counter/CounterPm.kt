@@ -27,12 +27,12 @@ class CounterPm : PresentationModel() {
     val minusButtonClicks = action<Unit> {
         this.filter { count.value > 0 }
             .map { count.value - 1 }
-            .doOnBeforeNext(count.consumer::accept)
+            .doOnBeforeNext(count.consumer()::accept)
     }
 
     val plusButtonClicks = action<Unit> {
         this.filter { count.value < MAX_COUNT }
             .map { count.value + 1 }
-            .doOnBeforeNext(count.consumer::accept)
+            .doOnBeforeNext(count.consumer()::accept)
     }
 }

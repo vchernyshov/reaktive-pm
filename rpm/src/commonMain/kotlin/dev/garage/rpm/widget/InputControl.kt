@@ -48,16 +48,16 @@ class InputControl internal constructor(
     override fun onCreate() {
 
         if (formatter != null) {
-            textChanges.observable
+            textChanges.observable()
                 .map { formatter.invoke(it) }
                 .subscribe {
-                    text.consumer.accept(it)
-                    if (hideErrorOnUserInput) error.consumer.accept("")
+                    text.consumer().accept(it)
+                    if (hideErrorOnUserInput) error.consumer().accept("")
                 }
                 .untilDestroy()
         }
 
-        focusChanges.observable
+        focusChanges.observable()
             .distinctUntilChanged()
             .filter { it != focus.valueOrNull }
             .subscribe(focus)
