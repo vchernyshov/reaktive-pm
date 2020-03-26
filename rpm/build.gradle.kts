@@ -17,6 +17,7 @@ dependencies {
     mppLibrary(Deps.Libs.MultiPlatform.kotlinStdLib)
     mppLibrary(Deps.Libs.MultiPlatform.reaktive)
     mppLibrary(Deps.Libs.MultiPlatform.reaktiveUtils)
+    mppLibrary(Deps.Libs.MultiPlatform.reaktiveAnnotations)
 
     androidLibrary(Deps.Libs.Android.appCompat)
     androidLibrary(Deps.Libs.Android.material)

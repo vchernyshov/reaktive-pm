@@ -22,6 +22,13 @@ object Deps {
                 iosX64 = "com.badoo.reaktive:utils-iossim:${Versions.reaktive}",
                 iosArm64 = "com.badoo.reaktive:utils-ios64:${Versions.reaktive}"
             )
+
+            val reaktiveAnnotations = MultiPlatformLibrary(
+                common = "com.badoo.reaktive:reaktive-annotations:${Versions.reaktive}",
+                android = "com.badoo.reaktive:reaktive-annotations-android-debug:${Versions.reaktive}",
+                iosX64 = "com.badoo.reaktive:reaktive-annotations-iossim:${Versions.reaktive}",
+                iosArm64 = "com.badoo.reaktive:reaktive-annotations-ios64:${Versions.reaktive}"
+            )
         }
 
         object Android {
