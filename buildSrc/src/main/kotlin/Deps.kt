@@ -29,6 +29,14 @@ object Deps {
                 iosX64 = "com.badoo.reaktive:reaktive-annotations-iossim:${Versions.reaktive}",
                 iosArm64 = "com.badoo.reaktive:reaktive-annotations-ios64:${Versions.reaktive}"
             )
+
+            val rpm = MultiPlatformModule(
+                name = ":rpm"
+            )
+
+            val appCommon = MultiPlatformModule(
+                name = ":app-common"
+            )
         }
 
         object Android {

@@ -28,8 +28,8 @@ dependencies {
     implementation(Deps.Libs.MultiPlatform.reaktive.android!!)
     implementation(Deps.Libs.MultiPlatform.reaktiveUtils.android!!)
 
-    implementation(project(":rpm"))
-    implementation(project(":app-common"))
+    implementation(project(Deps.Libs.MultiPlatform.rpm.name))
+    implementation(project(Deps.Libs.MultiPlatform.appCommon.name))
 
     implementation(Deps.Libs.Android.appCompat.name)
     implementation(Deps.Libs.Android.material.name)

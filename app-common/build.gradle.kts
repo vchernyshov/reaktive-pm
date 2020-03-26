@@ -14,8 +14,7 @@ android {
 }
 
 dependencies {
-
-    mppModule(MultiPlatformModule(":rpm"))
+    mppModule(Deps.Libs.MultiPlatform.rpm)
 
     mppLibrary(Deps.Libs.MultiPlatform.kotlinStdLib)
     mppLibrary(Deps.Libs.MultiPlatform.reaktive)
