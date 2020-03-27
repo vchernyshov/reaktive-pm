@@ -24,9 +24,9 @@ android {
 }
 
 dependencies {
-    implementation(Deps.Libs.MultiPlatform.kotlinStdLib.android!!)
-    implementation(Deps.Libs.MultiPlatform.reaktive.android!!)
-    implementation(Deps.Libs.MultiPlatform.reaktiveUtils.android!!)
+    implementation(Deps.Libs.MultiPlatform.kotlinStdLib.common!!)
+    implementation(Deps.Libs.MultiPlatform.reaktive.common!!)
+    implementation(Deps.Libs.MultiPlatform.reaktiveUtils.common!!)
 
     implementation(project(Deps.Libs.MultiPlatform.rpm.name))
     implementation(project(Deps.Libs.MultiPlatform.appCommon.name))

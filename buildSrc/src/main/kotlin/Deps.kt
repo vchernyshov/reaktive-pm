@@ -10,24 +10,15 @@ object Deps {
             )
 
             val reaktive = MultiPlatformLibrary(
-                common = "com.badoo.reaktive:reaktive:${Versions.reaktive}",
-                android = "com.badoo.reaktive:reaktive-android-debug:${Versions.reaktive}",
-                iosX64 = "com.badoo.reaktive:reaktive-iossim:${Versions.reaktive}",
-                iosArm64 = "com.badoo.reaktive:reaktive-ios64:${Versions.reaktive}"
+                common = "com.badoo.reaktive:reaktive:${Versions.reaktive}"
             )
 
             val reaktiveUtils = MultiPlatformLibrary(
-                common = "com.badoo.reaktive:utils:${Versions.reaktive}",
-                android = "com.badoo.reaktive:utils-android-debug:${Versions.reaktive}",
-                iosX64 = "com.badoo.reaktive:utils-iossim:${Versions.reaktive}",
-                iosArm64 = "com.badoo.reaktive:utils-ios64:${Versions.reaktive}"
+                common = "com.badoo.reaktive:utils:${Versions.reaktive}"
             )
 
             val reaktiveAnnotations = MultiPlatformLibrary(
-                common = "com.badoo.reaktive:reaktive-annotations:${Versions.reaktive}",
-                android = "com.badoo.reaktive:reaktive-annotations-android-debug:${Versions.reaktive}",
-                iosX64 = "com.badoo.reaktive:reaktive-annotations-iossim:${Versions.reaktive}",
-                iosArm64 = "com.badoo.reaktive:reaktive-annotations-ios64:${Versions.reaktive}"
+                common = "com.badoo.reaktive:reaktive-annotations:${Versions.reaktive}"
             )
 
             val rpm = MultiPlatformModule(
@@ -81,6 +72,7 @@ object Versions {
     val constraint = "1.1.3"
     val timber = "4.7.1"
     val libphonenumber = "8.11.1"
+    val rpm = "0.0.1-alpha"
 
     object Android {
 
