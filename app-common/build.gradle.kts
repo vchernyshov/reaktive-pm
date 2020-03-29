@@ -13,6 +13,8 @@ android {
     }
 }
 
+setupFramework(exports = listOf(Deps.Libs.MultiPlatform.rpm))
+
 dependencies {
     mppModule(Deps.Libs.MultiPlatform.rpm)
 
