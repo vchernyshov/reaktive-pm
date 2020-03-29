@@ -1,0 +1,16 @@
+PODS:
+  - MultiPlatformLibrary (0.1.0)
+
+DEPENDENCIES:
+  - MultiPlatformLibrary (from `../app-common`)
+
+EXTERNAL SOURCES:
+  MultiPlatformLibrary:
+    :path: "../app-common"
+
+SPEC CHECKSUMS:
+  MultiPlatformLibrary: 28d2b842387accb777f31aefe854d39566307727
+
+PODFILE CHECKSUM: 2b8854617fc4b7a55eecf522306edbdd029ebeb6
+
+COCOAPODS: 1.9.0
