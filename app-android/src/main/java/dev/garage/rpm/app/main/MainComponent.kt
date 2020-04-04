@@ -1,6 +1,7 @@
 package dev.garage.rpm.app.main
 
 import android.app.Application
+import dev.garage.rpm.app.AndroidNotificationManager
 import dev.garage.rpm.app.common.main.api.ServerApi
 import dev.garage.rpm.app.common.main.api.ServerApiSimulator
 import dev.garage.rpm.app.common.main.model.AuthModel
@@ -15,9 +16,7 @@ class MainComponent(private val context: Application) {
     val resources: Resources = Resources
 
     private val notificationManager: NotificationManager by lazy {
-        NotificationManager(
-            context
-        )
+        AndroidNotificationManager(context)
     }
     private val serverApi: ServerApi by lazy { ServerApiSimulator(notificationManager) }
     private val tokenStorage by lazy { TokenStorage() }
