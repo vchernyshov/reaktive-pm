@@ -22,7 +22,8 @@ object Deps {
             )
 
             val rpm = MultiPlatformModule(
-                name = ":rpm"
+                name = ":rpm",
+                exported = true
             )
 
             val appCommon = MultiPlatformModule(
