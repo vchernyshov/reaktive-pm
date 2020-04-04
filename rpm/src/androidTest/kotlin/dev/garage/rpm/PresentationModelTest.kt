@@ -234,7 +234,7 @@ open class TestPm(private val callbacks: LifecycleCallbacks) : PresentationModel
     val commands = command<Int>()
 
     fun acceptCommand(i: Int) {
-        commands.consumer.accept(i)
+        commands.consumer().accept(i)
     }
 
     override fun onCreate() {
