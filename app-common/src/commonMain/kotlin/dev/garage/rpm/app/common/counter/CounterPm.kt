@@ -3,10 +3,7 @@ package dev.garage.rpm.app.common.counter
 import com.badoo.reaktive.observable.doOnBeforeNext
 import com.badoo.reaktive.observable.filter
 import com.badoo.reaktive.observable.map
-import dev.garage.rpm.PresentationModel
-import dev.garage.rpm.accept
-import dev.garage.rpm.action
-import dev.garage.rpm.state
+import dev.garage.rpm.*
 
 class CounterPm : PresentationModel() {
 
@@ -14,25 +11,26 @@ class CounterPm : PresentationModel() {
         const val MAX_COUNT = 10
     }
 
-    val count = state(initialValue = 0)
+    private val _count = state(initialValue = 0)
+    val count = state(stateSource = { _count.observable.map { it.toString() } })
 
     val minusButtonEnabled = state {
-        count.observable.map { it > 0 }
+        _count.observable.map { it > 0 }
     }
 
     val plusButtonEnabled = state {
-        count.observable.map { it < MAX_COUNT }
+        _count.observable.map { it < MAX_COUNT }
     }
 
     val minusButtonClicks = action<Unit> {
-        this.filter { count.value > 0 }
-            .map { count.value - 1 }
-            .doOnBeforeNext(count.consumer()::accept)
+        this.filter { _count.value > 0 }
+            .map { _count.value - 1 }
+            .doOnBeforeNext(_count.consumer()::accept)
     }
 
     val plusButtonClicks = action<Unit> {
-        this.filter { count.value < MAX_COUNT }
-            .map { count.value + 1 }
-            .doOnBeforeNext(count.consumer()::accept)
+        this.filter { _count.value < MAX_COUNT }
+            .map { _count.value + 1 }
+            .doOnBeforeNext(_count.consumer()::accept)
     }
 }

@@ -29,7 +29,7 @@ class CounterActivity : PmActivity<CounterPm>() {
 
     override fun onBindPresentationModel(pm: CounterPm) {
 
-        pm.count.bindTo { counterText.text = it.toString() }
+        pm.count.bindTo(counterText::setText)
         pm.minusButtonEnabled.bindTo(minusButton::setEnabled)
         pm.plusButtonEnabled.bindTo(plusButton::setEnabled)
 
