@@ -4,11 +4,14 @@ import com.badoo.reaktive.completable.CompletableCallbacks
 import com.badoo.reaktive.disposable.CompositeDisposable
 import com.badoo.reaktive.disposable.Disposable
 import com.badoo.reaktive.disposable.plusAssign
-import com.badoo.reaktive.observable.*
 import com.badoo.reaktive.observable.Observable
+import com.badoo.reaktive.observable.ObservableObserver
+import com.badoo.reaktive.observable.observable
+import com.badoo.reaktive.observable.subscribe
+import com.badoo.reaktive.utils.atomic.AtomicBoolean
 import com.badoo.reaktive.utils.handleReaktiveError
-import dev.garage.rpm.util.queue.ArrayQueue
 import dev.garage.rpm.util.queue.Queue
+import dev.garage.rpm.util.queue.SharedQueue
 
 internal fun <T> Observable<T>.bufferValuesWhileIdle(
     isIdleObservable: Observable<Boolean>,
@@ -19,10 +22,10 @@ internal fun <T> Observable<T>.bufferValuesWhileIdle(
         val compositeDisposable = CompositeDisposable()
         emitter.setDisposable(compositeDisposable)
 
-        var done = false
+        val done = AtomicBoolean(false)
 
-        var isIdle = false
-        val bufferedValues : Queue<T> = ArrayQueue()
+        val isIdle = AtomicBoolean(false)
+        val bufferedValues : Queue<T> = SharedQueue()
 
         subscribe(
             object : ObservableObserver<T>, CompletableCallbacks {
@@ -30,9 +33,9 @@ internal fun <T> Observable<T>.bufferValuesWhileIdle(
                     compositeDisposable += disposable
                     compositeDisposable += isIdleObservable.subscribe {
                         if (it) {
-                            isIdle = true
+                            isIdle.value = true
                         } else {
-                            isIdle = false
+                            isIdle.value = false
                             bufferedValues.forEach { v ->
                                 onNext(v)
                             }
@@ -42,11 +45,11 @@ internal fun <T> Observable<T>.bufferValuesWhileIdle(
                 }
 
                 override fun onNext(value: T) {
-                    if (done) {
+                    if (done.value) {
                         return
                     }
 
-                    if (isIdle) {
+                    if (isIdle.value) {
 
                         if (bufferedValues.size == bufferSize) {
                             bufferedValues.poll()
@@ -60,21 +63,21 @@ internal fun <T> Observable<T>.bufferValuesWhileIdle(
                 }
 
                 override fun onError(error: Throwable) {
-                    if (done) {
+                    if (done.value) {
                         handleReaktiveError(error)
                         return
                     }
-                    done = true
+                    done.value = true
                     compositeDisposable.dispose()
                     emitter.onError(error)
                 }
 
                 override fun onComplete() {
-                    if (done) {
+                    if (done.value) {
                         return
                     }
 
-                    done = true
+                    done.value = true
                     compositeDisposable.dispose()
                     emitter.onComplete()
                 }
