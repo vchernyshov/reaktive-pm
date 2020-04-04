@@ -10,7 +10,7 @@ fun String.onlyDigits() = this.replace("\\D".toRegex(), "")
 
 class NumberParseException(message: String) : Exception(message)
 
-expect class PhoneUtil {
+interface PhoneUtil {
 
     fun parsePhone(phone: String): PhoneNumber
 

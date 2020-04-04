@@ -24,5 +24,4 @@ dependencies {
     mppLibrary(Deps.Libs.MultiPlatform.reaktiveAnnotations)
 
     androidLibrary(Deps.Libs.Android.appCompat)
-    androidLibrary(Deps.Libs.Android.libphonenumber)
 }
