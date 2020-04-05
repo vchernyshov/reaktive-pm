@@ -7,31 +7,26 @@
 //
 
 import UIKit
-import MultiPlatformLibrary
 
 class ViewController: UIViewController {
-
-    var pm: CounterPm = CounterPm()
-    
-    @IBOutlet weak var minusView: UIButton!
-    @IBOutlet weak var plusView: UIButton!
-    @IBOutlet weak var counterView: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(self)
+        print(parent)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    @IBAction func onCounterClicked(_ sender: UIButton) {
+        self.navigationController?.pushViewController(CounterController.newInstance(), animated: false)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    @IBAction func onMainClicked(_ sender: UIButton) {
+        self.navigationController?.pushViewController(AuthByPhoneScreen.newInstance(), animated: false)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    @IBAction func onFormClicked(_ sender: UIButton) {
+        self.navigationController?.pushViewController(FormValidationController.newInstance(), animated: false)
     }
 }
+
 
