@@ -3,6 +3,7 @@ package dev.garage.rpm.widget
 import com.badoo.reaktive.observable.filter
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.skip
+import com.badoo.reaktive.utils.atomic.AtomicBoolean
 import dev.garage.rpm.PmView
 import dev.garage.rpm.bindTo
 import dev.garage.rpm.bindings.focus
@@ -15,14 +16,14 @@ import platform.UIKit.UITextField
  */
 fun InputControl.bindTo(textField: UITextField) {
 
-    var editing = false
+    val editing = AtomicBoolean(false)
 
     text.bindTo {
         val editable = textField.text
         if (it != editable) {
-            editing = true
-            textField.text = editable
-            editing = false
+            editing.value = true
+            textField.text = it
+            editing.value = false
         }
     }
 
@@ -30,7 +31,7 @@ fun InputControl.bindTo(textField: UITextField) {
 
     textField.textChanges()
         .skip(1)
-        .filter { !editing && text.valueOrNull?.equals(it) != true }
+        .filter { !editing.value && text.valueOrNull?.equals(it) != true }
         .map { it }
         .bindTo(textChanges)
 
