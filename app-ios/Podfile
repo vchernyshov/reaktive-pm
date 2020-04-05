@@ -16,4 +16,5 @@ target 'app-ios' do
   pod 'MultiPlatformLibrary', :path => '../app-common'
   # pod 'MultiPlatformLibraryRpm', :git => 'https://github.com/icerockdev/moko-mvvm.git', :tag => 'release/0.4.0'
   # pod 'MultiPlatformLibraryRpm', :path => '../../'
+  pod 'libPhoneNumber-iOS', '~> 0.8'
 end
