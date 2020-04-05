@@ -4,6 +4,7 @@ import com.badoo.reaktive.observable.doOnBeforeFinally
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.observable.subscribe
 import com.badoo.reaktive.scheduler.mainScheduler
+import com.badoo.reaktive.utils.atomic.AtomicReference
 import platform.UIKit.UIAlertController
 import platform.UIKit.UIViewController
 
@@ -16,11 +17,11 @@ inline fun <T, R> DialogControl<T, R>.bindTo(
     crossinline createDialog: (data: T, dc: DialogControl<T, R>) -> UIAlertController
 ) {
 
-    var alert: UIAlertController? = null
+    val alert = AtomicReference<UIAlertController?>(null)
 
     val closeDialog: () -> Unit = {
-        alert?.dismissViewControllerAnimated(true, {})
-        alert = null
+        alert.value?.dismissViewControllerAnimated(true) {}
+        alert.value = null
     }
 
     displayed.observable
@@ -29,10 +30,8 @@ inline fun <T, R> DialogControl<T, R>.bindTo(
         .subscribe {
             @Suppress("UNCHECKED_CAST")
             if (it is DialogControl.Display.Displayed<*>) {
-                alert = createDialog(it.data as T, this)
-                parent.presentViewController(alert!!, true) {
-                    this.dismiss()
-                }
+                alert.value = createDialog(it.data as T, this)
+                parent.presentViewController(alert.value!!, true, null)
             } else if (it === DialogControl.Display.Absent) {
                 closeDialog()
             }
