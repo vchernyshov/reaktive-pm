@@ -31,7 +31,7 @@ class AuthByPhonePm(
                 try {
                     val number = phoneUtil.parsePhone(code)
                     phoneNumber.focus.accept(true)
-                    phoneNumber.textChanges.accept(number.nationalNumber.toString())
+                    phoneNumber.textChanges.accept(number.nationalNumber)
                     "+${number.countryCode}"
                 } catch (e: NumberParseException) {
                     code
