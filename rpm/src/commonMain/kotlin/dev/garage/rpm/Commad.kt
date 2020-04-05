@@ -5,6 +5,7 @@ import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.publish
 import com.badoo.reaktive.observable.subscribe
 import com.badoo.reaktive.subject.publish.PublishSubject
+import dev.garage.rpm.util.ConsumerWrapper
 
 /**
  * Reactive property for the commands to the [view][PmView].
@@ -84,6 +85,14 @@ fun <T> Command<T>.bindTo(consumer: (T) -> Unit) {
     with(pm) {
         this@bindTo.observable
             .subscribe(onNext = consumer)
+            .untilUnbind()
+    }
+}
+
+fun <T> Command<T>.bindTo(consumer: ConsumerWrapper<in T>) {
+    with(pm) {
+        this@bindTo.observable
+            .subscribe(consumer)
             .untilUnbind()
     }
 }

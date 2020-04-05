@@ -5,6 +5,7 @@ import com.badoo.reaktive.observable.*
 import com.badoo.reaktive.scheduler.computationScheduler
 import com.badoo.reaktive.scheduler.mainScheduler
 import com.badoo.reaktive.subject.behavior.BehaviorSubject
+import dev.garage.rpm.util.ConsumerWrapper
 import dev.garage.rpm.util.bufferSingleValueWhileIdle
 
 /**
@@ -88,6 +89,7 @@ private val UNPROCESSED_ERROR_CONSUMER: ((Throwable) -> Unit) = {
  * @param [diffStrategy] diff strategy.
  * @param [stateSource] source of the state.
  */
+@Suppress("UNCHECKED_CAST")
 fun <T> PresentationModel.state(
     initialValue: T? = null,
     diffStrategy: DiffStrategy<T>? = DiffByEquals as DiffStrategy<T>,
@@ -141,6 +143,16 @@ fun <T> State<T>.bindTo(consumer: (T) -> Unit) {
             .observeOn(mainScheduler)
             .bufferSingleValueWhileIdle(paused)
             .subscribe(onNext = consumer)
+            .untilUnbind()
+    }
+}
+
+fun <T> State<T>.bindTo(consumer: ConsumerWrapper<in T>) {
+    with(pm) {
+        this@bindTo.observable
+            .observeOn(mainScheduler)
+            .bufferSingleValueWhileIdle(paused)
+            .subscribe(consumer)
             .untilUnbind()
     }
 }
