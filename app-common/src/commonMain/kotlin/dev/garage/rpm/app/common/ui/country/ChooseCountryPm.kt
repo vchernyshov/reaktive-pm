@@ -3,18 +3,19 @@ package dev.garage.rpm.app.common.ui.country
 import com.badoo.reaktive.observable.debounce
 import com.badoo.reaktive.observable.doOnBeforeNext
 import com.badoo.reaktive.observable.map
+import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.computationScheduler
+import com.badoo.reaktive.scheduler.mainScheduler
 import dev.garage.rpm.accept
 import dev.garage.rpm.action
 import dev.garage.rpm.app.common.main.AppNavigationMessage.CountryChosen
+import dev.garage.rpm.app.common.main.util.Country
+import dev.garage.rpm.app.common.main.util.PhoneUtil
 import dev.garage.rpm.app.common.ui.base.ScreenPresentationModel
 import dev.garage.rpm.app.common.ui.country.ChooseCountryPm.Mode.SEARCH_CLOSED
 import dev.garage.rpm.app.common.ui.country.ChooseCountryPm.Mode.SEARCH_OPENED
-import dev.garage.rpm.app.common.main.util.Country
-import dev.garage.rpm.app.common.main.util.PhoneUtil
 import dev.garage.rpm.state
 import dev.garage.rpm.widget.inputControl
-
 
 class ChooseCountryPm(private val phoneUtil: PhoneUtil) : ScreenPresentationModel() {
 
@@ -26,6 +27,7 @@ class ChooseCountryPm(private val phoneUtil: PhoneUtil) : ScreenPresentationMode
     val countries = state<List<Country>> {
         searchQueryInput.text.observable
             .debounce(100, computationScheduler)
+            .observeOn(mainScheduler)
             .map { query ->
                 val regex = "${query.toLowerCase()}.*".toRegex()
                 phoneUtil.countries()
