@@ -6,7 +6,7 @@ import dev.garage.rpm.accept
 import dev.garage.rpm.bindTo
 import dev.garage.rpm.navigation.NavigationMessageDispatcher
 import dev.garage.rpm.navigation.NavigationalPm
-import platform.Foundation.NSUUID
+import dev.garage.rpm.util.generateRandomUUID
 
 /**
  *  Common delegate serves for forwarding the lifecycle[PresentationModel.Lifecycle] directly into the [PresentationModel][PresentationModel].
@@ -19,15 +19,11 @@ class CommonDelegate<PM, V>(
         where PM : PresentationModel,
               V : PmView<PM> {
 
-    private lateinit var pmTag: String
-
     val presentationModel: PM by lazy(LazyThreadSafetyMode.NONE) {
-        @Suppress("UNCHECKED_CAST")
-        PmStore.getPm(pmTag) { pmView.providePresentationModel() } as PM
+        pmView.providePresentationModel()
     }
 
     fun onCreate() {
-        pmTag = NSUUID.UUID().UUIDString()
         if (presentationModel.currentLifecycleState == null) {
             presentationModel.lifecycleConsumer.accept(PresentationModel.Lifecycle.CREATED)
         }
@@ -78,7 +74,6 @@ class CommonDelegate<PM, V>(
         if (presentationModel.currentLifecycleState == PresentationModel.Lifecycle.CREATED
             || presentationModel.currentLifecycleState == PresentationModel.Lifecycle.UNBINDED
         ) {
-            PmStore.removePm(pmTag)
             presentationModel.lifecycleConsumer.accept(PresentationModel.Lifecycle.DESTROYED)
         }
     }

@@ -5,71 +5,41 @@ import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.navigation.UiViewControllerNavigationMessageDispatcher
 import platform.UIKit.UIViewController
 
-//class PmUiViewControllerDelegate<PM: PresentationModel>(
-//    private val pmUiViewController: PmUiViewController<PM>,
-//    private val retainMode: RetainMode
-//) {
-//
-//    /**
-//     * Strategies for retaining the PresentationModel[PresentationModel].
-//     * [SAVED_STATE] - the PresentationModel will be destroyed if the Activity is finishing or the Fragment state has not been saved.
-//     * [CONFIGURATION_CHANGES] - Retain the PresentationModel during a configuration change.
-//     */
-//    enum class RetainMode { SAVED_STATE, CONFIGURATION_CHANGES }
-//
-//    private val commonDelegate = CommonDelegate(pmUiViewController,
-//        UiViewControllerNavigationMessageDispatcher(pmUiViewController)
-//    )
-//
-//    val presentationModel: PM get() = commonDelegate.presentationModel
-//
-//    /**
-//     * You must call this method from the containing [Activity]'s corresponding method.
-//     */
-//    fun onCreate() {
-//        commonDelegate.onCreate()
-//    }
-//
-//    /**
-//     * You must call this method from the containing [Activity]'s corresponding method.
-//     */
-//    fun onPostCreate() {
-//        commonDelegate.onBind()
-//    }
-//
-//    /**
-//     * You must call this method from the containing [Activity]'s corresponding method.
-//     */
-//    fun onStart() {
-//        // For symmetry, may be used in the future
-//    }
-//
-//    /**
-//     * You must call this method from the containing [Activity]'s corresponding method.
-//     */
-//    fun onResume() {
-//        commonDelegate.onResume()
-//    }
-//
-//    /**
-//     * You must call this method from the containing [Activity]'s corresponding method.
-//     */
-//    fun onPause() {
-//        commonDelegate.onPause()
-//    }
-//
-//    /**
-//     * You must call this method from the containing [Activity]'s corresponding method.
-//     */
-//    fun onStop() {
-//        // For symmetry, may be used in the future
-//    }
-//
-//    /**
-//     * You must call this method from the containing [Activity]'s corresponding method.
-//     */
-//    fun onDestroy() {
-//        commonDelegate.onUnbind()
-//        commonDelegate.onDestroy()
-//    }
-//}
+//TODO: need consultation of iOS developer
+//TODO: add Kotlin Doc
+class PmUiViewControllerDelegate<PM, U>(pmController: U, pmView: PmView<PM>)
+        where PM : PresentationModel, U : UIViewController {
+
+    private val commonDelegate = CommonDelegate(
+        pmView,
+        UiViewControllerNavigationMessageDispatcher(pmController)
+    )
+
+    val presentationModel: PM get() = commonDelegate.presentationModel
+
+    fun viewDidLoad() {
+        commonDelegate.onCreate()
+        commonDelegate.onBind()
+    }
+
+    fun viewWillAppear() {
+
+    }
+
+    fun viewDidAppear() {
+        commonDelegate.onResume()
+    }
+
+    fun viewWillDisappear() {
+
+    }
+
+    fun viewDidDisappear() {
+        commonDelegate.onPause()
+    }
+
+    fun deinit() {
+        commonDelegate.onUnbind()
+        commonDelegate.onDestroy()
+    }
+}
