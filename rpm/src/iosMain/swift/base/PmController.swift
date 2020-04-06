@@ -8,73 +8,72 @@
 import UIKit
 import MultiPlatformLibrary
 
-class PmController<PM: PresentationModel>: UIViewController, PmView {
+open class PmController<PM: PresentationModel>: UIViewController, PmView {
 
     private lazy var delegate: PmUiViewControllerDelegate = {
         return PmUiViewControllerDelegate<PresentationModel, PmController>(pmController: self, pmView: self)
     }()
 
-    internal var presentationModel: PresentationModel {
+    public var presentationModel: PresentationModel {
         get {
             return self.delegate.presentationModel
         }
     }
 
-    internal func onBindPresentationModel(pm: PresentationModel) {
+    public func onBindPresentationModel(pm: PresentationModel) {
         onBindPm(pm as! PM)
     }
 
-    internal func onUnbindPresentationModel() {
+    public func onUnbindPresentationModel() {
         onUnbindPm()
     }
 
-    internal func providePresentationModel() -> PresentationModel {
+    public func providePresentationModel() -> PresentationModel {
         return providePm()
     }
 
-    var pm: PM {
+    public var pm: PM {
         get {
             return presentationModel as! PM
         }
     }
 
-    func onBindPm(_ pm: PM) {
+    open func onBindPm(_ pm: PM) {
 
     }
 
-    func onUnbindPm() {
+    open func onUnbindPm() {
 
     }
 
-    func providePm() -> PM {
+    open func providePm() -> PM {
         fatalError("Not implemented")
     }
 
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         delegate.viewDidLoad()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         delegate.viewWillAppear()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         delegate.viewDidAppear()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         delegate.viewWillDisappear()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         delegate.viewDidDisappear()
     }
-
 
     deinit {
         delegate.deinit()
