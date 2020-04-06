@@ -13,7 +13,6 @@
 		44B58B04242D06D50043E002 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44B58B02242D06D50043E002 /* Main.storyboard */; };
 		44B58B06242D06D50043E002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44B58B05242D06D50043E002 /* Assets.xcassets */; };
 		44B58B09242D06D50043E002 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44B58B07242D06D50043E002 /* LaunchScreen.storyboard */; };
-		44F8F96F2432949200FD5A0D /* PmUiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F96E2432949200FD5A0D /* PmUiViewController.swift */; };
 		44F8F9742433933000FD5A0D /* CounterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F9732433933000FD5A0D /* CounterController.swift */; };
 		44F8F9762433959400FD5A0D /* CounterStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44F8F9752433959400FD5A0D /* CounterStoryboard.storyboard */; };
 		44F8F9782433A0E900FD5A0D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F9772433A0E900FD5A0D /* Extensions.swift */; };
@@ -59,7 +58,6 @@
 		44B58B05242D06D50043E002 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44B58B08242D06D50043E002 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44B58B0A242D06D50043E002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44F8F96E2432949200FD5A0D /* PmUiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PmUiViewController.swift; sourceTree = "<group>"; };
 		44F8F9732433933000FD5A0D /* CounterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterController.swift; sourceTree = "<group>"; };
 		44F8F9752433959400FD5A0D /* CounterStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CounterStoryboard.storyboard; sourceTree = "<group>"; };
 		44F8F9772433A0E900FD5A0D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 				44B58B05242D06D50043E002 /* Assets.xcassets */,
 				44B58B07242D06D50043E002 /* LaunchScreen.storyboard */,
 				44B58B0A242D06D50043E002 /* Info.plist */,
-				44F8F96E2432949200FD5A0D /* PmUiViewController.swift */,
 				44F8F9772433A0E900FD5A0D /* Extensions.swift */,
 				44F8F9962437EFB200FD5A0D /* AppNavigationController.swift */,
 				44F8F9A32438F9E100FD5A0D /* IosNotificationManager.swift */,
@@ -366,7 +363,6 @@
 				44F8F99F2438D18600FD5A0D /* CountryCell.swift in Sources */,
 				44F8F989243401B000FD5A0D /* Screen.swift in Sources */,
 				44F8F9A22438F99C00FD5A0D /* MainCompoment.swift in Sources */,
-				44F8F96F2432949200FD5A0D /* PmUiViewController.swift in Sources */,
 				44F8F9862434012A00FD5A0D /* AuthByPhoneScreen.swift in Sources */,
 				44B58AFD242D06D40043E002 /* AppDelegate.swift in Sources */,
 				44F8F9972437EFB200FD5A0D /* AppNavigationController.swift in Sources */,

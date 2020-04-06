@@ -8,8 +8,9 @@
 
 import UIKit
 import MultiPlatformLibrary
+import MultiPlatformLibraryRpm
 
-class CounterController: PmUiViewController<CounterPm> {
+class CounterController: PmController<CounterPm> {
     
     @IBOutlet weak var minusView: UIButton!
     @IBOutlet weak var plusView: UIButton!

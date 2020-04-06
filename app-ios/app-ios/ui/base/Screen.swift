@@ -8,8 +8,9 @@
 
 import UIKit
 import MultiPlatformLibrary
+import MultiPlatformLibraryRpm
 
-class Screen<PM: ScreenPresentationModel>: PmUiViewController<PM>, BackHandler {
+class Screen<PM: ScreenPresentationModel>: PmController<PM>, BackHandler {
     
     override func onBindPm(_ pm: PM) {
         pm.errorDialog.bindTo(parent: self, createDialog: { message,_ in

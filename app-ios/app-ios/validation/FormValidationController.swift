@@ -8,8 +8,9 @@
 
 import UIKit
 import MultiPlatformLibrary
+import MultiPlatformLibraryRpm
 
-class FormValidationController: PmUiViewController<FormValidationPm> {
+class FormValidationController: PmController<FormValidationPm> {
     
     @IBOutlet weak var nameView: UITextField!
     @IBOutlet weak var emailView: UITextField!
