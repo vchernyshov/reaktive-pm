@@ -14,7 +14,7 @@ target 'app-ios' do
   # MultiPlatformLibrary
   # для корректной установки фреймворка нужно сначала скомпилировать котлин библиотеку - compile-kotlin-framework.sh (в корневой директории репозитория)
   pod 'MultiPlatformLibrary', :path => '../app-common'
-  # pod 'MultiPlatformLibraryRpm', :git => 'https://github.com/icerockdev/moko-mvvm.git', :tag => 'release/0.4.0'
-  # pod 'MultiPlatformLibraryRpm', :path => '../../'
+  pod 'MultiPlatformLibraryRpm', :path => '../'
+  # pod 'MultiPlatformLibraryRpm', :git => 'https://github.com/vchernyshov/reaktive-pm.git', :tag => 'release/0.0.1'
   pod 'libPhoneNumber-iOS', '~> 0.8'
 end

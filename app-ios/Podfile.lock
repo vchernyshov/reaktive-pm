@@ -1,10 +1,16 @@
 PODS:
   - libPhoneNumber-iOS (0.9.15)
   - MultiPlatformLibrary (0.1.0)
+  - MultiPlatformLibraryRpm (0.0.1):
+    - MultiPlatformLibrary
+    - MultiPlatformLibraryRpm/base (= 0.0.1)
+  - MultiPlatformLibraryRpm/base (0.0.1):
+    - MultiPlatformLibrary
 
 DEPENDENCIES:
   - libPhoneNumber-iOS (~> 0.8)
   - MultiPlatformLibrary (from `../app-common`)
+  - MultiPlatformLibraryRpm (from `../`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -13,11 +19,14 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   MultiPlatformLibrary:
     :path: "../app-common"
+  MultiPlatformLibraryRpm:
+    :path: "../"
 
 SPEC CHECKSUMS:
   libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
   MultiPlatformLibrary: 28d2b842387accb777f31aefe854d39566307727
+  MultiPlatformLibraryRpm: f48ed492ba914990d1f56edb7f6c66cab87e656f
 
-PODFILE CHECKSUM: 3e56717186ee8b9af936408ff068556dee4451b2
+PODFILE CHECKSUM: bec1efb927d56517b35d96d10edb46640e3b8f13
 
 COCOAPODS: 1.9.0
