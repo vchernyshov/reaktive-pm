@@ -1,8 +1,8 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'MultiPlatformLibraryRpm'
     spec.version                  = '0.0.1'
-    spec.homepage                 = 'Link to a Kotlin/Native module homepage'
-    spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
+    spec.homepage                 = 'https://github.com/vchernyshov/reaktive-pm'
+    spec.source                   = { :git => "https://github.com/vchernyshov/reaktive-pm.git", :tag => "release/#{spec.version}" }
     spec.authors                  = 'Garage Development'
     spec.license                  = { :type => 'MIT', :file => 'LICENSE' }
     spec.summary                  = 'Swift additions to reaktive-pm Kotlin/Native library'
