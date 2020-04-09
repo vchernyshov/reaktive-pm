@@ -10,15 +10,21 @@ object Deps {
             )
 
             val reaktive = MultiPlatformLibrary(
-                common = "com.badoo.reaktive:reaktive:${Versions.reaktive}"
+                common = "com.badoo.reaktive:reaktive:${Versions.reaktive}",
+                iosX64 = "com.badoo.reaktive:reaktive-iossim:${Versions.reaktive}",
+                iosArm64 = "com.badoo.reaktive:reaktive-ios64:${Versions.reaktive}"
             )
 
             val reaktiveUtils = MultiPlatformLibrary(
-                common = "com.badoo.reaktive:utils:${Versions.reaktive}"
+                common = "com.badoo.reaktive:utils:${Versions.reaktive}",
+                iosX64 = "com.badoo.reaktive:utils-iossim:${Versions.reaktive}",
+                iosArm64 = "com.badoo.reaktive:utils-ios64:${Versions.reaktive}"
             )
 
             val reaktiveAnnotations = MultiPlatformLibrary(
-                common = "com.badoo.reaktive:reaktive-annotations:${Versions.reaktive}"
+                common = "com.badoo.reaktive:reaktive-annotations:${Versions.reaktive}",
+                iosX64 = "com.badoo.reaktive:reaktive-annotations-iossim:${Versions.reaktive}",
+                iosArm64 = "com.badoo.reaktive:reaktive-annotations-ios64:${Versions.reaktive}"
             )
 
             val rpm = MultiPlatformModule(

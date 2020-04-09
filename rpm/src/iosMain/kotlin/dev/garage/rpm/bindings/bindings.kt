@@ -91,7 +91,7 @@ fun UIControl.enabled(): ConsumerWrapper<Boolean> = ConsumerWrapper(
     }
 )
 
-fun UIActivityIndicatorView.visibility(): ConsumerWrapper<Boolean> = ConsumerWrapper(
+fun UIActivityIndicatorView.animation(): ConsumerWrapper<Boolean> = ConsumerWrapper(
     object : Consumer<Boolean> {
         override fun onNext(value: Boolean) {
             if (value) {
@@ -101,7 +101,7 @@ fun UIActivityIndicatorView.visibility(): ConsumerWrapper<Boolean> = ConsumerWra
             }
         }
     }
-)
+).also { setHidesWhenStopped(true) }
 
 fun UISwitch.switchChanges(): Observable<Boolean> = observable { emitter ->
     val handler: UISwitch.() -> Unit = {

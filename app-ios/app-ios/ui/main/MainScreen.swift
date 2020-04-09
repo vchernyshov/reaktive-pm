@@ -8,6 +8,7 @@
 
 import UIKit
 import MultiPlatformLibrary
+import MultiPlatformLibraryRpm
 
 class MainScreen: Screen<MainPm> {
     
@@ -20,7 +21,7 @@ class MainScreen: Screen<MainPm> {
     
     override func onBindPm(_ pm: MainPm) {
         super.onBindPm(pm)
-        pm.inProgress.bindTo(progressView.visibility())
+        pm.inProgress.bindTo(progressView.animation())
         pm.logoutDialog.bindTo(parent: self, createDialog: { _, dc in
             let alert = UIAlertController(
                 title: "Logout",

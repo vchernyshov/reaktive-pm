@@ -8,6 +8,7 @@
 
 import UIKit
 import MultiPlatformLibrary
+import MultiPlatformLibraryRpm
 
 class CodeConfirmationScreen: Screen<CodeConfirmationPm> {
     
@@ -27,7 +28,7 @@ class CodeConfirmationScreen: Screen<CodeConfirmationPm> {
     
     override func onBindPm(_ pm: CodeConfirmationPm) {
         super.onBindPm(pm)
-        pm.inProgress.bindTo(progressView.visibility())
+        pm.inProgress.bindTo(progressView.animation())
         pm.code.bindTo(codeView)
         pm.sendButtonEnabled.bindTo(sendCodeView.enabled())
         sendCodeView.clicks().bindTo(pm.sendClicks)

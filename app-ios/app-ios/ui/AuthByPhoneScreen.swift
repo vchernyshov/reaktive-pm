@@ -8,6 +8,7 @@
 
 import UIKit
 import MultiPlatformLibrary
+import MultiPlatformLibraryRpm
 
 class AuthByPhoneScreen: Screen<AuthByPhonePm>, UITextFieldDelegate {
     
@@ -39,7 +40,7 @@ class AuthByPhoneScreen: Screen<AuthByPhonePm>, UITextFieldDelegate {
         pm.chosenCountry.bindTo(ConsumerWrapper(inner_: { country in
             self.nameView.text = country?.name
         }))
-        pm.inProgress.bindTo(progressView.visibility())
+        pm.inProgress.bindTo(progressView.animation())
         pm.sendButtonEnabled.bindTo(sendView.enabled())
         sendView.clicks().bindTo(pm.sendClicks)
     }

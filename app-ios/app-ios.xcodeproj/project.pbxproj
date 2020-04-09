@@ -15,7 +15,6 @@
 		44B58B09242D06D50043E002 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44B58B07242D06D50043E002 /* LaunchScreen.storyboard */; };
 		44F8F9742433933000FD5A0D /* CounterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F9732433933000FD5A0D /* CounterController.swift */; };
 		44F8F9762433959400FD5A0D /* CounterStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44F8F9752433959400FD5A0D /* CounterStoryboard.storyboard */; };
-		44F8F9782433A0E900FD5A0D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F9772433A0E900FD5A0D /* Extensions.swift */; };
 		44F8F97B2433CA1300FD5A0D /* FormValidationStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44F8F97A2433CA1300FD5A0D /* FormValidationStoryboard.storyboard */; };
 		44F8F97D2433CA5300FD5A0D /* FormValidationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F97C2433CA5300FD5A0D /* FormValidationController.swift */; };
 		44F8F9862434012A00FD5A0D /* AuthByPhoneScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F9852434012A00FD5A0D /* AuthByPhoneScreen.swift */; };
@@ -60,7 +59,6 @@
 		44B58B0A242D06D50043E002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44F8F9732433933000FD5A0D /* CounterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterController.swift; sourceTree = "<group>"; };
 		44F8F9752433959400FD5A0D /* CounterStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CounterStoryboard.storyboard; sourceTree = "<group>"; };
-		44F8F9772433A0E900FD5A0D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		44F8F97A2433CA1300FD5A0D /* FormValidationStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FormValidationStoryboard.storyboard; sourceTree = "<group>"; };
 		44F8F97C2433CA5300FD5A0D /* FormValidationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationController.swift; sourceTree = "<group>"; };
 		44F8F9852434012A00FD5A0D /* AuthByPhoneScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthByPhoneScreen.swift; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 				44B58B05242D06D50043E002 /* Assets.xcassets */,
 				44B58B07242D06D50043E002 /* LaunchScreen.storyboard */,
 				44B58B0A242D06D50043E002 /* Info.plist */,
-				44F8F9772433A0E900FD5A0D /* Extensions.swift */,
 				44F8F9962437EFB200FD5A0D /* AppNavigationController.swift */,
 				44F8F9A32438F9E100FD5A0D /* IosNotificationManager.swift */,
 				44F8F9A52439009600FD5A0D /* IosPhoneUtil.swift */,
@@ -356,7 +353,6 @@
 				44F8F9952437C34600FD5A0D /* MainScreen.swift in Sources */,
 				44F8F9902437BBA500FD5A0D /* CodeConfirmationScreen.swift in Sources */,
 				44B58B01242D06D40043E002 /* ViewController.swift in Sources */,
-				44F8F9782433A0E900FD5A0D /* Extensions.swift in Sources */,
 				44F8F97D2433CA5300FD5A0D /* FormValidationController.swift in Sources */,
 				44F8F9742433933000FD5A0D /* CounterController.swift in Sources */,
 				44F8F9A42438F9E100FD5A0D /* IosNotificationManager.swift in Sources */,

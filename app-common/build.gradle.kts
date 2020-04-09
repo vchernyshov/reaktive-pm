@@ -13,7 +13,7 @@ android {
     }
 }
 
-setupFramework(exports = listOf(Deps.Libs.MultiPlatform.rpm))
+setupFramework(exports = listOf(Deps.Libs.MultiPlatform.reaktive,Deps.Libs.MultiPlatform.reaktiveUtils, Deps.Libs.MultiPlatform.rpm))
 
 dependencies {
     mppModule(Deps.Libs.MultiPlatform.rpm)

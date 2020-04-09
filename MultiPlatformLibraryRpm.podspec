@@ -17,6 +17,18 @@ Pod::Spec.new do |spec|
       sp.source_files = "rpm/src/iosMain/swift/base/**/*.{h,m,swift}"
     end
 
+    spec.subspec 'bindings' do |sp|
+      sp.source_files = "rpm/src/iosMain/swift/bindings/**/*.{h,m,swift}"
+    end
+
+    spec.subspec 'core' do |sp|
+      sp.source_files = "rpm/src/iosMain/swift/core/**/*.{h,m,swift}"
+    end
+
+    spec.subspec 'widget' do |sp|
+      sp.source_files = "rpm/src/iosMain/swift/widget/**/*.{h,m,swift}"
+    end
+
     #spec.subspec 'AlamofireImage' do |sp|
     #  sp.source_files = "mvvm/src/iosMain/swift/AlamofireImage/**/*.{h,m,swift}"
     #  sp.dependency 'AlamofireImage'
