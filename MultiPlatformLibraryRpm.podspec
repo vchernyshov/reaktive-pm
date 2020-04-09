@@ -29,15 +29,10 @@ Pod::Spec.new do |spec|
       sp.source_files = "rpm/src/iosMain/swift/widget/**/*.{h,m,swift}"
     end
 
-    #spec.subspec 'AlamofireImage' do |sp|
-    #  sp.source_files = "mvvm/src/iosMain/swift/AlamofireImage/**/*.{h,m,swift}"
-    #  sp.dependency 'AlamofireImage'
-    #end
-
-    #spec.subspec 'SkyFloatingLabelTextField' do |sp|
-    #  sp.source_files = "mvvm/src/iosMain/swift/SkyFloatingLabelTextField/**/*.{h,m,swift}"
-    #  sp.dependency 'SkyFloatingLabelTextField'
-    #end
+    spec.subspec 'skyfloating' do |sp|
+      sp.source_files = "mvvm/src/iosMain/swift/skyfloating/**/*.{h,m,swift}"
+      sp.dependency 'SkyFloatingLabelTextField'
+    end
 
     spec.pod_target_xcconfig = {
         'VALID_ARCHS' => '$(ARCHS_STANDARD_64_BIT)'
