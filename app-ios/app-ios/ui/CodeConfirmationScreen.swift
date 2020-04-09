@@ -29,7 +29,7 @@ class CodeConfirmationScreen: Screen<CodeConfirmationPm> {
     override func onBindPm(_ pm: CodeConfirmationPm) {
         super.onBindPm(pm)
         pm.inProgress.bindTo(progressView.animation())
-        pm.code.bindTo(codeView)
+        pm.code.bindTo(field: codeView)
         pm.sendButtonEnabled.bindTo(sendCodeView.enabled())
         sendCodeView.clicks().bindTo(pm.sendClicks)
         // TODO: add merge click from

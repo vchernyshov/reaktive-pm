@@ -14,28 +14,28 @@ import platform.UIKit.UITextField
 /**
  * Binds the [InputControl] to the [EditText][editText], use it ONLY in [PmView.onBindPresentationModel].
  */
-fun InputControl.bindTo(textField: UITextField) {
+fun InputControl.bindTo(field: UITextField) {
 
     val editing = AtomicBoolean(false)
 
     text.bindTo {
-        val editable = textField.text
+        val editable = field.text
         if (it != editable) {
             editing.value = true
-            textField.text = it
+            field.text = it
             editing.value = false
         }
     }
 
-    focus.bindTo(textField.focus())
+    focus.bindTo(field.focus())
 
-    textField.textChanges()
+    field.textChanges()
         .skip(1)
         .filter { !editing.value && text.valueOrNull?.equals(it) != true }
         .map { it }
         .bindTo(textChanges)
 
-    textField.focusChanges().bindTo(focusChanges)
+    field.focusChanges().bindTo(focusChanges)
 }
 
 fun InputControl.bindTo(layout: TextInputLayout) {

@@ -30,7 +30,7 @@ Pod::Spec.new do |spec|
     end
 
     spec.subspec 'skyfloating' do |sp|
-      sp.source_files = "mvvm/src/iosMain/swift/skyfloating/**/*.{h,m,swift}"
+      sp.source_files = "rpm/src/iosMain/swift/skyfloating/**/*.{h,m,swift}"
       sp.dependency 'SkyFloatingLabelTextField'
     end
 

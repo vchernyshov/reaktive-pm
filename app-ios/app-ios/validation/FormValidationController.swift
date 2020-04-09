@@ -25,11 +25,11 @@ class FormValidationController: PmController<FormValidationPm> {
     }
     
     override func onBindPm(_ pm: FormValidationPm) {
-        pm.name.bindTo(nameView)
-        pm.email.bindTo(emailView)
-        pm.phone.bindTo(phoneView)
-        pm.password.bindTo(passwordView)
-        pm.confirmPassword.bindTo(confirmPasswordView)
+        pm.name.bindTo(field: nameView)
+        pm.email.bindTo(field: emailView)
+        pm.phone.bindTo(field: phoneView)
+        pm.password.bindTo(field: passwordView)
+        pm.confirmPassword.bindTo(field: confirmPasswordView)
         pm.termsCheckBox.bindTo(acceptView)
         pm.acceptTermsOfUse.bindTo(consumer: { message in
             self.showToast(controller: self, message: message as! String, seconds: 2.0)

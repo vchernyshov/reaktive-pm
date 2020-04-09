@@ -9,11 +9,11 @@ import UIKit
 import MultiPlatformLibrary
 
 public extension InputControl {
-    public func bindTo(_ field: UITextField) {
-        self.bindTo(textField: field)
-    }
-
-    public func bindTo(_ input: TextInputLayout) {
-        self.bindTo(layout: input)
-    }
+//    public func bindTo(field: UITextField) {
+//        self.bindTo(textField: field)
+//    }
+//
+//    public func bindTo(input: TextInputLayout) {
+//        self.bindTo(layout: input)
+//    }
 }

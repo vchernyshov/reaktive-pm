@@ -9,7 +9,7 @@ import UIKit
 import MultiPlatformLibrary
 import SkyFloatingLabelTextField
 
-public extension SkyFloatingLabelTextField: TextInputLayout {
+extension SkyFloatingLabelTextField: TextInputLayout {
     public func getTextField() -> UITextField {
         return self
     }

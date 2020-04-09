@@ -35,8 +35,8 @@ class AuthByPhoneScreen: Screen<AuthByPhonePm>, UITextFieldDelegate {
     
     override func onBindPm(_ pm: AuthByPhonePm) {
         super.onBindPm(pm)
-        pm.countryCode.bindTo(codeView)
-        pm.phoneNumber.bindTo(phoneView)
+        pm.countryCode.bindTo(field: codeView)
+        pm.phoneNumber.bindTo(field: phoneView)
         pm.chosenCountry.bindTo(ConsumerWrapper(inner_: { country in
             self.nameView.text = country?.name
         }))
