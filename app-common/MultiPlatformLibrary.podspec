@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'MultiPlatformLibrary'
-    spec.version                  = '0.1.0'
+    spec.version                  = '0.0.2'
     spec.homepage                 = 'Link to a Kotlin/Native module homepage'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = 'Garage Development'
@@ -26,6 +26,9 @@ Pod::Spec.new do |spec|
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
 MPP_PROJECT_ROOT="$SRCROOT/../../app-common"
+
+MPP_OUTPUT_DIR="$MPP_PROJECT_ROOT/build/cocoapods/framework"
+MPP_OUTPUT_NAME="$MPP_OUTPUT_DIR/#{spec.name}.framework"
 
 "$MPP_PROJECT_ROOT/../gradlew" -p "$MPP_PROJECT_ROOT" "$GRADLE_TASK"
             SCRIPT
