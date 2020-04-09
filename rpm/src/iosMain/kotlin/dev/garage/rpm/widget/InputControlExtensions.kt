@@ -37,3 +37,11 @@ fun InputControl.bindTo(textField: UITextField) {
 
     textField.focusChanges().bindTo(focusChanges)
 }
+
+fun InputControl.bindTo(layout: TextInputLayout) {
+    bindTo(layout.getTextField())
+
+    error.bindTo { error ->
+        layout.setError(if (error.isEmpty()) null else error)
+    }
+}
