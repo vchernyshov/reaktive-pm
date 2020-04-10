@@ -9,27 +9,39 @@
 import UIKit
 import MultiPlatformLibrary
 import MultiPlatformLibraryRpm
+import SkyFloatingLabelTextField
 
 class FormValidationController: PmController<FormValidationPm> {
     
-    @IBOutlet weak var nameView: UITextField!
-    @IBOutlet weak var emailView: UITextField!
-    @IBOutlet weak var phoneView: UITextField!
-    @IBOutlet weak var passwordView: UITextField!
-    @IBOutlet weak var confirmPasswordView: UITextField!
+    @IBOutlet weak var nameView: SkyFloatingLabelTextField!
+    @IBOutlet weak var emailView: SkyFloatingLabelTextField!
+    @IBOutlet weak var phoneView: SkyFloatingLabelTextField!
+    @IBOutlet weak var passwordView: SkyFloatingLabelTextField!
+    @IBOutlet weak var confirmPasswordView: SkyFloatingLabelTextField!
     @IBOutlet weak var acceptView: UISwitch!
     @IBOutlet weak var validateView: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        nameView.keyboardType = .namePhonePad
+        emailView.keyboardType = .emailAddress
+        phoneView.keyboardType = .phonePad
+        passwordView.keyboardType = .namePhonePad
+        confirmPasswordView.keyboardType = .namePhonePad
+        passwordView.isSecureTextEntry = true
+        confirmPasswordView.isSecureTextEntry = true
+    }
     
     override func providePm() -> FormValidationPm {
         return FormValidationPm(phoneUtil: AppDelegate.mainComponent.phoneUtil)
     }
     
     override func onBindPm(_ pm: FormValidationPm) {
-        pm.name.bindTo(field: nameView)
-        pm.email.bindTo(field: emailView)
-        pm.phone.bindTo(field: phoneView)
-        pm.password.bindTo(field: passwordView)
-        pm.confirmPassword.bindTo(field: confirmPasswordView)
+        pm.name.bindTo(layout: nameView)
+        pm.email.bindTo(layout: emailView)
+        pm.phone.bindTo(layout: phoneView)
+        pm.password.bindTo(layout: passwordView)
+        pm.confirmPassword.bindTo(layout: confirmPasswordView)
         pm.termsCheckBox.bindTo(acceptView)
         pm.acceptTermsOfUse.bindTo(consumer: { message in
             self.showToast(controller: self, message: message as! String, seconds: 2.0)

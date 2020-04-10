@@ -17,4 +17,5 @@ target 'app-ios' do
   pod 'MultiPlatformLibraryRpm', :path => '../'
   # pod 'MultiPlatformLibraryRpm', :git => 'https://github.com/vchernyshov/reaktive-pm.git', :tag => 'release/0.0.1'
   pod 'libPhoneNumber-iOS', '~> 0.8'
+  pod 'SkyFloatingLabelTextField', '3.8.0'
 end

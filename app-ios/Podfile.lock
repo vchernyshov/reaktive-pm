@@ -1,29 +1,36 @@
 PODS:
   - libPhoneNumber-iOS (0.9.15)
-  - MultiPlatformLibrary (0.1.0)
-  - MultiPlatformLibraryRpm (0.0.1):
+  - MultiPlatformLibrary (0.0.4)
+  - MultiPlatformLibraryRpm (0.0.3):
     - MultiPlatformLibrary
-    - MultiPlatformLibraryRpm/base (= 0.0.1)
-    - MultiPlatformLibraryRpm/bindings (= 0.0.1)
-    - MultiPlatformLibraryRpm/core (= 0.0.1)
-    - MultiPlatformLibraryRpm/widget (= 0.0.1)
-  - MultiPlatformLibraryRpm/base (0.0.1):
+    - MultiPlatformLibraryRpm/base (= 0.0.3)
+    - MultiPlatformLibraryRpm/bindings (= 0.0.3)
+    - MultiPlatformLibraryRpm/core (= 0.0.3)
+    - MultiPlatformLibraryRpm/skyfloating (= 0.0.3)
+    - MultiPlatformLibraryRpm/widget (= 0.0.3)
+  - MultiPlatformLibraryRpm/base (0.0.3):
     - MultiPlatformLibrary
-  - MultiPlatformLibraryRpm/bindings (0.0.1):
+  - MultiPlatformLibraryRpm/bindings (0.0.3):
     - MultiPlatformLibrary
-  - MultiPlatformLibraryRpm/core (0.0.1):
+  - MultiPlatformLibraryRpm/core (0.0.3):
     - MultiPlatformLibrary
-  - MultiPlatformLibraryRpm/widget (0.0.1):
+  - MultiPlatformLibraryRpm/skyfloating (0.0.3):
     - MultiPlatformLibrary
+    - SkyFloatingLabelTextField
+  - MultiPlatformLibraryRpm/widget (0.0.3):
+    - MultiPlatformLibrary
+  - SkyFloatingLabelTextField (3.8.0)
 
 DEPENDENCIES:
   - libPhoneNumber-iOS (~> 0.8)
   - MultiPlatformLibrary (from `../app-common`)
   - MultiPlatformLibraryRpm (from `../`)
+  - SkyFloatingLabelTextField (= 3.8.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - libPhoneNumber-iOS
+    - SkyFloatingLabelTextField
 
 EXTERNAL SOURCES:
   MultiPlatformLibrary:
@@ -33,9 +40,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
-  MultiPlatformLibrary: 28d2b842387accb777f31aefe854d39566307727
-  MultiPlatformLibraryRpm: 5e5436a6a7e4abc8990b2a6069e821d3b7bdcb8e
+  MultiPlatformLibrary: 4f9ebccbe3f97f69fd13120ec33bad3a0aec252f
+  MultiPlatformLibraryRpm: 302c1a64f5dd4c9767901aefb9763dbc676dbb53
+  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
 
-PODFILE CHECKSUM: bec1efb927d56517b35d96d10edb46640e3b8f13
+PODFILE CHECKSUM: 3f364fd04ccccd49a802fc3d1a3ade9429df4041
 
 COCOAPODS: 1.9.0
