@@ -38,7 +38,7 @@ class CodeConfirmationPm(
         code.text.observable.map { it.length == CODE_LENGTH }
     }
 
-    private val codeFilled = code.text.observable
+    private val codeFilled = code.textChanges.observable()
         .filter { it.length == CODE_LENGTH }
         .distinctUntilChanged()
         .map { Unit }
