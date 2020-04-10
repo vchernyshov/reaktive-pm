@@ -24,7 +24,7 @@ class AuthByPhonePm(
 
     val phoneNumber = inputControl(formatter = null)
     val countryCode = inputControl(
-        initialText = "+7",
+        initialText = "+380",
         formatter = {
             val code = "+${it.onlyDigits().take(5)}"
             if (code.length > 5) {

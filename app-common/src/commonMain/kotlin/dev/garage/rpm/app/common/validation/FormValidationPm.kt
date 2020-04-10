@@ -18,7 +18,7 @@ class FormValidationPm(
     )
     val email = inputControl()
     val phone = inputControl(
-        initialText = "+7",
+        initialText = "+380",
         formatter = { phoneUtil.formatPhoneNumber(it) }
     )
     val password = inputControl()
