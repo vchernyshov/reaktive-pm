@@ -12,8 +12,6 @@ import MultiPlatformLibrary
 class AppNavigationController: UINavigationController, NavigationMessageHandler {
     
     func handleNavigationMessage(message: NavigationMessage) -> Bool {
-        print(message)
-        
         if message is AppNavigationMessage.Back {
             popViewController(animated: false)
         }
