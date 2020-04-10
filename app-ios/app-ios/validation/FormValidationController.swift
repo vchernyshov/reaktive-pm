@@ -45,22 +45,9 @@ class FormValidationController: PmController<FormValidationPm> {
         pm.confirmPassword.bindTo(layout: confirmPasswordView)
         pm.termsCheckBox.bindTo(acceptView)
         pm.acceptTermsOfUse.bindTo(consumer: { message in
-            self.showToast(controller: self, message: message as! String, seconds: 2.0)
+            self.showToast(message: message as! String)
         })
         validateView.clicks().bindTo(pm.validateButtonClicks)
-    }
-    
-    func showToast(controller: UIViewController, message : String, seconds: Double) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.view.backgroundColor = UIColor.black
-        alert.view.alpha = 0.6
-        alert.view.layer.cornerRadius = 15
-
-        controller.present(alert, animated: true)
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
-            alert.dismiss(animated: true)
-        }
     }
     
     static func newInstance() -> FormValidationController {

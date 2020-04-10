@@ -31,6 +31,8 @@
 		44F8F9A22438F99C00FD5A0D /* MainCompoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F9A12438F99C00FD5A0D /* MainCompoment.swift */; };
 		44F8F9A42438F9E100FD5A0D /* IosNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F9A32438F9E100FD5A0D /* IosNotificationManager.swift */; };
 		44F8F9A62439009600FD5A0D /* IosPhoneUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F8F9A52439009600FD5A0D /* IosPhoneUtil.swift */; };
+		44F966A22440E96500331FA9 /* CellAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F966A12440E96500331FA9 /* CellAdapter.swift */; };
+		44F966A42440EA1100331FA9 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F966A32440EA1100331FA9 /* Toast.swift */; };
 		487B2A618D11CA54E6CC118B /* Pods_app_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF3219F25A519CFBE40BA776 /* Pods_app_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +77,8 @@
 		44F8F9A12438F99C00FD5A0D /* MainCompoment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCompoment.swift; sourceTree = "<group>"; };
 		44F8F9A32438F9E100FD5A0D /* IosNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNotificationManager.swift; sourceTree = "<group>"; };
 		44F8F9A52439009600FD5A0D /* IosPhoneUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosPhoneUtil.swift; sourceTree = "<group>"; };
+		44F966A12440E96500331FA9 /* CellAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAdapter.swift; sourceTree = "<group>"; };
+		44F966A32440EA1100331FA9 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		D056528077F965716A41F19D /* Pods-app-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app-ios.release.xcconfig"; path = "Target Support Files/Pods-app-ios/Pods-app-ios.release.xcconfig"; sourceTree = "<group>"; };
 		EF3219F25A519CFBE40BA776 /* Pods_app_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_app_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -125,6 +129,7 @@
 				44F8F9962437EFB200FD5A0D /* AppNavigationController.swift */,
 				44F8F9A32438F9E100FD5A0D /* IosNotificationManager.swift */,
 				44F8F9A52439009600FD5A0D /* IosPhoneUtil.swift */,
+				44F966A32440EA1100331FA9 /* Toast.swift */,
 			);
 			path = "app-ios";
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 				44F8F999243889E200FD5A0D /* ChooseCountryScreen.swift */,
 				44F8F99B24388B7300FD5A0D /* ChooseCountryStoryboard.storyboard */,
 				44F8F99D2438D18500FD5A0D /* CountryCell.swift */,
+				44F966A12440E96500331FA9 /* CellAdapter.swift */,
 			);
 			name = country;
 			sourceTree = "<group>";
@@ -352,6 +358,7 @@
 			files = (
 				44F8F9952437C34600FD5A0D /* MainScreen.swift in Sources */,
 				44F8F9902437BBA500FD5A0D /* CodeConfirmationScreen.swift in Sources */,
+				44F966A42440EA1100331FA9 /* Toast.swift in Sources */,
 				44B58B01242D06D40043E002 /* ViewController.swift in Sources */,
 				44F8F97D2433CA5300FD5A0D /* FormValidationController.swift in Sources */,
 				44F8F9742433933000FD5A0D /* CounterController.swift in Sources */,
@@ -363,6 +370,7 @@
 				44B58AFD242D06D40043E002 /* AppDelegate.swift in Sources */,
 				44F8F9972437EFB200FD5A0D /* AppNavigationController.swift in Sources */,
 				44F8F99A243889E200FD5A0D /* ChooseCountryScreen.swift in Sources */,
+				44F966A22440E96500331FA9 /* CellAdapter.swift in Sources */,
 				44F8F9A62439009600FD5A0D /* IosPhoneUtil.swift in Sources */,
 				44B58AFF242D06D40043E002 /* SceneDelegate.swift in Sources */,
 			);
