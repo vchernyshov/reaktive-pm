@@ -23,6 +23,7 @@ class FormValidationController: PmController<FormValidationPm> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Validation Sample"
         nameView.keyboardType = .namePhonePad
         emailView.keyboardType = .emailAddress
         phoneView.keyboardType = .phonePad

@@ -18,6 +18,11 @@ class CodeConfirmationScreen: Screen<CodeConfirmationPm> {
     @IBOutlet weak var sendCodeView: UIButton!
     @IBOutlet weak var progressView: UIActivityIndicatorView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Confirm Code"
+    }
+    
     override func providePm() -> CodeConfirmationPm {
         return CodeConfirmationPm(
             phone: self.phone,

@@ -16,6 +16,11 @@ class CounterController: PmController<CounterPm> {
     @IBOutlet weak var plusView: UIButton!
     @IBOutlet weak var counterView: UILabel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Counter Sample"
+    }
+    
     override func providePm() -> CounterPm {
         return CounterPm()
     }

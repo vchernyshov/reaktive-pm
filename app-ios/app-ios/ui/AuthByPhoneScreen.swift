@@ -28,6 +28,7 @@ class AuthByPhoneScreen: Screen<AuthByPhonePm>, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Login"
         nameView.isUserInteractionEnabled = true
         let guestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(nameViewClicked(_:)))
         nameView.addGestureRecognizer(guestureRecognizer)

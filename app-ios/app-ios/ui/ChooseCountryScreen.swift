@@ -16,6 +16,7 @@ class ChooseCountryScreen: Screen<ChooseCountryPm>, UISearchResultsUpdating {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Choose country"
         adapter.attachToCollectionView(countriesView)
         adapter.setClickListener { country in
             self.pm.countryClicks.consumer.onNext(value: country)

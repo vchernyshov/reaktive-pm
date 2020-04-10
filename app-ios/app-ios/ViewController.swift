@@ -12,8 +12,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self)
-        print(parent)
+        title = "ReaktivePM Samples"
     }
     
     @IBAction func onCounterClicked(_ sender: UIButton) {

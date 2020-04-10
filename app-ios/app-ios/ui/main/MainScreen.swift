@@ -15,6 +15,11 @@ class MainScreen: Screen<MainPm> {
     @IBOutlet weak var logoutView: UIButton!
     @IBOutlet weak var progressView: UIActivityIndicatorView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Main Sample"
+    }
+    
     override func providePm() -> MainPm {
         return MainPm(authModel: AppDelegate.mainComponent.authModel)
     }
