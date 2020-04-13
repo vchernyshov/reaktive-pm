@@ -23,9 +23,9 @@ fun UIControl.clicks(): Observable<Unit> =
                 emitter.onNext(Unit)
             }
         }
-        setEventHandler(UIControlEventTouchUpInside, handler)
+        val target = setEventHandler(UIControlEventTouchUpInside, handler)
         emitter.setDisposable(Disposable {
-            removeEventHandler(UIControlEventTouchUpInside)
+            removeEventHandler(target, UIControlEventTouchUpInside)
         })
     }
 
@@ -49,15 +49,15 @@ fun UITextField.focusChanges(): Observable<Boolean> =
             }
         }
 
-        setEventHandler(UIControlEventEditingDidBegin, handler)
-        setEventHandler(UIControlEventEditingDidEnd, handler)
-        setEventHandler(UIControlEventEditingDidEndOnExit, handler)
+        val target0 = setEventHandler(UIControlEventEditingDidBegin, handler)
+        val target1 = setEventHandler(UIControlEventEditingDidEnd, handler)
+        val target2 = setEventHandler(UIControlEventEditingDidEndOnExit, handler)
 
         emitter.onNext(isFocused())
         emitter.setDisposable(Disposable {
-            removeEventHandler(UIControlEventEditingDidBegin)
-            removeEventHandler(UIControlEventEditingDidEnd)
-            removeEventHandler(UIControlEventEditingDidEndOnExit)
+            removeEventHandler(target0, UIControlEventEditingDidBegin)
+            removeEventHandler(target1, UIControlEventEditingDidEnd)
+            removeEventHandler(target2, UIControlEventEditingDidEndOnExit)
         })
     }
 
@@ -68,10 +68,10 @@ fun UITextField.textChanges(): Observable<String> =
                 emitter.onNext(text().orEmpty())
             }
         }
-        setEventHandler(UIControlEventEditingChanged, handler)
+        val target = setEventHandler(UIControlEventEditingChanged, handler)
         emitter.onNext(text().orEmpty())
         emitter.setDisposable(Disposable {
-            removeEventHandler(UIControlEventEditingChanged)
+            removeEventHandler(target, UIControlEventEditingChanged)
         })
     }
 
@@ -109,16 +109,16 @@ fun UISwitch.switchChanges(): Observable<Boolean> = observable { emitter ->
             emitter.onNext(isOn())
         }
     }
-    setEventHandler(UIControlEventValueChanged, handler)
+    val target = setEventHandler(UIControlEventValueChanged, handler)
     emitter.onNext(isOn())
     emitter.setDisposable(Disposable {
-        removeEventHandler(UIControlEventValueChanged)
+        removeEventHandler(target, UIControlEventValueChanged)
     })
 }
 
-fun <T : UIControl> T.removeEventHandler(event: UIControlEvents) {
+fun <T : UIControl> T.removeEventHandler(target: ControlLambdaTarget<T>, event: UIControlEvents) {
     removeTarget(
-        target = this,
+        target = target,
         action = NSSelectorFromString("action"),
         forControlEvents = event
     )
@@ -127,7 +127,7 @@ fun <T : UIControl> T.removeEventHandler(event: UIControlEvents) {
     )
 }
 
-fun <T : UIControl> T.setEventHandler(event: UIControlEvents, lambda: T.() -> Unit) {
+fun <T : UIControl> T.setEventHandler(event: UIControlEvents, lambda: T.() -> Unit) : ControlLambdaTarget<T> {
     val lambdaTarget = ControlLambdaTarget(this, lambda)
 
     addTarget(
@@ -142,10 +142,12 @@ fun <T : UIControl> T.setEventHandler(event: UIControlEvents, lambda: T.() -> Un
         value = lambdaTarget,
         policy = OBJC_ASSOCIATION_RETAIN
     )
+
+    return lambdaTarget
 }
 
 @ExportObjCClass
-private class ControlLambdaTarget<T : Any>(
+class ControlLambdaTarget<T : Any>(
     ref: T,
     val lambda: T.() -> Unit
 ) : NSObject() {
