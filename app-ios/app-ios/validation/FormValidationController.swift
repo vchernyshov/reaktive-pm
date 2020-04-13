@@ -43,7 +43,7 @@ class FormValidationController: PmController<FormValidationPm> {
         pm.phone.bindTo(layout: phoneView)
         pm.password.bindTo(layout: passwordView)
         pm.confirmPassword.bindTo(layout: confirmPasswordView)
-        pm.termsCheckBox.bindTo(acceptView)
+        pm.termsCheckBox.bindTo(switch: acceptView)
         pm.acceptTermsOfUse.bindTo(consumer: { message in
             self.showToast(message: message as! String)
         })

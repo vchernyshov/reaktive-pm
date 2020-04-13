@@ -7,8 +7,6 @@ import dev.garage.rpm.*
  * Helps to bind a group of properties of a checkable widget to a [presentation model][PresentationModel]
  * and also breaks the loop of two-way data binding to make the work with the check easier.
  *
- * You can bind this to any [CompoundButton] subclass using the [bindTo][bindTo] extension.
- *
  * Instantiate this using the [checkControl] extension function of the presentation model.
  *
  * @see InputControl

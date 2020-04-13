@@ -5,6 +5,15 @@
 //  Copyright © 2020 Garage Development. All rights reserved.
 //
 
+
+/// Predefined [UIViewController] implementing the [PmView].
+///
+/// Just override the [providePm] and [onBindPm] methods and you are good to go.
+///
+/// If extending is not possible you can implement [PmView],
+/// create a [PmUiViewControllerDelegate] and pass the lifecycle callbacks to it.
+/// See this class's source code for the example.
+
 import UIKit
 import MultiPlatformLibrary
 

@@ -8,7 +8,14 @@
 import UIKit
 import MultiPlatformLibrary
 
+/// Extension to UILabel that provide reactive interface to its properties.
 public extension UILabel {
+
+    /// Allows to set text in reactive way.
+    /// ```
+    /// pm.textState.bindTo(labelView.text())
+    /// ```
+    /// - Returns: A ConsumerWrapper<KotlinBoolean>
     public func text() -> ConsumerWrapper<NSString> {
         return BindingsKt.text(self)
     }

@@ -147,6 +147,11 @@ fun <T> State<T>.bindTo(consumer: (T) -> Unit) {
     }
 }
 
+/**
+ * Subscribes to the [State][State] and adds it to the subscriptions list
+ * that will be CLEARED ON [UNBIND][PresentationModel.Lifecycle.UNBINDED],
+ * so use it ONLY in [PmView.onBindPresentationModel].
+ */
 fun <T> State<T>.bindTo(consumer: ConsumerWrapper<in T>) {
     with(pm) {
         this@bindTo.observable

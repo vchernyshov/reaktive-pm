@@ -8,7 +8,14 @@
 import UIKit
 import MultiPlatformLibrary
 
+/// Extension to UIActivityIndicatorView that provide reactive interface to its properties.
 public extension UIActivityIndicatorView {
+
+    /// Allows to start and stop animation in reactive way.
+    /// ```
+    /// pm.inProgress.bindTo(progressView.animation())
+    /// ```
+    /// - Returns: A ConsumerWrapper<KotlinBoolean>
     public func animation() -> ConsumerWrapper<KotlinBoolean> {
         return BindingsKt.animation(self)
     }

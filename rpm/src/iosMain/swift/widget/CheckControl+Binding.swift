@@ -9,7 +9,7 @@ import UIKit
 import MultiPlatformLibrary
 
 public extension CheckControl {
-    public func bindTo(_ sw: UISwitch) {
-        self.bindTo(switch: sw)
-    }
+//    public func bindTo(_ sw: UISwitch) {
+//        self.bindTo(switch: sw)
+//    }
 }

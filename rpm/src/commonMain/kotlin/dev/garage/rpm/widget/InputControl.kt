@@ -7,8 +7,6 @@ import dev.garage.rpm.*
  * Helps to bind a group of properties of an input field widget to a [presentation model][PresentationModel]
  * and also breaks the loop of two-way data binding to make the work with the input easier.
  *
- * You can bind this to an [EditText] or an [TextInputLayout] using the [bindTo][bindTo] extension.
- *
  * Instantiate this using the [inputControl] extension function of the presentation model.
  *
  * @see CheckControl

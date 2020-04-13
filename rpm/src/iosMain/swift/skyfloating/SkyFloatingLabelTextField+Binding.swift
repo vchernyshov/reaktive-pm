@@ -9,6 +9,12 @@ import UIKit
 import MultiPlatformLibrary
 import SkyFloatingLabelTextField
 
+/// Extension of SkyFloatingLabelTextField that implements TextInputLayout interface(protocol) from common code.
+/// Allows to use instance of SkyFloatingLabelTextField with InputControl.
+///
+/// ```
+/// pm.inputControl.bindTo(layout: skyFloatingLabelTextField)
+/// ```
 extension SkyFloatingLabelTextField: TextInputLayout {
     public func getTextField() -> UITextField {
         return self

@@ -12,7 +12,7 @@ interface PmView<PM : PresentationModel> {
     val presentationModel: PM
 
     /**
-     * Provide presentation model to use with this fragment.
+     * Provide presentation model to use with this view.
      */
     fun providePresentationModel(): PM
 

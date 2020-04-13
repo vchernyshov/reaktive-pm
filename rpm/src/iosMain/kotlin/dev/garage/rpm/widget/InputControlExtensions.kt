@@ -12,7 +12,7 @@ import dev.garage.rpm.bindings.textChanges
 import platform.UIKit.UITextField
 
 /**
- * Binds the [InputControl] to the [EditText][editText], use it ONLY in [PmView.onBindPresentationModel].
+ * Binds the [InputControl] to the [UITextField][field], use it ONLY in [PmView.onBindPresentationModel].
  */
 fun InputControl.bindTo(field: UITextField) {
 
@@ -38,6 +38,9 @@ fun InputControl.bindTo(field: UITextField) {
     field.focusChanges().bindTo(focusChanges)
 }
 
+/**
+ * Binds the [InputControl] to the [TextInputLayout][layout], use it ONLY in [PmView.onBindPresentationModel].
+ */
 fun InputControl.bindTo(layout: TextInputLayout) {
     bindTo(layout.getTextField())
 

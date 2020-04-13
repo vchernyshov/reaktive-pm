@@ -17,9 +17,6 @@ import dev.garage.rpm.widget.DialogControl.Display.Displayed
  * The dialog attached using [bindTo] will be
  * automatically dismissed and restored on config changes ([UNBINDED][PresentationModel.Lifecycle.UNBINDED]
  * and [BINDED][PresentationModel.Lifecycle.BINDED] states correspondingly).
- * So there is no need to use [DialogFragment] or something similar.
- *
- * You can bind this to any subclass of [Dialog] using the [bindTo][bindTo] extension.
  *
  * Instantiate this using the [dialogControl] extension function of the presentation model.
  *
@@ -61,8 +58,7 @@ class DialogControl<T, R> internal constructor() : PresentationModel() {
                     .skip(1)
                     .filter { it == Absent }
             )
-            .firstOrComplete() // TODO: need to check
-        //.firstElement()
+            .firstOrComplete()
     }
 
     /**
