@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Choose Country Screen-->
+        <scene sceneID="9yz-5d-swZ">
+            <objects>
+                <viewController storyboardIdentifier="ChooseCountryStoryboard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mbx-jD-V23" customClass="ChooseCountryScreen" customModule="app_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kjq-Gt-LpH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oxI-eo-Tqo">
+                                <rect key="frame" x="20" y="64" width="374" height="778"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="N1N-NJ-Nf8">
+                                    <size key="itemSize" width="374" height="40"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CountryCell" id="y8P-AW-Etf" customClass="CountryCell" customModule="app_ios" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="h0V-1u-Y5Q">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xZh-bT-Fay">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqs-Lx-ZTx">
+                                                            <rect key="frame" x="0.0" y="0.0" width="108" height="40"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Code" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogg-Hs-UQW">
+                                                            <rect key="frame" x="294" y="0.0" width="80" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="80" id="Y7s-3J-h9R"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="3da-lj-1Wk"/>
+                                                        <constraint firstAttribute="width" constant="374" id="Kxl-e6-8eg"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xZh-bT-Fay" firstAttribute="leading" secondItem="h0V-1u-Y5Q" secondAttribute="leading" id="9gV-sz-9aV"/>
+                                                <constraint firstAttribute="trailing" secondItem="xZh-bT-Fay" secondAttribute="trailing" id="ekm-ps-Y5Q"/>
+                                                <constraint firstItem="xZh-bT-Fay" firstAttribute="top" secondItem="h0V-1u-Y5Q" secondAttribute="top" id="icx-4f-JHU"/>
+                                                <constraint firstAttribute="bottom" secondItem="xZh-bT-Fay" secondAttribute="bottom" id="yAR-pI-QXO"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="countryCode" destination="ogg-Hs-UQW" id="R8z-oj-VG9"/>
+                                            <outlet property="countryTitle" destination="eqs-Lx-ZTx" id="2W6-3l-15M"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="oxI-eo-Tqo" firstAttribute="top" secondItem="mlU-tb-YNj" secondAttribute="top" constant="20" id="0Ng-It-17z"/>
+                            <constraint firstItem="mlU-tb-YNj" firstAttribute="trailing" secondItem="oxI-eo-Tqo" secondAttribute="trailing" constant="20" id="bi0-5y-kdW"/>
+                            <constraint firstItem="mlU-tb-YNj" firstAttribute="bottom" secondItem="oxI-eo-Tqo" secondAttribute="bottom" constant="20" id="hOR-WY-ucg"/>
+                            <constraint firstItem="oxI-eo-Tqo" firstAttribute="leading" secondItem="mlU-tb-YNj" secondAttribute="leading" constant="20" id="kD2-rT-8ti"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mlU-tb-YNj"/>
+                    </view>
+                    <connections>
+                        <outlet property="countriesView" destination="oxI-eo-Tqo" id="uR1-67-ECH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="93G-Bj-gci" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="129" y="115"/>
+        </scene>
+    </scenes>
+</document>

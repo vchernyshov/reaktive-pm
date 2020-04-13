@@ -1,0 +1,49 @@
+PODS:
+  - libPhoneNumber-iOS (0.9.15)
+  - MultiPlatformLibrary (0.0.1)
+  - MultiPlatformLibraryRpm (0.1.0-beta):
+    - MultiPlatformLibrary
+    - MultiPlatformLibraryRpm/base (= 0.1.0-beta)
+    - MultiPlatformLibraryRpm/bindings (= 0.1.0-beta)
+    - MultiPlatformLibraryRpm/core (= 0.1.0-beta)
+    - MultiPlatformLibraryRpm/skyfloating (= 0.1.0-beta)
+    - MultiPlatformLibraryRpm/widget (= 0.1.0-beta)
+  - MultiPlatformLibraryRpm/base (0.1.0-beta):
+    - MultiPlatformLibrary
+  - MultiPlatformLibraryRpm/bindings (0.1.0-beta):
+    - MultiPlatformLibrary
+  - MultiPlatformLibraryRpm/core (0.1.0-beta):
+    - MultiPlatformLibrary
+  - MultiPlatformLibraryRpm/skyfloating (0.1.0-beta):
+    - MultiPlatformLibrary
+    - SkyFloatingLabelTextField
+  - MultiPlatformLibraryRpm/widget (0.1.0-beta):
+    - MultiPlatformLibrary
+  - SkyFloatingLabelTextField (3.8.0)
+
+DEPENDENCIES:
+  - libPhoneNumber-iOS (~> 0.8)
+  - MultiPlatformLibrary (from `../app-common`)
+  - MultiPlatformLibraryRpm (from `../`)
+  - SkyFloatingLabelTextField (= 3.8.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - libPhoneNumber-iOS
+    - SkyFloatingLabelTextField
+
+EXTERNAL SOURCES:
+  MultiPlatformLibrary:
+    :path: "../app-common"
+  MultiPlatformLibraryRpm:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
+  MultiPlatformLibrary: 492b50553d46757fed86323937f785e253791815
+  MultiPlatformLibraryRpm: 1d8aa06437abb4bb91efb20379eeeade8310b634
+  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+
+PODFILE CHECKSUM: 3f364fd04ccccd49a802fc3d1a3ade9429df4041
+
+COCOAPODS: 1.9.0
