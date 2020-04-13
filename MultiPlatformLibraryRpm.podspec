@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'MultiPlatformLibraryRpm'
-    spec.version                  = '0.0.1'
+    spec.version                  = '0.1.0-beta'
     spec.homepage                 = 'https://github.com/vchernyshov/reaktive-pm'
     spec.source                   = { :git => "https://github.com/vchernyshov/reaktive-pm.git", :tag => "release/#{spec.version}" }
     spec.authors                  = 'Garage Development'

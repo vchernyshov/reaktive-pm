@@ -15,7 +15,7 @@ target 'app-ios' do
   # для корректной установки фреймворка нужно сначала скомпилировать котлин библиотеку - compile-kotlin-framework.sh (в корневой директории репозитория)
   pod 'MultiPlatformLibrary', :path => '../app-common'
   pod 'MultiPlatformLibraryRpm', :path => '../'
-  # pod 'MultiPlatformLibraryRpm', :git => 'https://github.com/vchernyshov/reaktive-pm.git', :tag => 'release/0.0.1'
+  # pod 'MultiPlatformLibraryRpm', :git => 'https://github.com/vchernyshov/reaktive-pm.git', :tag => 'release/0.1.0-beta'
   pod 'libPhoneNumber-iOS', '~> 0.8'
   pod 'SkyFloatingLabelTextField', '3.8.0'
 end
