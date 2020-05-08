@@ -84,7 +84,7 @@ object Versions {
     val constraint = "1.1.3"
     val timber = "4.7.1"
     val libphonenumber = "8.11.1"
-    val rpm = "0.1.0-beta"
+    val rpm = "0.2.0-beta"
 
     object Android {
 
