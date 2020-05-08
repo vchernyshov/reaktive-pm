@@ -7,6 +7,7 @@ This port of [RxPm](https://github.com/dmdevgo/RxPM) library based on [Reaktive]
 - Ported RxPm to Reaktive
 - Worked Android sample
 - Worked iOS sample
+- Implemented control to deal with permissions
 
 ## What can be improved:
 - Implementation of RetainMode at ```PmUiViewControllerDelegate```
@@ -25,7 +26,10 @@ allprojects {
 project build.gradle
 ```groovy
 dependencies {
-    commonMainApi("dev.garage.kmp:rpm:0.1.0-beta")
+    // main library
+    commonMainApi("dev.garage.kmp:rpm:0.2.0-beta")
+    // permissions module
+    commonMainApi("dev.garage.kmp:rpm-permissions:0.2.0-beta")
 }
 ```
 
@@ -36,12 +40,12 @@ enableFeaturePreview("GRADLE_METADATA")
 
 Podfile for iOS app, not sure but should work
 ```
-pod 'MultiPlatformLibraryRpm', :git => 'https://github.com/vchernyshov/reaktive-pm.git', :tag => 'release/0.1.0-beta'
+pod 'MultiPlatformLibraryRpm', :git => 'https://github.com/vchernyshov/reaktive-pm.git', :tag => 'release/0.2.0-beta'
 ```
 
 ## Next steps at this project and in KotlinMultiplatform in general:
 - Port [RxBinding](https://github.com/JakeWharton/RxBinding) to Reaktive
 - Port [AdapterDelegate](https://github.com/nullgr/app-core/tree/master/core-adapter) to KMP, already have version without rx, need to create iOS implementation.
-- Add controls for permissions, location, pagination, working with map and ect.
+- Add controls for location, pagination, working with map and ect.
 - Create interfaces for existing control bindings to simplify implementation in custom views
 - KMP clustering based on [GoogleMapUtils](https://github.com/googlemaps/android-maps-utils), already have Kotlin port, without dependency on map provider. Currently in private repo.
