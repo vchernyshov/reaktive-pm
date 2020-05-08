@@ -8,10 +8,11 @@
     <string name="launch_main_sample">Main Sample</string>
     <string name="launch_counter_sample">Counter Sample</string>
     <string name="launch_form_validation_sample">Form Validation</string>
+    <string name="launch_permissions_sample">Permissions</string>
 
     <!-- Auth by phone -->
     <string name="auth_by_phone_screen_text">Please confirm your country code and enter your phone number.</string>
-    <string name="auth_by_phone_screen_title">@string/app_name</string>
+    <string name="auth_by_phone_screen_title">Auth</string>
     <string name="enter_phone_number">Enter phone number</string>
     <string name="invalid_phone_number">Invalid phone number</string>
     <string name="send_phone_button">Send phone</string>
@@ -40,5 +41,15 @@
     <string name="fv_password_hint">Password</string>
     <string name="fv_confirm_password_hint">Confirm Password</string>
     <string name="fv_terms_checkbox">Accept Terms of Use</string>
+
+    <!-- Permissions -->
+    <string name="permissions_screen_title">Permissions Sample</string>
+    <string name="permission_camera">Camera</string>
+    <string name="permission_gallery">Gallery</string>
+    <string name="permission_storage">Storage</string>
+    <string name="permission_location">Location</string>
+    <string name="permission_coarse_location">Coarse Location</string>
+    <string name="permission_bluetooth_le">Bluetooth LE</string>
+    <string name="permission_remote_notification">Remote Notification</string>
 
 </resources>

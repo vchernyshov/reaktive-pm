@@ -13,10 +13,18 @@ android {
     }
 }
 
-setupFramework(exports = listOf(Deps.Libs.MultiPlatform.reaktive,Deps.Libs.MultiPlatform.reaktiveUtils, Deps.Libs.MultiPlatform.rpm))
+setupFramework(
+    exports = listOf(
+        Deps.Libs.MultiPlatform.reaktive,
+        Deps.Libs.MultiPlatform.reaktiveUtils,
+        Deps.Libs.MultiPlatform.rpm,
+        Deps.Libs.MultiPlatform.rpmPermissions
+    )
+)
 
 dependencies {
     mppModule(Deps.Libs.MultiPlatform.rpm)
+    mppModule(Deps.Libs.MultiPlatform.rpmPermissions)
 
     mppLibrary(Deps.Libs.MultiPlatform.kotlinStdLib)
     mppLibrary(Deps.Libs.MultiPlatform.reaktive)
