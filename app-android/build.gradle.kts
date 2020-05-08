@@ -15,6 +15,10 @@ android {
         versionName = "1.0"
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     buildTypes {
         getByName("debug") {
             isDebuggable = true
@@ -29,6 +33,7 @@ dependencies {
     implementation(Deps.Libs.MultiPlatform.reaktiveUtils.common!!)
 
     implementation(project(Deps.Libs.MultiPlatform.rpm.name))
+    implementation(project(Deps.Libs.MultiPlatform.rpmPermissions.name))
     implementation(project(Deps.Libs.MultiPlatform.appCommon.name))
 
     implementation(Deps.Libs.Android.appCompat.name)

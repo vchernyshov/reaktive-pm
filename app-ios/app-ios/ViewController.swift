@@ -26,6 +26,10 @@ class ViewController: UIViewController {
     @IBAction func onFormClicked(_ sender: UIButton) {
         self.navigationController?.pushViewController(FormValidationController.newInstance(), animated: false)
     }
+    
+    @IBAction func onPermissionsClicked(_ sender: UIButton) {
+        self.navigationController?.pushViewController(PermissionsController.newInstance(), animated: false)
+    }
 }
 
 

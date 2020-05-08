@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dev.garage.rpm.app">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -25,6 +31,8 @@
         <activity
             android:name="dev.garage.rpm.app.validation.FormValidationActivity"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".permissions.PermissionsActivity" />
 
     </application>
 
