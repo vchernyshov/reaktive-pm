@@ -32,6 +32,11 @@ object Deps {
                 exported = true
             )
 
+            val rpmPermissions = MultiPlatformModule(
+                name = ":rpm-permissions",
+                exported = true
+            )
+
             val appCommon = MultiPlatformModule(
                 name = ":app-common"
             )
