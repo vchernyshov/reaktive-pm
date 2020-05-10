@@ -25,6 +25,7 @@ setupFramework(
 dependencies {
     mppModule(Deps.Libs.MultiPlatform.rpm)
     mppModule(Deps.Libs.MultiPlatform.rpmPermissions)
+    mppModule(Deps.Libs.MultiPlatform.rpmLocation)
 
     mppLibrary(Deps.Libs.MultiPlatform.kotlinStdLib)
     mppLibrary(Deps.Libs.MultiPlatform.reaktive)

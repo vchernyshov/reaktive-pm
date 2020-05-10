@@ -9,6 +9,7 @@
     <string name="launch_counter_sample">Counter Sample</string>
     <string name="launch_form_validation_sample">Form Validation</string>
     <string name="launch_permissions_sample">Permissions</string>
+    <string name="launch_location_settings_sample">Location Settings</string>
 
     <!-- Auth by phone -->
     <string name="auth_by_phone_screen_text">Please confirm your country code and enter your phone number.</string>
@@ -51,5 +52,9 @@
     <string name="permission_coarse_location">Coarse Location</string>
     <string name="permission_bluetooth_le">Bluetooth LE</string>
     <string name="permission_remote_notification">Remote Notification</string>
+
+    <!-- Location Settings -->
+    <string name="location_settings_screen_title">Location Settings Sample</string>
+    <string name="location_settings">Location Settings</string>
 
 </resources>
