@@ -37,6 +37,11 @@ object Deps {
                 exported = true
             )
 
+            val rpmLocation = MultiPlatformModule(
+                name = ":rpm-location",
+                exported = true
+            )
+
             val appCommon = MultiPlatformModule(
                 name = ":app-common"
             )
@@ -70,6 +75,10 @@ object Deps {
             val libphonenumber = AndroidLibrary(
                 name = "com.googlecode.libphonenumber:libphonenumber:${Versions.libphonenumber}"
             )
+
+            val location = AndroidLibrary (
+                name = "com.google.android.gms:play-services-location:${Versions.location}"
+            )
         }
     }
 }
@@ -85,6 +94,7 @@ object Versions {
     val timber = "4.7.1"
     val libphonenumber = "8.11.1"
     val rpm = "0.2.0-beta"
+    val location = "17.0.0"
 
     object Android {
 
