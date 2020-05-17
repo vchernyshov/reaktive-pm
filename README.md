@@ -1,10 +1,10 @@
 # ReaktivePM
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [ ![Download](https://api.bintray.com/packages/garage-dev/kmp/reaktive-pm/images/download.svg) ](https://bintray.com/garage-dev/kmp/reaktive-pm/_latestVersion) ![kotlin-version](https://img.shields.io/badge/kotlin-1.3.71-orange)
 
-This port of [RxPm](https://github.com/dmdevgo/RxPM) library based on [Reaktive](https://github.com/badoo/Reaktive).
+This port of [RxPM](https://github.com/dmdevgo/RxPM) library based on [Reaktive](https://github.com/badoo/Reaktive).
 
 ## Current project status:
-- Ported RxPm to Reaktive
+- Ported RxPM to Reaktive
 - Worked Android sample
 - Worked iOS sample
 - Implemented control to deal with permissions
