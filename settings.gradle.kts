@@ -14,6 +14,7 @@ enableFeaturePreview("GRADLE_METADATA")
 include(":rpm")
 include(":rpm-permissions")
 include(":rpm-location")
+include(":rpm-bluetooth")
 include(":app-common")
 include(":app-android")
 

@@ -3,8 +3,8 @@ package dev.garage.rpm.app
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import dev.garage.rpm.app.bluetooth.BluetoothSettingsActivity
 import dev.garage.rpm.app.counter.CounterActivity
 import dev.garage.rpm.app.databinding.ActivityLaunchBinding
 import dev.garage.rpm.app.location.LocationSettingsActivity
@@ -39,6 +39,9 @@ class LaunchActivity : AppCompatActivity() {
             }
             locationSettingsSample.setOnClickListener {
                 launchActivity(LocationSettingsActivity::class.java)
+            }
+            bluetoothSettingsSample.setOnClickListener {
+                launchActivity(BluetoothSettingsActivity::class.java)
             }
         }
     }

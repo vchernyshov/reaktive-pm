@@ -42,6 +42,11 @@ object Deps {
                 exported = true
             )
 
+            val rpmBluetooth = MultiPlatformModule(
+                name = ":rpm-bluetooth",
+                exported = true
+            )
+
             val appCommon = MultiPlatformModule(
                 name = ":app-common"
             )
