@@ -2,6 +2,7 @@ package dev.garage.rpm.base
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import dev.garage.rpm.PmView
 import dev.garage.rpm.PresentationModel
@@ -16,7 +17,11 @@ import dev.garage.rpm.delegate.PmFragmentDelegate
  * create a [PmFragmentDelegate] and pass the lifecycle callbacks to it.
  * See this class's source code for the example.
  */
-abstract class PmFragment<PM : PresentationModel> : Fragment(), PmView<PM> {
+abstract class PmFragment<PM : PresentationModel> : Fragment, PmView<PM> {
+
+    constructor() : super()
+
+    constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
 
     private val delegate by lazy(LazyThreadSafetyMode.NONE) {
         PmFragmentDelegate(
