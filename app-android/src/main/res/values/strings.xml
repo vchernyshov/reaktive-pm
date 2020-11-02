@@ -9,6 +9,7 @@
     <string name="launch_counter_sample">Counter Sample</string>
     <string name="launch_form_validation_sample">Form Validation</string>
     <string name="launch_permissions_sample">Permissions</string>
+    <string name="launch_image_picker_sample">Image Picker</string>
 
     <!-- Auth by phone -->
     <string name="auth_by_phone_screen_text">Please confirm your country code and enter your phone number.</string>
@@ -51,5 +52,10 @@
     <string name="permission_coarse_location">Coarse Location</string>
     <string name="permission_bluetooth_le">Bluetooth LE</string>
     <string name="permission_remote_notification">Remote Notification</string>
+
+    <!-- Image Picker -->
+    <string name="image_picker_screen_title">Image Picker Sample</string>
+    <string name="image_picker_from_gallery">Pick From Gallery</string>
+    <string name="image_picker_from_camera">Pick From Camera</string>
 
 </resources>
