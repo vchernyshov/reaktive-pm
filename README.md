@@ -8,6 +8,7 @@ This port of [RxPM](https://github.com/dmdevgo/RxPM) library based on [Reaktive]
 - Worked Android sample
 - Worked iOS sample
 - Implemented control to deal with permissions
+- Implemented control to deal with socket IO(code from library - https://github.com/icerockdev/moko-socket-io)
 
 ## What can be improved:
 - Implementation of RetainMode at ```PmUiViewControllerDelegate```
