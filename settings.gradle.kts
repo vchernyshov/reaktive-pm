@@ -13,6 +13,7 @@ enableFeaturePreview("GRADLE_METADATA")
 
 include(":rpm")
 include(":rpm-permissions")
+include(":rpm-lpc")
 include(":app-common")
 include(":app-android")
 

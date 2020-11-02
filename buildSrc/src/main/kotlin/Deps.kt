@@ -37,6 +37,11 @@ object Deps {
                 exported = true
             )
 
+            val rpmLPC = MultiPlatformModule(
+                name = ":rpm-lpc",
+                exported = true
+            )
+
             val appCommon = MultiPlatformModule(
                 name = ":app-common"
             )
@@ -70,6 +75,10 @@ object Deps {
             val libphonenumber = AndroidLibrary(
                 name = "com.googlecode.libphonenumber:libphonenumber:${Versions.libphonenumber}"
             )
+
+            val swipeRefreshLayout = AndroidLibrary(
+                name = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
+            )
         }
     }
 }
@@ -78,13 +87,14 @@ object Versions {
 
     val kotlin = "1.3.71"
     val reaktive = "1.1.12"
-    val appCompat = "1.2.0-alpha03"
+    val appCompat = "1.2.0"
     val material = "1.2.0-alpha05"
-    val coreKtx = "1.2.0"
+    val coreKtx = "1.3.1"
     val constraint = "1.1.3"
     val timber = "4.7.1"
     val libphonenumber = "8.11.1"
     val rpm = "0.2.1-beta"
+    val swipeRefreshLayout = "1.1.0"
 
     object Android {
 

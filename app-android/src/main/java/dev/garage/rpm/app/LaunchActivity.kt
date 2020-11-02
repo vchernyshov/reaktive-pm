@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import dev.garage.rpm.app.counter.CounterActivity
+import dev.garage.rpm.app.loading.LoadingActivity
 import dev.garage.rpm.app.main.MainActivity
+import dev.garage.rpm.app.paging.PagingActivity
 import dev.garage.rpm.app.permissions.PermissionsActivity
 import dev.garage.rpm.app.validation.FormValidationActivity
 
@@ -16,6 +18,8 @@ class LaunchActivity : AppCompatActivity() {
     private lateinit var mainSample: View
     private lateinit var formValidationSample: View
     private lateinit var permissionsSample: View
+    private lateinit var loadingDataSample: View
+    private lateinit var pagingDataSample: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +29,8 @@ class LaunchActivity : AppCompatActivity() {
         mainSample = findViewById(R.id.mainSample)
         formValidationSample = findViewById(R.id.formValidationSample)
         permissionsSample = findViewById(R.id.permissionsSample)
+        loadingDataSample = findViewById(R.id.loadingDataSample)
+        pagingDataSample = findViewById(R.id.pagingDataSample)
 
         counterSample.setOnClickListener {
             launchActivity(CounterActivity::class.java)
@@ -40,6 +46,14 @@ class LaunchActivity : AppCompatActivity() {
 
         permissionsSample.setOnClickListener {
             launchActivity(PermissionsActivity::class.java)
+        }
+
+        loadingDataSample.setOnClickListener {
+            launchActivity(LoadingActivity::class.java)
+        }
+
+        pagingDataSample.setOnClickListener {
+            launchActivity(PagingActivity::class.java)
         }
     }
 

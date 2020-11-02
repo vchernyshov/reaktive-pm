@@ -42,4 +42,5 @@ dependencies {
     implementation(Deps.Libs.Android.constraint.name)
     implementation(Deps.Libs.Android.timber.name)
     implementation(Deps.Libs.Android.libphonenumber.name)
+    implementation(Deps.Libs.Android.swipeRefreshLayout.name)
 }
