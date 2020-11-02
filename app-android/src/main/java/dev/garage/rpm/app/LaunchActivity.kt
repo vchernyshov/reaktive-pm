@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import dev.garage.rpm.app.counter.CounterActivity
 import dev.garage.rpm.app.main.MainActivity
 import dev.garage.rpm.app.permissions.PermissionsActivity
+import dev.garage.rpm.app.socketIO.SocketActivity
 import dev.garage.rpm.app.validation.FormValidationActivity
 
 class LaunchActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class LaunchActivity : AppCompatActivity() {
     private lateinit var mainSample: View
     private lateinit var formValidationSample: View
     private lateinit var permissionsSample: View
+    private lateinit var socketIOSample: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,7 @@ class LaunchActivity : AppCompatActivity() {
         mainSample = findViewById(R.id.mainSample)
         formValidationSample = findViewById(R.id.formValidationSample)
         permissionsSample = findViewById(R.id.permissionsSample)
+        socketIOSample = findViewById(R.id.socketIO)
 
         counterSample.setOnClickListener {
             launchActivity(CounterActivity::class.java)
@@ -40,6 +43,10 @@ class LaunchActivity : AppCompatActivity() {
 
         permissionsSample.setOnClickListener {
             launchActivity(PermissionsActivity::class.java)
+        }
+
+        socketIOSample.setOnClickListener {
+            launchActivity(SocketActivity::class.java)
         }
     }
 
