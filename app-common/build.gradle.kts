@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
     id("dev.icerock.mobile.multiplatform")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 android {
@@ -25,6 +26,7 @@ setupFramework(
 dependencies {
     mppModule(Deps.Libs.MultiPlatform.rpm)
     mppModule(Deps.Libs.MultiPlatform.rpmPermissions)
+    mppModule(Deps.Libs.MultiPlatform.rpmGoogleMap)
 
     mppLibrary(Deps.Libs.MultiPlatform.kotlinStdLib)
     mppLibrary(Deps.Libs.MultiPlatform.reaktive)
@@ -32,4 +34,8 @@ dependencies {
     mppLibrary(Deps.Libs.MultiPlatform.reaktiveAnnotations)
 
     androidLibrary(Deps.Libs.Android.appCompat)
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "dev.garage.rpm"
 }

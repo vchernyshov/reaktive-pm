@@ -33,6 +33,15 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".permissions.PermissionsActivity" />
+        <activity android:name=".google_map.GoogleMapActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDWRWe1UbHqRR97GpbvL84FBhZ0fCgvBo8" />
 
     </application>
 

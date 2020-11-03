@@ -27,6 +27,10 @@ object Deps {
                 iosArm64 = "com.badoo.reaktive:reaktive-annotations-ios64:${Versions.reaktive}"
             )
 
+            val mokoResources = MultiPlatformLibrary(
+                common = "dev.icerock.moko:resources:${Versions.mokoResources}"
+            )
+
             val rpm = MultiPlatformModule(
                 name = ":rpm",
                 exported = true
@@ -34,6 +38,16 @@ object Deps {
 
             val rpmPermissions = MultiPlatformModule(
                 name = ":rpm-permissions",
+                exported = true
+            )
+
+            val rpmMap = MultiPlatformModule(
+                name = ":rpm-map",
+                exported = true
+            )
+
+            val rpmGoogleMap = MultiPlatformModule(
+                name = ":rpm-google-map",
                 exported = true
             )
 
@@ -70,6 +84,16 @@ object Deps {
             val libphonenumber = AndroidLibrary(
                 name = "com.googlecode.libphonenumber:libphonenumber:${Versions.libphonenumber}"
             )
+
+            val location = AndroidLibrary (
+                name = "com.google.android.gms:play-services-location:${Versions.location}"
+            )
+
+            val googleMapsServices = AndroidLibrary(
+                name = "com.google.maps:google-maps-services:${Versions.googleMapsServicesVersion}")
+
+            val playServicesMapsVersion = AndroidLibrary(
+                name = "com.google.android.gms:play-services-maps:${Versions.playServicesMapsVersion}")
         }
     }
 }
@@ -78,13 +102,17 @@ object Versions {
 
     val kotlin = "1.3.71"
     val reaktive = "1.1.12"
-    val appCompat = "1.2.0-alpha03"
+    val appCompat = "1.2.0"
     val material = "1.2.0-alpha05"
-    val coreKtx = "1.2.0"
+    val coreKtx = "1.3.1"
     val constraint = "1.1.3"
     val timber = "4.7.1"
     val libphonenumber = "8.11.1"
     val rpm = "0.2.1-beta"
+    val location = "17.0.0"
+    val playServicesMapsVersion = "17.0.0"
+    val googleMapsServicesVersion = "0.15.0"
+    val mokoResources = "0.13.1"
 
     object Android {
 
