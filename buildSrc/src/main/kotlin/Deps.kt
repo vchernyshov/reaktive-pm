@@ -37,6 +37,11 @@ object Deps {
                 exported = true
             )
 
+            val rpmBitmap = MultiPlatformModule(
+                name = ":rpm-bitmap",
+                exported = true
+            )
+
             val rpmImagePicker = MultiPlatformModule(
                 name = ":rpm-image-picker",
                 exported = true

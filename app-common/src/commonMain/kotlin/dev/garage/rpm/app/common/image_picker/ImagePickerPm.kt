@@ -4,9 +4,9 @@ import com.badoo.reaktive.maybe.doOnBeforeSuccess
 import com.badoo.reaktive.observable.flatMapMaybe
 import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.action
+import dev.garage.rpm.bitmap.Bitmap
 import dev.garage.rpm.image.picker.ImagePickParams
 import dev.garage.rpm.image.picker.ImagePickerResult
-import dev.garage.rpm.image.picker.bitmap.Bitmap
 import dev.garage.rpm.image.picker.imagePickerControl
 import dev.garage.rpm.state
 

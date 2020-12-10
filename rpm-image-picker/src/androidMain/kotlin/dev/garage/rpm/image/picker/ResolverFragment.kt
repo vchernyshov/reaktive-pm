@@ -12,8 +12,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
-import dev.garage.rpm.image.picker.bitmap.Bitmap
-import dev.garage.rpm.image.picker.utils.BitmapUtils
+import dev.garage.rpm.bitmap.Bitmap
+import dev.garage.rpm.bitmap.BitmapUtils
 import java.io.File
 import java.io.InputStream
 

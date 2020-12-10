@@ -1,6 +1,6 @@
 package dev.garage.rpm.image.picker
 
-import dev.garage.rpm.image.picker.bitmap.Bitmap
+import dev.garage.rpm.bitmap.Bitmap
 
 sealed class ImagePickerResult {
 
@@ -9,5 +9,4 @@ sealed class ImagePickerResult {
     data class IllegalArgumentException(val message: String?) : ImagePickerResult()
     data class BitmapDecodeException(val message: String?) : ImagePickerResult()
     data class SuccessResult(val bitmap: Bitmap) : ImagePickerResult()
-
 }

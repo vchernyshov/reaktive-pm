@@ -1,12 +1,10 @@
-
 /*
  * Copyright 2019 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package dev.garage.rpm.image.picker.bitmap
+package dev.garage.rpm.bitmap
 
 import android.util.Base64
-import dev.garage.rpm.image.picker.utils.BitmapUtils
 import java.io.ByteArrayOutputStream
 
 actual class Bitmap(val platformBitmap: android.graphics.Bitmap) {
