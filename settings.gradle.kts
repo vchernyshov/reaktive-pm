@@ -13,6 +13,8 @@ enableFeaturePreview("GRADLE_METADATA")
 
 include(":rpm")
 include(":rpm-permissions")
+include(":rpm-bitmap")
+include(":rpm-media-picker")
 include(":app-common")
 include(":app-android")
 
