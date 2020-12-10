@@ -13,12 +13,14 @@ fun ImagePickerControl.bindTo(fragmentManager: FragmentManager) {
             currentFragment as ResolverFragment
         } else {
             ResolverFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ResolverFragment.ARG_IMG_MAX_WIDTH, imagePickParams.maxWidth)
-                    putInt(
-                        ResolverFragment.ARG_IMG_MAX_HEIGHT,
-                        imagePickParams.maxHeight
-                    )
+                if (imagePickParams is ImagePickParams.DimensionalImagePickParams) {
+                    arguments = Bundle().apply {
+                        putInt(ResolverFragment.ARG_IMG_MAX_WIDTH, imagePickParams.maxWidth)
+                        putInt(
+                            ResolverFragment.ARG_IMG_MAX_HEIGHT,
+                            imagePickParams.maxHeight
+                        )
+                    }
                 }
                 fragmentManager
                     .beginTransaction()

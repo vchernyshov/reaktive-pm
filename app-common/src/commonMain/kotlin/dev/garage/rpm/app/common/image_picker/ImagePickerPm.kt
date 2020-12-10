@@ -6,7 +6,6 @@ import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.action
 import dev.garage.rpm.image.picker.ImagePickParams
 import dev.garage.rpm.image.picker.ImagePickerResult
-import dev.garage.rpm.image.picker.MediaSource
 import dev.garage.rpm.image.picker.bitmap.Bitmap
 import dev.garage.rpm.image.picker.imagePickerControl
 import dev.garage.rpm.state
@@ -19,7 +18,7 @@ class ImagePickerPm : PresentationModel() {
 
     val pickFromGallery = action<Unit> {
         flatMapMaybe {
-            imagePickerControl.pickImage(ImagePickParams(MediaSource.GALLERY))
+            imagePickerControl.pickImage(ImagePickParams.GalleryImagePickParams)
                 .doOnBeforeSuccess {
                     if (it is ImagePickerResult.SuccessResult) {
                         image.accept(it.bitmap)
@@ -30,7 +29,7 @@ class ImagePickerPm : PresentationModel() {
 
     val pickFromCamera = action<Unit> {
         flatMapMaybe {
-            imagePickerControl.pickImage(ImagePickParams(MediaSource.CAMERA))
+            imagePickerControl.pickImage(ImagePickParams.CameraImagePickParams)
                 .doOnBeforeSuccess {
                     if (it is ImagePickerResult.SuccessResult) {
                         image.accept(it.bitmap)
