@@ -13,8 +13,8 @@ import com.badoo.reaktive.single.singleFromFunction
 import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.action
 import dev.garage.rpm.delay
-import dev.garage.rpm.lpc.controls.pagingControl
-import dev.garage.rpm.lpc.paging.Paging
+import dev.garage.rpm.pc.controls.pagingControl
+import dev.garage.rpm.pc.paging.Paging
 import dev.garage.rpm.state
 
 class PagingPm : PresentationModel() {

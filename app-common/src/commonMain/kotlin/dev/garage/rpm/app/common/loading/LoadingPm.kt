@@ -12,9 +12,9 @@ import com.badoo.reaktive.single.map
 import com.badoo.reaktive.single.singleFromFunction
 import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.action
+import dev.garage.rpm.base.lpc.Emptyable
 import dev.garage.rpm.delay
-import dev.garage.rpm.lpc.Emptyable
-import dev.garage.rpm.lpc.controls.loadingControl
+import dev.garage.rpm.lc.controls.loadingControl
 import kotlin.random.Random
 
 private const val CONTENT_STRING =

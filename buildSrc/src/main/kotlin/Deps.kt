@@ -37,8 +37,18 @@ object Deps {
                 exported = true
             )
 
-            val rpmLPC = MultiPlatformModule(
-                name = ":rpm-lpc",
+            val rpmBaseLPC = MultiPlatformModule(
+                name = ":rpm-base-lpc",
+                exported = true
+            )
+
+            val rpmLC = MultiPlatformModule(
+                name = ":rpm-lc",
+                exported = true
+            )
+
+            val rpmPC = MultiPlatformModule(
+                name = ":rpm-pc",
                 exported = true
             )
 

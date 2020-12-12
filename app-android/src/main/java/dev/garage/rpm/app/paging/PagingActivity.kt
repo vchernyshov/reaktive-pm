@@ -15,7 +15,7 @@ import dev.garage.rpm.app.utils.visibilityView
 import dev.garage.rpm.base.PmActivity
 import dev.garage.rpm.bindTo
 import dev.garage.rpm.bindings.clicks
-import dev.garage.rpm.lpc.paging.bindTo
+import dev.garage.rpm.pc.paging.bindTo
 import dev.garage.rpm.util.ConsumerWrapper
 import kotlinx.android.synthetic.main.include_footer_paging.view.*
 

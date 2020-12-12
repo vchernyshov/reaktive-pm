@@ -7,7 +7,7 @@ import dev.garage.rpm.app.utils.visibilityView
 import dev.garage.rpm.base.PmActivity
 import dev.garage.rpm.bindTo
 import dev.garage.rpm.bindings.clicks
-import dev.garage.rpm.lpc.loading.bindTo
+import dev.garage.rpm.lc.loading.bindTo
 import dev.garage.rpm.util.ConsumerWrapper
 
 class LoadingActivity : PmActivity<LoadingPm>() {
