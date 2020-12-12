@@ -72,6 +72,6 @@ class ResolverFragment : Fragment() {
     class CallbackData(val callback: (MediaPickerResult) -> Unit)
 
     companion object {
-        const val MEDIA_PICKER_RESOLVER_TAG = " dev.garage.rpm.media.picker.ResolverFragment"
+        const val MEDIA_PICKER_RESOLVER_TAG = "dev.garage.rpm.media.picker.ResolverFragment"
     }
 }
