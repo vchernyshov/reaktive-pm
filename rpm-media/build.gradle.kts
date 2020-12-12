@@ -19,14 +19,14 @@ android {
 
 dependencies {
     mppModule(Deps.Libs.MultiPlatform.rpm)
-    mppModule(Deps.Libs.MultiPlatform.rpmMedia)
+    mppModule(Deps.Libs.MultiPlatform.rpmBitmap)
     mppLibrary(Deps.Libs.MultiPlatform.kotlinStdLib)
     mppLibrary(Deps.Libs.MultiPlatform.reaktive)
     mppLibrary(Deps.Libs.MultiPlatform.reaktiveUtils)
     mppLibrary(Deps.Libs.MultiPlatform.reaktiveAnnotations)
 
     androidLibrary(Deps.Libs.Android.appCompat)
-    androidLibrary(Deps.Libs.Android.material)
+    androidLibrary(Deps.Libs.Android.androidExifInterface)
 }
 
 publishing {

@@ -42,6 +42,11 @@ object Deps {
                 exported = true
             )
 
+            val rpmMedia = MultiPlatformModule(
+                name = ":rpm-media",
+                exported = true
+            )
+
             val rpmMediaPicker = MultiPlatformModule(
                 name = ":rpm-media-picker",
                 exported = true
@@ -80,6 +85,10 @@ object Deps {
             val libphonenumber = AndroidLibrary(
                 name = "com.googlecode.libphonenumber:libphonenumber:${Versions.libphonenumber}"
             )
+
+            val androidExifInterface = AndroidLibrary(
+                name = "androidx.exifinterface:exifinterface:${Versions.androidExifInterface}"
+            )
         }
     }
 }
@@ -95,11 +104,12 @@ object Versions {
     val timber = "4.7.1"
     val libphonenumber = "8.11.1"
     val rpm = "0.2.1-beta"
+    val androidExifInterface = "1.3.2"
 
     object Android {
 
-        val targetSdk = 29
+        val targetSdk = 30
         val minSdk = 26
-        val compileSdk = 29
+        val compileSdk = 30
     }
 }
