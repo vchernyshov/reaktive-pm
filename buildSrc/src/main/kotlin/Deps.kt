@@ -47,6 +47,11 @@ object Deps {
                 exported = true
             )
 
+            val rpmVideoPicker = MultiPlatformModule(
+                name = ":rpm-video-picker",
+                exported = true
+            )
+
             val appCommon = MultiPlatformModule(
                 name = ":app-common"
             )

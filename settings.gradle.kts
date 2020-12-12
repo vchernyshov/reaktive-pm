@@ -15,6 +15,7 @@ include(":rpm")
 include(":rpm-permissions")
 include(":rpm-bitmap")
 include(":rpm-media")
+include(":rpm-video-picker")
 include(":app-common")
 include(":app-android")
 
