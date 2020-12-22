@@ -21,7 +21,7 @@ class VideoPickerActivity : PmActivity<VideoPickerPm>() {
     override fun providePresentationModel(): VideoPickerPm = VideoPickerPm()
     override fun onBindPresentationModel(pm: VideoPickerPm) {
         with(binding) {
-            pm.videoPickerControl.bindTo(supportFragmentManager)
+            pm.videoPickerControl.bindTo(applicationContext, supportFragmentManager)
             pm.media.bindTo {
                 videoTitle.text = it.name
                 videoPath.text = it.path

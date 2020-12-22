@@ -1,9 +1,13 @@
 package dev.garage.rpm.video.picker
 
+import android.content.Context
 import androidx.fragment.app.FragmentManager
 import dev.garage.rpm.bindTo
+import dev.garage.rpm.permissions.bindTo
 
-fun VideoPickerControl.bindTo(fragmentManager: FragmentManager) {
+fun VideoPickerControl.bindTo(context: Context, fragmentManager: FragmentManager) {
+
+    this.storagePermissionControl.bindTo(context, fragmentManager)
 
     this.request.bindTo {
         val currentFragment =

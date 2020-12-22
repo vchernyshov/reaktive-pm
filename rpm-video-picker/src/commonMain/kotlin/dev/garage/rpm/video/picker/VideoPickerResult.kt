@@ -8,5 +8,7 @@ sealed class VideoPickerResult {
     data class ContextUnavailableException(val message: String) : VideoPickerResult()
     data class IntentUnavailableException(val message: String) : VideoPickerResult()
     data class IntentDataUnavailableException(val message: String) : VideoPickerResult()
+    object PermissionDeniedException : VideoPickerResult()
+    object PermissionAlwaysDeniedException : VideoPickerResult()
     data class SuccessResult(val media: Media) : VideoPickerResult()
 }
