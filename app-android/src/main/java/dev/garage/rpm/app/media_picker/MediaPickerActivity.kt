@@ -21,7 +21,7 @@ class MediaPickerActivity : PmActivity<MediaPickerPm>() {
     override fun providePresentationModel(): MediaPickerPm = MediaPickerPm()
     override fun onBindPresentationModel(pm: MediaPickerPm) {
         with(binding) {
-            pm.mediaPickerControl.bindTo(supportFragmentManager)
+            pm.mediaPickerControl.bindTo(applicationContext, supportFragmentManager)
             pm.media.bindTo {
                 mediaTitle.text = it.name
                 mediaPath.text = it.path

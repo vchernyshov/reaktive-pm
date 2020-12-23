@@ -1,9 +1,13 @@
 package dev.garage.rpm.media.picker
 
+import android.content.Context
 import androidx.fragment.app.FragmentManager
 import dev.garage.rpm.bindTo
+import dev.garage.rpm.permissions.bindTo
 
-fun MediaPickerControl.bindTo(fragmentManager: FragmentManager) {
+fun MediaPickerControl.bindTo(context: Context, fragmentManager: FragmentManager) {
+
+    this.storagePermissionControl.bindTo(context, fragmentManager)
 
     this.request.bindTo {
         val currentFragment =
