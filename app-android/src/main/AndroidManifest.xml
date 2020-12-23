@@ -33,6 +33,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".permissions.PermissionsActivity" />
+        <activity android:name=".media_picker.MediaPickerActivity" />
 
     </application>
 

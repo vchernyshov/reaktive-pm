@@ -9,6 +9,7 @@
     <string name="launch_counter_sample">Counter Sample</string>
     <string name="launch_form_validation_sample">Form Validation</string>
     <string name="launch_permissions_sample">Permissions</string>
+    <string name="launch_media_picker_sample">Media Picker</string>
 
     <!-- Auth by phone -->
     <string name="auth_by_phone_screen_text">Please confirm your country code and enter your phone number.</string>
@@ -51,5 +52,9 @@
     <string name="permission_coarse_location">Coarse Location</string>
     <string name="permission_bluetooth_le">Bluetooth LE</string>
     <string name="permission_remote_notification">Remote Notification</string>
+
+    <!-- Media Picker -->
+    <string name="media_picker_screen_title">Media Picker Sample</string>
+    <string name="media_picker_pick">Pick Media</string>
 
 </resources>
