@@ -21,6 +21,24 @@ class ImagePickerControl internal constructor() : PresentationModel() {
     internal val cameraPermissionControl = permissionControl(Permission.CAMERA)
     internal val galleryPermissionControl = permissionControl(Permission.GALLERY)
 
+    fun pickImage(pickImageParams: ImagePickParams): Maybe<ImagePickerResult> =
+        when (pickImageParams.mediaSource) {
+            MediaSource.CAMERA ->
+                checkPermissionAndPickImage(
+                    pickImageParams,
+                    cameraPermissionControl,
+                    ImagePickerResult.CameraPermissionDeniedException,
+                    ImagePickerResult.CameraPermissionAlwaysDeniedException
+                )
+            MediaSource.GALLERY ->
+                checkPermissionAndPickImage(
+                    pickImageParams,
+                    galleryPermissionControl,
+                    ImagePickerResult.GalleryPermissionDeniedException,
+                    ImagePickerResult.GalleryPermissionAlwaysDeniedException
+                )
+        }
+
     private fun pickImageProcess(pickImageParams: ImagePickParams): Maybe<ImagePickerResult> =
         result.observable()
             .doOnBeforeSubscribe { request.accept(pickImageParams) }
@@ -40,24 +58,6 @@ class ImagePickerControl internal constructor() : PresentationModel() {
                     PermissionResult.Type.DENIED_ALWAYS -> maybeOf(permissionAlwaysDeniedException)
                 }
             }
-
-    fun pickImage(pickImageParams: ImagePickParams): Maybe<ImagePickerResult> =
-        when (pickImageParams.mediaSource) {
-            MediaSource.CAMERA ->
-                checkPermissionAndPickImage(
-                    pickImageParams,
-                    cameraPermissionControl,
-                    ImagePickerResult.CameraPermissionDeniedException,
-                    ImagePickerResult.CameraPermissionAlwaysDeniedException
-                )
-            MediaSource.GALLERY ->
-                checkPermissionAndPickImage(
-                    pickImageParams,
-                    galleryPermissionControl,
-                    ImagePickerResult.GalleryPermissionDeniedException,
-                    ImagePickerResult.GalleryPermissionAlwaysDeniedException
-                )
-        }
 }
 
 fun PresentationModel.imagePickerControl(): ImagePickerControl =
