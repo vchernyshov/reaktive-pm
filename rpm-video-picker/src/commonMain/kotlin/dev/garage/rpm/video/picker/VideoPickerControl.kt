@@ -24,8 +24,8 @@ class VideoPickerControl : PresentationModel() {
             .flatMap { result ->
                 when (result.type) {
                     PermissionResult.Type.GRANTED -> pickVideoProcess()
-                    PermissionResult.Type.DENIED -> maybeOf(VideoPickerResult.PermissionDeniedException)
-                    PermissionResult.Type.DENIED_ALWAYS -> maybeOf(VideoPickerResult.PermissionAlwaysDeniedException)
+                    PermissionResult.Type.DENIED -> maybeOf(VideoPickerResult.StoragePermissionDeniedException)
+                    PermissionResult.Type.DENIED_ALWAYS -> maybeOf(VideoPickerResult.StoragePermissionAlwaysDeniedException)
                 }
             }
 
