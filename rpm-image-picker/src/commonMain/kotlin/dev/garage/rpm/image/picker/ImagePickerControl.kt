@@ -9,6 +9,7 @@ import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.action
 import dev.garage.rpm.command
 import dev.garage.rpm.permissions.Permission
+import dev.garage.rpm.permissions.PermissionControl
 import dev.garage.rpm.permissions.PermissionResult
 import dev.garage.rpm.permissions.permissionControl
 
@@ -25,28 +26,37 @@ class ImagePickerControl internal constructor() : PresentationModel() {
             .doOnBeforeSubscribe { request.accept(pickImageParams) }
             .firstOrComplete()
 
+    private fun checkPermissionAndPickImage(
+        pickImageParams: ImagePickParams,
+        permissionControl: PermissionControl,
+        permissionDeniedException: ImagePickerResult,
+        permissionAlwaysDeniedException: ImagePickerResult
+    ): Maybe<ImagePickerResult> =
+        permissionControl.checkAndRequest()
+            .flatMap { result ->
+                when (result.type) {
+                    PermissionResult.Type.GRANTED -> pickImageProcess(pickImageParams)
+                    PermissionResult.Type.DENIED -> maybeOf(permissionDeniedException)
+                    PermissionResult.Type.DENIED_ALWAYS -> maybeOf(permissionAlwaysDeniedException)
+                }
+            }
+
     fun pickImage(pickImageParams: ImagePickParams): Maybe<ImagePickerResult> =
         when (pickImageParams.mediaSource) {
-            MediaSource.CAMERA -> {
-                cameraPermissionControl.checkAndRequest()
-                    .flatMap { result ->
-                        when (result.type) {
-                            PermissionResult.Type.GRANTED -> pickImageProcess(pickImageParams)
-                            PermissionResult.Type.DENIED -> maybeOf(ImagePickerResult.CameraPermissionDeniedException)
-                            PermissionResult.Type.DENIED_ALWAYS -> maybeOf(ImagePickerResult.CameraPermissionAlwaysDeniedException)
-                        }
-                    }
-            }
-            MediaSource.GALLERY -> {
-                galleryPermissionControl.checkAndRequest()
-                    .flatMap { result ->
-                        when (result.type) {
-                            PermissionResult.Type.GRANTED -> pickImageProcess(pickImageParams)
-                            PermissionResult.Type.DENIED -> maybeOf(ImagePickerResult.GalleryPermissionDeniedException)
-                            PermissionResult.Type.DENIED_ALWAYS -> maybeOf(ImagePickerResult.GalleryPermissionAlwaysDeniedException)
-                        }
-                    }
-            }
+            MediaSource.CAMERA ->
+                checkPermissionAndPickImage(
+                    pickImageParams,
+                    cameraPermissionControl,
+                    ImagePickerResult.CameraPermissionDeniedException,
+                    ImagePickerResult.CameraPermissionAlwaysDeniedException
+                )
+            MediaSource.GALLERY ->
+                checkPermissionAndPickImage(
+                    pickImageParams,
+                    galleryPermissionControl,
+                    ImagePickerResult.GalleryPermissionDeniedException,
+                    ImagePickerResult.GalleryPermissionAlwaysDeniedException
+                )
         }
 }
 
