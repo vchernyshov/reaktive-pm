@@ -1,9 +1,13 @@
 package dev.garage.rpm.file.picker
 
+import android.content.Context
 import androidx.fragment.app.FragmentManager
 import dev.garage.rpm.bindTo
+import dev.garage.rpm.permissions.bindTo
 
-fun FilePickerControl.bindTo(fragmentManager: FragmentManager) {
+fun FilePickerControl.bindTo(context: Context, fragmentManager: FragmentManager) {
+
+    this.storagePermissionControl.bindTo(context, fragmentManager)
 
     this.request.bindTo {
         val currentFragment =

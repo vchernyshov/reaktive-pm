@@ -21,7 +21,7 @@ class FilePickerActivity : PmActivity<FilePickerPm>() {
     override fun providePresentationModel(): FilePickerPm = FilePickerPm()
     override fun onBindPresentationModel(pm: FilePickerPm) {
         with(binding) {
-            pm.filePickerControl.bindTo(supportFragmentManager)
+            pm.filePickerControl.bindTo(applicationContext, supportFragmentManager)
             pm.fileMedia.bindTo {
                 fileName.text = it.name
                 filePath.text = it.path

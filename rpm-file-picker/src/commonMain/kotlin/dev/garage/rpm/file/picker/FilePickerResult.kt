@@ -5,5 +5,7 @@ sealed class FilePickerResult {
     object CanceledException : FilePickerResult()
     data class IntentUnavailableException(val message: String) : FilePickerResult()
     data class IntentDataUnavailableException(val message: String) : FilePickerResult()
+    object StoragePermissionDeniedException : FilePickerResult()
+    object StoragePermissionAlwaysDeniedException : FilePickerResult()
     data class SuccessResult(val fileMedia: FileMedia) : FilePickerResult()
 }
