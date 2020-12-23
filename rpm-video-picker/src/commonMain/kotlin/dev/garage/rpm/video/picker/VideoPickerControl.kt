@@ -19,11 +19,6 @@ class VideoPickerControl : PresentationModel() {
 
     internal val storagePermissionControl = permissionControl(Permission.STORAGE)
 
-    private fun pickVideoProcess(): Maybe<VideoPickerResult> =
-        result.observable()
-            .doOnBeforeSubscribe { request.accept(Unit) }
-            .firstOrComplete()
-
     fun pickVideo(): Maybe<VideoPickerResult> =
         storagePermissionControl.checkAndRequest()
             .flatMap { result ->
@@ -33,6 +28,11 @@ class VideoPickerControl : PresentationModel() {
                     PermissionResult.Type.DENIED_ALWAYS -> maybeOf(VideoPickerResult.PermissionAlwaysDeniedException)
                 }
             }
+
+    private fun pickVideoProcess(): Maybe<VideoPickerResult> =
+        result.observable()
+            .doOnBeforeSubscribe { request.accept(Unit) }
+            .firstOrComplete()
 }
 
 fun PresentationModel.videoPickerControl(): VideoPickerControl =
