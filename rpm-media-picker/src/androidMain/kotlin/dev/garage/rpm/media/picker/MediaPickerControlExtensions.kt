@@ -7,7 +7,7 @@ import dev.garage.rpm.permissions.bindTo
 
 fun MediaPickerControl.bindTo(context: Context, fragmentManager: FragmentManager) {
 
-    this.storagePermissionControl.bindTo(context, fragmentManager)
+    this.galleryPermissionControl.bindTo(context, fragmentManager)
 
     this.request.bindTo {
         val currentFragment =

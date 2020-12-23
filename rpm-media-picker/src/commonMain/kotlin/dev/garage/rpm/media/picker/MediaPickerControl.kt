@@ -17,22 +17,22 @@ class MediaPickerControl : PresentationModel() {
     internal val request = command<Unit>()
     internal val result = action<MediaPickerResult>()
 
-    internal val storagePermissionControl = permissionControl(Permission.STORAGE)
+    internal val galleryPermissionControl = permissionControl(Permission.GALLERY)
+
+    fun pickMedia(): Maybe<MediaPickerResult> =
+        galleryPermissionControl.checkAndRequest()
+            .flatMap { result ->
+                when (result.type) {
+                    PermissionResult.Type.GRANTED -> pickMediaProcess()
+                    PermissionResult.Type.DENIED -> maybeOf(MediaPickerResult.GalleryPermissionDeniedException)
+                    PermissionResult.Type.DENIED_ALWAYS -> maybeOf(MediaPickerResult.GalleryPermissionAlwaysDeniedException)
+                }
+            }
 
     private fun pickMediaProcess(): Maybe<MediaPickerResult> =
         result.observable()
             .doOnBeforeSubscribe { request.accept(Unit) }
             .firstOrComplete()
-
-    fun pickMedia(): Maybe<MediaPickerResult> =
-        storagePermissionControl.checkAndRequest()
-            .flatMap { result ->
-                when (result.type) {
-                    PermissionResult.Type.GRANTED -> pickMediaProcess()
-                    PermissionResult.Type.DENIED -> maybeOf(MediaPickerResult.StoragePermissionDeniedException)
-                    PermissionResult.Type.DENIED_ALWAYS -> maybeOf(MediaPickerResult.StoragePermissionAlwaysDeniedException)
-                }
-            }
 }
 
 fun PresentationModel.mediaPickerControl(): MediaPickerControl =
