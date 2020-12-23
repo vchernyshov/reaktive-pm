@@ -37,6 +37,21 @@ object Deps {
                 exported = true
             )
 
+            val rpmBitmap = MultiPlatformModule(
+                name = ":rpm-bitmap",
+                exported = true
+            )
+
+            val rpmMedia = MultiPlatformModule(
+                name = ":rpm-media",
+                exported = true
+            )
+
+            val rpmVideoPicker = MultiPlatformModule(
+                name = ":rpm-video-picker",
+                exported = true
+            )
+
             val appCommon = MultiPlatformModule(
                 name = ":app-common"
             )
@@ -70,6 +85,10 @@ object Deps {
             val libphonenumber = AndroidLibrary(
                 name = "com.googlecode.libphonenumber:libphonenumber:${Versions.libphonenumber}"
             )
+
+            val androidExifInterface = AndroidLibrary(
+                name = "androidx.exifinterface:exifinterface:${Versions.androidExifInterface}"
+            )
         }
     }
 }
@@ -78,13 +97,14 @@ object Versions {
 
     val kotlin = "1.3.71"
     val reaktive = "1.1.12"
-    val appCompat = "1.2.0-alpha03"
+    val appCompat = "1.2.0"
     val material = "1.2.0-alpha05"
-    val coreKtx = "1.2.0"
+    val coreKtx = "1.3.1"
     val constraint = "1.1.3"
     val timber = "4.7.1"
     val libphonenumber = "8.11.1"
     val rpm = "0.2.1-beta"
+    val androidExifInterface = "1.3.2"
 
     object Android {
 
