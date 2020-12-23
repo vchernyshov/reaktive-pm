@@ -1,10 +1,15 @@
 package dev.garage.rpm.image.picker
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import dev.garage.rpm.bindTo
+import dev.garage.rpm.permissions.bindTo
 
-fun ImagePickerControl.bindTo(fragmentManager: FragmentManager) {
+fun ImagePickerControl.bindTo(context: Context, fragmentManager: FragmentManager) {
+
+    this.cameraPermissionControl.bindTo(context, fragmentManager)
+    this.galleryPermissionControl.bindTo(context, fragmentManager)
 
     this.request.bindTo { imagePickParams ->
         val currentFragment =

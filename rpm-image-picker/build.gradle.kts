@@ -19,6 +19,7 @@ android {
 
 dependencies {
     mppModule(Deps.Libs.MultiPlatform.rpm)
+    mppModule(Deps.Libs.MultiPlatform.rpmPermissions)
     mppModule(Deps.Libs.MultiPlatform.rpmBitmap)
     mppLibrary(Deps.Libs.MultiPlatform.kotlinStdLib)
     mppLibrary(Deps.Libs.MultiPlatform.reaktive)

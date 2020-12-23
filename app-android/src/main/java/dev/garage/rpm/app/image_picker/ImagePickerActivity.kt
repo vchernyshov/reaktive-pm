@@ -22,7 +22,7 @@ class ImagePickerActivity : PmActivity<ImagePickerPm>() {
 
     override fun onBindPresentationModel(pm: ImagePickerPm) {
         with(binding) {
-            pm.imagePickerControl.bindTo(supportFragmentManager)
+            pm.imagePickerControl.bindTo(applicationContext, supportFragmentManager)
             pm.image.bindTo {
                 imageResult.setImageBitmap(it.platformBitmap)
             }
