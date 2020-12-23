@@ -17,15 +17,15 @@ class VideoPickerControl : PresentationModel() {
     internal val request = command<Unit>()
     internal val result = action<VideoPickerResult>()
 
-    internal val storagePermissionControl = permissionControl(Permission.STORAGE)
+    internal val galleryPermissionControl = permissionControl(Permission.GALLERY)
 
     fun pickVideo(): Maybe<VideoPickerResult> =
-        storagePermissionControl.checkAndRequest()
+        galleryPermissionControl.checkAndRequest()
             .flatMap { result ->
                 when (result.type) {
                     PermissionResult.Type.GRANTED -> pickVideoProcess()
-                    PermissionResult.Type.DENIED -> maybeOf(VideoPickerResult.StoragePermissionDeniedException)
-                    PermissionResult.Type.DENIED_ALWAYS -> maybeOf(VideoPickerResult.StoragePermissionAlwaysDeniedException)
+                    PermissionResult.Type.DENIED -> maybeOf(VideoPickerResult.GalleryPermissionDeniedException)
+                    PermissionResult.Type.DENIED_ALWAYS -> maybeOf(VideoPickerResult.GalleryPermissionAlwaysDeniedException)
                 }
             }
 
