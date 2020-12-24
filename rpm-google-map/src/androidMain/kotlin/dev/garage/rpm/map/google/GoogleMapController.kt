@@ -6,9 +6,6 @@ package dev.garage.rpm.map.google
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,29 +19,19 @@ import dev.garage.rpm.map.google.utils.toAndroidLatLng
 import dev.icerock.moko.resources.ImageResource
 import dev.garage.rpm.map.LatLng as GeoLatLng
 
-@SuppressLint("MissingPermission")
 actual class GoogleMapController actual constructor(
     onCameraScrollStateChanged: ((scrolling: Boolean, isUserGesture: Boolean) -> Unit)?,
-    onMarkerClick: ((Any?) -> Unit)?
+    onMarkerClickEvent: ((Any?) -> Unit)?
 ) : GoogleMapControllerHandler {
 
     private val mapHolder = Holder<GoogleMap>()
     private val locationHolder = Holder<FusedLocationProviderClient>()
     private val onCameraScrollStateChangedListener = onCameraScrollStateChanged
-    private val onMarkerClickListener = onMarkerClick
+    private val onMarkerClickListener = onMarkerClickEvent
 
-    fun bind(context: Context, lifecycle: Lifecycle, googleMap: GoogleMap) {
+    fun bind(context: Context, googleMap: GoogleMap) {
         mapHolder.set(googleMap)
         locationHolder.set(LocationServices.getFusedLocationProviderClient(context))
-
-        lifecycle.addObserver(
-            object : LifecycleObserver {
-                @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-                fun onDestroy() {
-                    unBind()
-                }
-            }
-        )
 
         googleMap.uiSettings.apply {
             isMapToolbarEnabled = false
@@ -72,11 +59,12 @@ actual class GoogleMapController actual constructor(
         }
     }
 
-    fun unBind() {
+    fun unbind() {
         mapHolder.clear()
         locationHolder.clear()
     }
 
+    @SuppressLint("MissingPermission")
     override fun showMyLocation(zoom: Float) {
         locationHolder.doWith { client ->
             client.lastLocation.addOnSuccessListener { location ->
@@ -152,6 +140,7 @@ actual class GoogleMapController actual constructor(
         )
     }
 
+    @SuppressLint("MissingPermission")
     override fun writeUiSettings(settings: UiSettings) {
         mapHolder.doWith {
             with(it.uiSettings) {

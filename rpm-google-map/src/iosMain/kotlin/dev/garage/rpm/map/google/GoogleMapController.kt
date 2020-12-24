@@ -11,7 +11,7 @@ import dev.garage.rpm.map.LatLng as GeoLatLng
 
 actual class GoogleMapController actual constructor(
     onCameraScrollStateChanged: ((scrolling: Boolean, isUserGesture: Boolean) -> Unit)?,
-    onMarkerClick: ((Any?) -> Unit)?
+    onMarkerClickEvent: ((Any?) -> Unit)?
 ) :
     GoogleMapControllerHandler {
 

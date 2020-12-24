@@ -6,5 +6,5 @@ package dev.garage.rpm.map.google
 
 expect class GoogleMapController(
     onCameraScrollStateChanged: ((scrolling: Boolean, isUserGesture: Boolean) -> Unit)?,
-    onMarkerClick: ((Any?) -> Unit)?
+    onMarkerClickEvent: ((Any?) -> Unit)?
 ) : GoogleMapControllerHandler

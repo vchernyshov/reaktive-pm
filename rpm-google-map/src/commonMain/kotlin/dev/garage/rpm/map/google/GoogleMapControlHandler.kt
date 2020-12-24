@@ -13,14 +13,14 @@ interface GoogleMapControlHandler {
 
     fun showMyLocation(
         zoom: Float,
-        commandStrategy: CommandStrategy = CommandStrategy.OneExecutionStrategy
+        commandStrategy: CommandStrategy = CommandStrategy.OncePerformStrategy
     )
 
     fun showLocation(
         latLng: LatLng,
         zoom: Float,
         animation: Boolean = false,
-        commandStrategy: CommandStrategy = CommandStrategy.OneExecutionStrategy
+        commandStrategy: CommandStrategy = CommandStrategy.OncePerformStrategy
     )
 
     fun getMapCenterLatLng(callback: (LatLng) -> Unit)
@@ -28,30 +28,30 @@ interface GoogleMapControlHandler {
     fun getCurrentZoom(callback: (Float) -> Unit)
     fun setCurrentZoom(
         zoom: Float,
-        commandStrategy: CommandStrategy = CommandStrategy.OneExecutionStrategy
+        commandStrategy: CommandStrategy = CommandStrategy.OncePerformStrategy
     )
 
     fun getZoomConfig(callback: (ZoomConfig) -> Unit)
     fun setZoomConfig(
         config: ZoomConfig,
-        commandStrategy: CommandStrategy = CommandStrategy.AddToEndSingleStrategy
+        commandStrategy: CommandStrategy = CommandStrategy.AddSingleStrategy
     )
 
     fun readUiSettings(callback: (UiSettings) -> Unit)
     fun writeUiSettings(
         settings: UiSettings,
-        commandStrategy: CommandStrategy = CommandStrategy.AddToEndSingleStrategy
+        commandStrategy: CommandStrategy = CommandStrategy.AddSingleStrategy
     )
 
     fun addMarker(
         googleMarkerData: MarkerData,
         callback: ((Marker) -> Unit)? = null,
-        commandStrategy: CommandStrategy = CommandStrategy.AddToEndStrategy
+        commandStrategy: CommandStrategy = CommandStrategy.AddStrategy
     )
 
     fun addMarkers(
         googleMarkerDataList: List<MarkerData>,
         callback: ((List<Marker>) -> Unit)? = null,
-        commandStrategy: CommandStrategy = CommandStrategy.AddToEndStrategy
+        commandStrategy: CommandStrategy = CommandStrategy.AddStrategy
     )
 }

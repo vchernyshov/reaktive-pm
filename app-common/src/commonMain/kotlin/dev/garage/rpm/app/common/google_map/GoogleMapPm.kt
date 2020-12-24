@@ -7,11 +7,14 @@ import dev.garage.rpm.map.ZoomConfig
 import dev.garage.rpm.map.data.MarkerData
 import dev.garage.rpm.map.google.UiSettings
 import dev.garage.rpm.map.google.googleMapControl
+import dev.garage.rpm.map.google.mapReadyStatusChanges
+import dev.garage.rpm.state
+import dev.garage.rpm.widget.dialogControl
 
 class GoogleMapPm : PresentationModel() {
 
     val googleMapControl = googleMapControl(
-        onFirstMapReady = {
+        onFirstMapInit = {
             setCurrentZoom(14f)
             setZoomConfig(ZoomConfig(min = 4f, max = 16f))
             writeUiSettings(UiSettings(myLocationButtonEnabled = true))
@@ -39,4 +42,8 @@ class GoogleMapPm : PresentationModel() {
             showLocation(marketLatLng1, 14f, true)
         }
     )
+
+    val status = state { googleMapControl.mapReadyStatusChanges() }
+
+    val dialogControl = dialogControl<String, Unit>()
 }

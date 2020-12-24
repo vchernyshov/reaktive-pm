@@ -1,11 +1,12 @@
 package dev.garage.rpm.map.google
 
+import com.badoo.reaktive.maybe.asObservable
 import com.badoo.reaktive.observable.distinctUntilChanged
 import com.badoo.reaktive.observable.doOnBeforeNext
 import com.badoo.reaktive.observable.subscribe
+import com.badoo.reaktive.observable.take
 import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.action
-import dev.garage.rpm.command
 import dev.garage.rpm.map.LatLng
 import dev.garage.rpm.map.Marker
 import dev.garage.rpm.map.ZoomConfig
@@ -13,40 +14,82 @@ import dev.garage.rpm.map.command.MapCommand
 import dev.garage.rpm.map.data.MarkerData
 import dev.garage.rpm.map.google.command.GoogleMapCommand
 import dev.garage.rpm.map.strategy.CommandStrategy
+import dev.garage.rpm.permissions.Permission
+import dev.garage.rpm.permissions.PermissionResult
+import dev.garage.rpm.permissions.permissionControl
 import dev.garage.rpm.state
+
+private typealias OnFirstMapInitListener = GoogleMapControl.() -> Unit
+private typealias OnCameraScrollStateChangedListener = (scrolling: Boolean, isUserGesture: Boolean) -> Unit
+private typealias OnMarkerClickEventListener = (Any?) -> Unit
+private typealias PermissionHandlerListener = (PermissionResult) -> Unit
 
 class GoogleMapControl internal constructor(
     override val commandList: ArrayList<MapCommand> = arrayListOf(),
-    private val onFirstMapReady: (GoogleMapControl.() -> Unit)?,
-    onCameraScrollStateChanged: ((scrolling: Boolean, isUserGesture: Boolean) -> Unit)?,
-    onMarkerClick: ((Any?) -> Unit)?
+    private val onFirstMapInit: OnFirstMapInitListener?,
+    onCameraScrollStateChanged: OnCameraScrollStateChangedListener?,
+    onMarkerClickEvent: OnMarkerClickEventListener?
 ) : PresentationModel(), GoogleMapControlHandler {
 
-    private val previousMapReadyStatus = state(MapReadyStatus.INIT)
-    private val mapReady = state(initialValue = previousMapReadyStatus.value)
-
     internal val mapController: GoogleMapController =
-        GoogleMapController(onCameraScrollStateChanged, onMarkerClick)
+        GoogleMapController(onCameraScrollStateChanged, onMarkerClickEvent)
 
-    internal val initMapReadyAction = action<MapReadyStatus> {
+    internal val isMapReady
+        get() = mapReadyStatus.value == GoogleMapReadyStatus.BIND
+
+    internal val changeMapReadyStatusAction = action<GoogleMapReadyStatus> {
         this.distinctUntilChanged()
             .doOnBeforeNext {
-                previousMapReadyStatus.accept(mapReady.value)
-                mapReady.accept(it)
+                val previousMapReadyStatus = mapReadyStatus.value
+                mapReadyStatus.accept(it)
+                if (isMapReady) {
+                    if (previousMapReadyStatus == GoogleMapReadyStatus.INIT) {
+                        onFirstMapInit?.invoke(this@GoogleMapControl)
+                    }
+                    runMapCommands()
+                }
             }
     }
 
-    internal val initMap = command<Unit>()
-    internal val isMapReady = mapReady.value == MapReadyStatus.BIND
+    internal val fineLocationPermission = permissionControl(Permission.LOCATION)
 
-    override fun onCreate() {
-        super.onCreate()
-        lifecycleSubscribe()
-        mapReadySubscribe()
+    internal val mapReadyStatus = state(initialValue = GoogleMapReadyStatus.INIT)
+
+    private val permissionHandlerList = mutableListOf<PermissionHandlerListener>()
+
+    private fun checkPermission(permissionHandlerListener: PermissionHandlerListener) {
+        val isEmptyHandlerList = permissionHandlerList.isEmpty()
+        permissionHandlerList.add(permissionHandlerListener)
+        if (isEmptyHandlerList) {
+            fineLocationPermission.checkAndRequest()
+                .asObservable()
+                .take(1)
+                .subscribe(
+                    onNext = { permissionResult ->
+                        for (permissionHandlerListener in permissionHandlerList) {
+                            permissionHandlerListener.invoke(permissionResult)
+                        }
+                        permissionHandlerList.clear()
+                    },
+                    onComplete = {
+                        val a = "fdfd"
+                    })
+        }
     }
 
-    override fun showMyLocation(zoom: Float, commandStrategy: CommandStrategy) {
-        addAndExecuteCommand(MapCommand.ShowMyLocation(zoom, commandStrategy))
+    override fun showMyLocation(
+        zoom: Float,
+        commandStrategy: CommandStrategy
+    ) {
+        checkPermission { permissionResult ->
+            if (permissionResult.isGranted)
+                addAndExecuteCommand(
+                    MapCommand.ShowMyLocation(
+                        zoom,
+                        commandStrategy
+                    )
+                )
+        }
     }
 
     override fun showLocation(
@@ -69,7 +112,7 @@ class GoogleMapControl internal constructor(
         addAndExecuteCommand(
             MapCommand.GetMapCenterLatLng(
                 callback,
-                CommandStrategy.OneExecutionStrategy
+                CommandStrategy.OncePerformStrategy
             )
         )
     }
@@ -78,7 +121,7 @@ class GoogleMapControl internal constructor(
         addAndExecuteCommand(
             MapCommand.GetCurrentZoom(
                 callback,
-                CommandStrategy.OneExecutionStrategy
+                CommandStrategy.OncePerformStrategy
             )
         )
     }
@@ -91,7 +134,7 @@ class GoogleMapControl internal constructor(
         addAndExecuteCommand(
             MapCommand.GetZoomConfig(
                 callback,
-                CommandStrategy.OneExecutionStrategy
+                CommandStrategy.OncePerformStrategy
             )
         )
     }
@@ -104,13 +147,24 @@ class GoogleMapControl internal constructor(
         addAndExecuteCommand(
             GoogleMapCommand.ReadUISettings(
                 callback,
-                CommandStrategy.OneExecutionStrategy
+                CommandStrategy.OncePerformStrategy
             )
         )
     }
 
-    override fun writeUiSettings(settings: UiSettings, commandStrategy: CommandStrategy) {
-        addAndExecuteCommand(GoogleMapCommand.WriteUISettings(settings, commandStrategy))
+    override fun writeUiSettings(
+        settings: UiSettings,
+        commandStrategy: CommandStrategy
+    ) {
+        checkPermission { permissionResult ->
+            if (permissionResult.isGranted)
+                addAndExecuteCommand(
+                    GoogleMapCommand.WriteUISettings(
+                        settings,
+                        commandStrategy
+                    )
+                )
+        }
     }
 
     override fun addMarker(
@@ -141,30 +195,6 @@ class GoogleMapControl internal constructor(
         )
     }
 
-    private fun lifecycleSubscribe() {
-        lifecycleObservable.subscribe {
-            when (it) {
-                Lifecycle.BINDED -> {
-                    initMap.accept(Unit)
-                }
-                Lifecycle.UNBINDED -> {
-                    initMapReadyAction.accept(MapReadyStatus.UNBIND)
-                }
-            }
-        }.untilDestroy()
-    }
-
-    private fun mapReadySubscribe() {
-        mapReady.observable.subscribe { mapReady ->
-            if (mapReady == MapReadyStatus.BIND) {
-                if (previousMapReadyStatus.value == MapReadyStatus.INIT) {
-                    onFirstMapReady?.invoke(this@GoogleMapControl)
-                }
-                runMapCommands()
-            }
-        }.untilDestroy()
-    }
-
     private fun runMapCommands() {
         val currentCommandList = arrayListOf<MapCommand>()
         currentCommandList.addAll(commandList)
@@ -175,9 +205,9 @@ class GoogleMapControl internal constructor(
 
     private fun addCommand(command: MapCommand) {
         when (command.commandStrategy) {
-            CommandStrategy.AddToEndStrategy, CommandStrategy.OneExecutionStrategy ->
+            CommandStrategy.AddStrategy, CommandStrategy.OncePerformStrategy ->
                 commandList.add(command)
-            CommandStrategy.AddToEndSingleStrategy -> {
+            CommandStrategy.AddSingleStrategy -> {
                 if (commandList.contains(command)) {
                     commandList.remove(command)
                 }
@@ -192,7 +222,7 @@ class GoogleMapControl internal constructor(
 
     private fun addAndExecuteCommand(command: MapCommand) {
         addCommand(command)
-        if (mapReady.value == MapReadyStatus.BIND) {
+        if (isMapReady) {
             executeCommand(command)
         }
     }
@@ -224,7 +254,7 @@ class GoogleMapControl internal constructor(
                 command.callback?.invoke(addedMarkers)
             }
         }
-        if (command.commandStrategy == CommandStrategy.OneExecutionStrategy) {
+        if (command.commandStrategy == CommandStrategy.OncePerformStrategy) {
             commandList.remove(command)
         }
     }
@@ -238,22 +268,17 @@ class GoogleMapControl internal constructor(
         )
     }
 
-    enum class MapReadyStatus {
-        INIT,
-        BIND,
-        UNBIND
-    }
 }
 
 fun PresentationModel.googleMapControl(
-    onFirstMapReady: (GoogleMapControl.() -> Unit)? = null,
-    onCameraScrollStateChanged: ((scrolling: Boolean, isUserGesture: Boolean) -> Unit)? = null,
-    onMarkerClick: ((Any?) -> Unit)? = null
+    onFirstMapInit: OnFirstMapInitListener? = null,
+    onCameraScrollStateChanged: OnCameraScrollStateChangedListener? = null,
+    onMarkerClickEvent: OnMarkerClickEventListener? = null
 ): GoogleMapControl {
     return GoogleMapControl(
-        onFirstMapReady = onFirstMapReady,
+        onFirstMapInit = onFirstMapInit,
         onCameraScrollStateChanged = onCameraScrollStateChanged,
-        onMarkerClick = onMarkerClick
+        onMarkerClickEvent = onMarkerClickEvent
     ).apply {
         attachToParent(this@googleMapControl)
     }
