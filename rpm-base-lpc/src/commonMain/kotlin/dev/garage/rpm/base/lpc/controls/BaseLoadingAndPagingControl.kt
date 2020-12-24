@@ -6,19 +6,31 @@ import dev.garage.rpm.State
 import dev.garage.rpm.base.lpc.handler.BaseLoadingAndPagingControlHandler
 import dev.garage.rpm.state
 
+typealias ErrorConsumer = (Throwable) -> Unit
+typealias ErrorTransform = (Throwable) -> Any
+typealias RefreshErrorConsumer = (Throwable) -> Unit
+typealias RefreshErrorTransform = (Throwable) -> Any
+typealias LoadingConsumer = (Boolean) -> Unit
+typealias IsLoadingConsumer = (Boolean) -> Unit
+typealias IsRefreshingConsumer = (Boolean) -> Unit
+typealias RefreshEnabledConsumer = (Boolean) -> Unit
+typealias ContentVisibleConsumer = (Boolean) -> Unit
+typealias ErrorVisibleConsumer = (Boolean) -> Unit
+typealias EmptyVisibleConsumer = (Boolean) -> Unit
+
 @Suppress("LongParameterList")
 abstract class BaseLoadingAndPagingControl constructor(
-    private val errorConsumer: ((Throwable) -> Unit)?,
-    private val errorTransform: ((Throwable) -> Any)?,
-    private val refreshErrorConsumer: ((Throwable) -> Unit)?,
-    private val refreshErrorTransform: ((Throwable) -> Any)?,
-    private val loadingConsumer: ((Boolean) -> Unit)?,
-    private val isLoadingConsumer: ((Boolean) -> Unit)?,
-    private val isRefreshingConsumer: ((Boolean) -> Unit)?,
-    private val refreshEnabledConsumer: ((Boolean) -> Unit)?,
-    private val contentVisibleConsumer: ((Boolean) -> Unit)?,
-    private val errorVisibleConsumer: ((Boolean) -> Unit)?,
-    private val emptyVisibleConsumer: ((Boolean) -> Unit)?
+    private val errorConsumer: ErrorConsumer?,
+    private val errorTransform: ErrorTransform?,
+    private val refreshErrorConsumer: RefreshErrorConsumer?,
+    private val refreshErrorTransform: RefreshErrorTransform?,
+    private val loadingConsumer: LoadingConsumer?,
+    private val isLoadingConsumer: IsLoadingConsumer?,
+    private val isRefreshingConsumer: IsRefreshingConsumer?,
+    private val refreshEnabledConsumer: RefreshEnabledConsumer?,
+    private val contentVisibleConsumer: ContentVisibleConsumer?,
+    private val errorVisibleConsumer: ErrorVisibleConsumer?,
+    private val emptyVisibleConsumer: EmptyVisibleConsumer?
 ) : PresentationModel(), BaseLoadingAndPagingControlHandler {
 
     abstract val errorChanges: State<Throwable>

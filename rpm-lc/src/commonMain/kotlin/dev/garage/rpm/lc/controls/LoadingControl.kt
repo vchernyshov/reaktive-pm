@@ -7,7 +7,7 @@ import com.badoo.reaktive.single.Single
 import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.accept
 import dev.garage.rpm.action
-import dev.garage.rpm.base.lpc.controls.BaseLoadingAndPagingControl
+import dev.garage.rpm.base.lpc.controls.*
 import dev.garage.rpm.lc.handler.LoadingControlHandler
 import dev.garage.rpm.lc.loading.Loading
 import dev.garage.rpm.lc.loading.LoadingImpl
@@ -23,21 +23,24 @@ import dev.garage.rpm.lc.loading.refreshEnabled
 import dev.garage.rpm.lc.loading.refreshErrorChanges
 import dev.garage.rpm.state
 
+typealias DataConsumer<T> = (T) -> Unit
+typealias DataTransform<T> = (T) -> Any
+
 @Suppress("LongParameterList")
 class LoadingControl<T> internal constructor(
-    private val dataConsumer: ((T) -> Unit)?,
-    private val dataTransform: ((T) -> Any)?,
-    errorConsumer: ((Throwable) -> Unit)?,
-    errorTransform: ((Throwable) -> Any)?,
-    refreshErrorConsumer: ((Throwable) -> Unit)?,
-    refreshErrorTransform: ((Throwable) -> Any)?,
-    loadingConsumer: ((Boolean) -> Unit)?,
-    isLoadingConsumer: ((Boolean) -> Unit)?,
-    isRefreshingConsumer: ((Boolean) -> Unit)?,
-    refreshEnabledConsumer: ((Boolean) -> Unit)?,
-    contentVisibleConsumer: ((Boolean) -> Unit)?,
-    errorVisibleConsumer: ((Boolean) -> Unit)?,
-    emptyVisibleConsumer: ((Boolean) -> Unit)?,
+    private val dataConsumer: DataConsumer<T>?,
+    private val dataTransform: DataTransform<T>?,
+    errorConsumer: ErrorConsumer?,
+    errorTransform: ErrorTransform?,
+    refreshErrorConsumer: RefreshErrorConsumer?,
+    refreshErrorTransform: RefreshErrorTransform?,
+    loadingConsumer: LoadingConsumer?,
+    isLoadingConsumer: IsLoadingConsumer?,
+    isRefreshingConsumer: IsRefreshingConsumer?,
+    refreshEnabledConsumer: RefreshEnabledConsumer?,
+    contentVisibleConsumer: ContentVisibleConsumer?,
+    errorVisibleConsumer: ErrorVisibleConsumer?,
+    emptyVisibleConsumer: EmptyVisibleConsumer?,
     sourceData: Single<T>
 ) : BaseLoadingAndPagingControl(
     errorConsumer,
@@ -101,19 +104,19 @@ class LoadingControl<T> internal constructor(
 
 @Suppress("LongParameterList")
 fun <T> PresentationModel.loadingControl(
-    dataConsumer: ((T) -> Unit)? = null,
-    dataTransform: ((T) -> Any)? = null,
-    errorConsumer: ((Throwable) -> Unit)? = null,
-    errorTransform: ((Throwable) -> Any)? = null,
-    refreshErrorConsumer: ((Throwable) -> Unit)? = null,
-    refreshErrorTransform: ((Throwable) -> Any)? = null,
-    loadingConsumer: ((Boolean) -> Unit)? = null,
-    isLoadingConsumer: ((Boolean) -> Unit)? = null,
-    isRefreshingConsumer: ((Boolean) -> Unit)? = null,
-    refreshEnabledConsumer: ((Boolean) -> Unit)? = null,
-    contentVisibleConsumer: ((Boolean) -> Unit)? = null,
-    errorVisibleConsumer: ((Boolean) -> Unit)? = null,
-    emptyVisibleConsumer: ((Boolean) -> Unit)? = null,
+    dataConsumer: DataConsumer<T>? = null,
+    dataTransform: DataTransform<T>? = null,
+    errorConsumer: ErrorConsumer? = null,
+    errorTransform: ErrorTransform? = null,
+    refreshErrorConsumer: RefreshErrorConsumer? = null,
+    refreshErrorTransform: RefreshErrorTransform? = null,
+    loadingConsumer: LoadingConsumer? = null,
+    isLoadingConsumer: IsLoadingConsumer? = null,
+    isRefreshingConsumer: IsRefreshingConsumer? = null,
+    refreshEnabledConsumer: RefreshEnabledConsumer? = null,
+    contentVisibleConsumer: ContentVisibleConsumer? = null,
+    errorVisibleConsumer: ErrorVisibleConsumer? = null,
+    emptyVisibleConsumer: EmptyVisibleConsumer? = null,
     sourceData: Single<T>
 ): LoadingControl<T> {
     return LoadingControl(

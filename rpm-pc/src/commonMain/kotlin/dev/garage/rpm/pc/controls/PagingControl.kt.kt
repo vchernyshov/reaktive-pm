@@ -4,39 +4,44 @@ import com.badoo.reaktive.observable.doOnBeforeNext
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.subscribe
 import com.badoo.reaktive.single.Single
-import dev.garage.rpm.PresentationModel
-import dev.garage.rpm.accept
-import dev.garage.rpm.action
-import dev.garage.rpm.state
-import dev.garage.rpm.command
-import dev.garage.rpm.base.lpc.controls.BaseLoadingAndPagingControl
+import dev.garage.rpm.*
+import dev.garage.rpm.base.lpc.controls.*
 import dev.garage.rpm.pc.handler.PagingControlHandler
 import dev.garage.rpm.pc.paging.*
+
+typealias DataConsumer<T> = (List<T>) -> Unit
+typealias DataTransform<T> = (List<T>) -> Any
+typealias PageLoadingVisibleConsumer = (Boolean) -> Unit
+typealias PageErrorVisibleConsumer = (Boolean) -> Unit
+typealias PageErrorConsumer = (Throwable) -> Unit
+typealias PageInActionConsumer = (Boolean) -> Unit
+typealias IsEndReachedConsumer = (Boolean) -> Unit
+typealias ScrollToTopConsumer = (Unit) -> Unit
 
 const val DEFAULT_START_PAGE_VALUE = 1
 const val DEFAULT_LIMIT_VALUE = 10
 
 @Suppress("LongParameterList")
 class PagingControl<T> internal constructor(
-    private val dataConsumer: ((List<T>) -> Unit)?,
-    private val dataTransform: ((List<T>) -> Any)?,
-    private val pageLoadingVisibleConsumer: ((Boolean) -> Unit)?,
-    private val pageErrorVisibleConsumer: ((Boolean) -> Unit)?,
-    private val pageErrorConsumer: ((Throwable) -> Unit)?,
-    private val pageInActionConsumer: ((Boolean) -> Unit)?,
-    private val isEndReachedConsumer: ((Boolean) -> Unit)?,
-    private val scrollToTopConsumer: ((Unit) -> Unit)?,
-    errorConsumer: ((Throwable) -> Unit)?,
-    errorTransform: ((Throwable) -> Any)?,
-    refreshErrorConsumer: ((Throwable) -> Unit)?,
-    refreshErrorTransform: ((Throwable) -> Any)?,
-    loadingConsumer: ((Boolean) -> Unit)?,
-    isLoadingConsumer: ((Boolean) -> Unit)?,
-    isRefreshingConsumer: ((Boolean) -> Unit)?,
-    refreshEnabledConsumer: ((Boolean) -> Unit)?,
-    contentVisibleConsumer: ((Boolean) -> Unit)?,
-    errorVisibleConsumer: ((Boolean) -> Unit)?,
-    emptyVisibleConsumer: ((Boolean) -> Unit)?,
+    private val dataConsumer: DataConsumer<T>?,
+    private val dataTransform: DataTransform<T>?,
+    private val pageLoadingVisibleConsumer: PageLoadingVisibleConsumer?,
+    private val pageErrorVisibleConsumer: PageErrorVisibleConsumer?,
+    private val pageErrorConsumer: PageErrorConsumer?,
+    private val pageInActionConsumer: PageInActionConsumer?,
+    private val isEndReachedConsumer: IsEndReachedConsumer?,
+    private val scrollToTopConsumer: ScrollToTopConsumer?,
+    errorConsumer: ErrorConsumer?,
+    errorTransform: ErrorTransform?,
+    refreshErrorConsumer: RefreshErrorConsumer?,
+    refreshErrorTransform: RefreshErrorTransform?,
+    loadingConsumer: LoadingConsumer?,
+    isLoadingConsumer: IsLoadingConsumer?,
+    isRefreshingConsumer: IsRefreshingConsumer?,
+    refreshEnabledConsumer: RefreshEnabledConsumer?,
+    contentVisibleConsumer: ContentVisibleConsumer?,
+    errorVisibleConsumer: ErrorVisibleConsumer?,
+    emptyVisibleConsumer: EmptyVisibleConsumer?,
     page: Int,
     limit: Int,
     pageSource: ((page: Int, limit: Int, offset: Int, lastPage: Paging.Page<T>?) -> Single<Paging.Page<T>>)
@@ -176,25 +181,25 @@ class PagingControl<T> internal constructor(
 
 @Suppress("LongParameterList")
 fun <T> PresentationModel.pagingControl(
-    dataConsumer: ((List<T>) -> Unit)? = null,
-    dataTransform: ((List<T>) -> Any)? = null,
-    pageLoadingVisibleConsumer: ((Boolean) -> Unit)? = null,
-    pageErrorVisibleConsumer: ((Boolean) -> Unit)? = null,
-    pageErrorConsumer: ((Throwable) -> Unit)? = null,
-    pageInActionConsumer: ((Boolean) -> Unit)? = null,
-    isEndReachedConsumer: ((Boolean) -> Unit)? = null,
-    scrollToTopConsumer: ((Unit) -> Unit)? = null,
-    errorConsumer: ((Throwable) -> Unit)? = null,
-    errorTransform: ((Throwable) -> Any)? = null,
-    refreshErrorConsumer: ((Throwable) -> Unit)? = null,
-    refreshErrorTransform: ((Throwable) -> Any)? = null,
-    loadingConsumer: ((Boolean) -> Unit)? = null,
-    isLoadingConsumer: ((Boolean) -> Unit)? = null,
-    isRefreshingConsumer: ((Boolean) -> Unit)? = null,
-    refreshEnabledConsumer: ((Boolean) -> Unit)? = null,
-    contentVisibleConsumer: ((Boolean) -> Unit)? = null,
-    errorVisibleConsumer: ((Boolean) -> Unit)? = null,
-    emptyVisibleConsumer: ((Boolean) -> Unit)? = null,
+    dataConsumer: DataConsumer<T>? = null,
+    dataTransform: DataTransform<T>? = null,
+    pageLoadingVisibleConsumer: PageLoadingVisibleConsumer? = null,
+    pageErrorVisibleConsumer: PageErrorVisibleConsumer? = null,
+    pageErrorConsumer: PageErrorConsumer? = null,
+    pageInActionConsumer: PageInActionConsumer? = null,
+    isEndReachedConsumer: IsEndReachedConsumer? = null,
+    scrollToTopConsumer: ScrollToTopConsumer? = null,
+    errorConsumer: ErrorConsumer? = null,
+    errorTransform: ErrorTransform? = null,
+    refreshErrorConsumer: RefreshErrorConsumer? = null,
+    refreshErrorTransform: RefreshErrorTransform? = null,
+    loadingConsumer: LoadingConsumer? = null,
+    isLoadingConsumer: IsLoadingConsumer? = null,
+    isRefreshingConsumer: IsRefreshingConsumer? = null,
+    refreshEnabledConsumer: RefreshEnabledConsumer? = null,
+    contentVisibleConsumer: ContentVisibleConsumer? = null,
+    errorVisibleConsumer: ErrorVisibleConsumer? = null,
+    emptyVisibleConsumer: EmptyVisibleConsumer? = null,
     page: Int = DEFAULT_START_PAGE_VALUE,
     limit: Int = DEFAULT_LIMIT_VALUE,
     pageSource: ((page: Int, limit: Int, offset: Int, lastPage: Paging.Page<T>?) -> Single<Paging.Page<T>>)
