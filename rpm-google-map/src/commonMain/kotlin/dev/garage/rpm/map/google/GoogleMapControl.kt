@@ -19,6 +19,7 @@ import dev.garage.rpm.permissions.PermissionResult
 import dev.garage.rpm.permissions.permissionControl
 import dev.garage.rpm.state
 
+private typealias PermissionResultListener = (PermissionResult) -> Unit
 private typealias OnFirstMapInitListener = GoogleMapControl.() -> Unit
 private typealias OnCameraScrollStateChangedListener = (scrolling: Boolean, isUserGesture: Boolean) -> Unit
 private typealias OnMarkerClickEventListener = (Any?) -> Unit
@@ -26,6 +27,7 @@ private typealias PermissionHandlerListener = (PermissionResult) -> Unit
 
 class GoogleMapControl internal constructor(
     override val commandList: ArrayList<MapCommand> = arrayListOf(),
+    private val permissionResultListener: PermissionResultListener,
     private val onFirstMapInit: OnFirstMapInitListener?,
     onCameraScrollStateChanged: OnCameraScrollStateChangedListener?,
     onMarkerClickEvent: OnMarkerClickEventListener?
@@ -64,16 +66,13 @@ class GoogleMapControl internal constructor(
             fineLocationPermission.checkAndRequest()
                 .asObservable()
                 .take(1)
-                .subscribe(
-                    onNext = { permissionResult ->
-                        for (permissionHandlerListener in permissionHandlerList) {
-                            permissionHandlerListener.invoke(permissionResult)
-                        }
-                        permissionHandlerList.clear()
-                    },
-                    onComplete = {
-                        val a = "fdfd"
-                    })
+                .subscribe { permissionResult ->
+                    permissionResultListener.invoke(permissionResult)
+                    for (permissionHandlerListener in permissionHandlerList) {
+                        permissionHandlerListener.invoke(permissionResult)
+                    }
+                    permissionHandlerList.clear()
+                }
         }
     }
 
@@ -271,11 +270,13 @@ class GoogleMapControl internal constructor(
 }
 
 fun PresentationModel.googleMapControl(
+    permissionResultListener: PermissionResultListener,
     onFirstMapInit: OnFirstMapInitListener? = null,
     onCameraScrollStateChanged: OnCameraScrollStateChangedListener? = null,
     onMarkerClickEvent: OnMarkerClickEventListener? = null
 ): GoogleMapControl {
     return GoogleMapControl(
+        permissionResultListener = permissionResultListener,
         onFirstMapInit = onFirstMapInit,
         onCameraScrollStateChanged = onCameraScrollStateChanged,
         onMarkerClickEvent = onMarkerClickEvent

@@ -14,6 +14,11 @@ import dev.garage.rpm.widget.dialogControl
 class GoogleMapPm : PresentationModel() {
 
     val googleMapControl = googleMapControl(
+        permissionResultListener = {
+            if (!it.isGranted) {
+                dialogControl.show(it.type.toString())
+            }
+        },
         onFirstMapInit = {
             setCurrentZoom(14f)
             setZoomConfig(ZoomConfig(min = 4f, max = 16f))
