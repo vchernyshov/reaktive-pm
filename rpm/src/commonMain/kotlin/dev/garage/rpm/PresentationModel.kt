@@ -19,7 +19,7 @@ abstract class PresentationModel {
         CREATED, BINDED, RESUMED, PAUSED, UNBINDED, DESTROYED
     }
 
-    val compositeDestroy = CompositeDisposable()
+    private val compositeDestroy = CompositeDisposable()
     private val compositeUnbind = CompositeDisposable()
     private val compositePause = CompositeDisposable()
 

@@ -27,6 +27,7 @@ private typealias PermissionHandlerListener = (PermissionResult) -> Unit
 
 class GoogleMapControl internal constructor(
     override val commandList: ArrayList<MapCommand> = arrayListOf(),
+    override val queueCommandList: ArrayList<MapCommand> = arrayListOf(),
     private val permissionResultListener: PermissionResultListener,
     private val onFirstMapInit: OnFirstMapInitListener?,
     onCameraScrollStateChanged: OnCameraScrollStateChangedListener?,
@@ -35,6 +36,10 @@ class GoogleMapControl internal constructor(
 
     internal val mapController: GoogleMapController =
         GoogleMapController(onCameraScrollStateChanged, onMarkerClickEvent)
+
+    internal val fineLocationPermission = permissionControl(Permission.LOCATION)
+
+    internal val mapReadyStatus = state(initialValue = GoogleMapReadyStatus.INIT)
 
     internal val isMapReady
         get() = mapReadyStatus.value == GoogleMapReadyStatus.BIND
@@ -48,18 +53,214 @@ class GoogleMapControl internal constructor(
                     if (previousMapReadyStatus == GoogleMapReadyStatus.INIT) {
                         onFirstMapInit?.invoke(this@GoogleMapControl)
                     }
-                    runMapCommands()
+                    if(previousMapReadyStatus == GoogleMapReadyStatus.UNBIND) {
+                        runMapCommands()
+                    }
                 }
             }
     }
 
-    internal val fineLocationPermission = permissionControl(Permission.LOCATION)
-
-    internal val mapReadyStatus = state(initialValue = GoogleMapReadyStatus.INIT)
-
+    //private val permissionHandlerList = mutableListOf<PermissionHandlerListener>()
+    // private val permissionHandlerMap = mutableMapOf<Permission, List<PermissionHandlerListener>>()
     private val permissionHandlerList = mutableListOf<PermissionHandlerListener>()
 
+    override fun showMyLocation(
+        zoom: Float,
+        commandStrategy: CommandStrategy
+    ) {
+        val command = MapCommand.ShowMyLocation(
+            zoom,
+            commandStrategy
+        )
+        addCommand(command)
+        showMyLocation(command)
+    }
+
+    private fun showMyLocation(
+        command: MapCommand.ShowMyLocation
+    ) {
+        checkPermission {
+            if (it.isGranted) {
+                executionCommand(
+                    command
+                )
+             //   runQueueMapCommands()
+            }
+        }
+    }
+
+    override fun showLocation(
+        latLng: LatLng,
+        zoom: Float,
+        animation: Boolean,
+        commandStrategy: CommandStrategy
+    ) {
+        val command = MapCommand.ShowLocation(
+            latLng,
+            zoom,
+            animation,
+            commandStrategy
+        )
+        addCommand(command)
+        showLocation(command)
+    }
+
+    private fun showLocation(
+        command: MapCommand.ShowLocation
+    ) {
+        executionCommand(command)
+    }
+
+    override fun getMapCenterLatLng(callback: (LatLng) -> Unit) {
+        val command = MapCommand.GetMapCenterLatLng(
+            callback,
+            CommandStrategy.OncePerformStrategy
+        )
+        addCommand(command)
+        getMapCenterLatLng(command)
+    }
+
+    private fun getMapCenterLatLng(command: MapCommand.GetMapCenterLatLng) {
+        executionCommand(command)
+    }
+
+    override fun getCurrentZoom(callback: (Float) -> Unit) {
+        val command = MapCommand.GetCurrentZoom(
+            callback,
+            CommandStrategy.OncePerformStrategy
+        )
+        addCommand(command)
+        getCurrentZoom(command)
+    }
+
+    private fun getCurrentZoom(command: MapCommand.GetCurrentZoom) {
+        executionCommand(command)
+    }
+
+    override fun setCurrentZoom(zoom: Float, commandStrategy: CommandStrategy) {
+        val command = MapCommand.SetCurrentZoom(zoom, commandStrategy)
+        addCommand(command)
+        setCurrentZoom(command)
+    }
+
+    private fun setCurrentZoom(command: MapCommand.SetCurrentZoom) {
+        executionCommand(command)
+    }
+
+    override fun getZoomConfig(callback: (ZoomConfig) -> Unit) {
+        val command = MapCommand.GetZoomConfig(
+            callback,
+            CommandStrategy.OncePerformStrategy
+        )
+        addCommand(command)
+        getZoomConfig(command)
+    }
+
+    private fun getZoomConfig(command: MapCommand.GetZoomConfig) {
+        executionCommand(command)
+    }
+
+    override fun setZoomConfig(config: ZoomConfig, commandStrategy: CommandStrategy) {
+        val command = MapCommand.SetZoomConfig(config, commandStrategy)
+        addCommand(command)
+        setZoomConfig(command)
+    }
+
+    private fun setZoomConfig(command: MapCommand.SetZoomConfig) {
+        executionCommand(command)
+    }
+
+    override fun addMarker(
+        googleMarkerData: MarkerData,
+        callback: ((Marker) -> Unit)?,
+        commandStrategy: CommandStrategy
+    ) {
+        val command = MapCommand.AddMarker(
+            googleMarkerData,
+            callback,
+            commandStrategy
+        )
+        addCommand(command)
+        addMarker(command)
+    }
+
+    private fun addMarker(command: MapCommand.AddMarker) {
+        executionCommand(command)
+    }
+
+    override fun addMarkers(
+        googleMarkerDataList: List<MarkerData>,
+        callback: ((List<Marker>) -> Unit)?,
+        commandStrategy: CommandStrategy
+    ) {
+        val command = MapCommand.AddMarkers(
+            googleMarkerDataList,
+            callback,
+            commandStrategy
+        )
+        addCommand(command)
+        addMarkers(command)
+    }
+
+    private fun addMarkers(command: MapCommand.AddMarkers) {
+        executionCommand(command)
+    }
+
+    override fun readUiSettings(callback: (UiSettings) -> Unit) {
+        val command = GoogleMapCommand.ReadUISettings(
+            callback,
+            CommandStrategy.OncePerformStrategy
+        )
+        addCommand(command)
+        readUiSettings(command)
+    }
+
+    private fun readUiSettings(command: GoogleMapCommand.ReadUISettings) {
+        executionCommand(command)
+    }
+
+    override fun writeUiSettings(
+        settings: UiSettings,
+        commandStrategy: CommandStrategy
+    ) {
+        val command = GoogleMapCommand.WriteUISettings(
+            settings,
+            commandStrategy
+        )
+        addCommand(command)
+        writeUiSettings(command)
+    }
+
+    private fun writeUiSettings(command: GoogleMapCommand.WriteUISettings) {
+        checkPermission {
+            if (it.isGranted) {
+                executionCommand(
+                    command
+                )
+               // runQueueMapCommands()
+            }
+        }
+    }
+
     private fun checkPermission(permissionHandlerListener: PermissionHandlerListener) {
+        val isEmptyHandlerList = permissionHandlerList.isEmpty()
+        permissionHandlerList.add(permissionHandlerListener)
+        if (isEmptyHandlerList) {
+            fineLocationPermission.checkAndRequest()
+                .asObservable()
+                .take(1)
+                .subscribe { permissionResult ->
+                    //permissionResultListener.invoke(permissionResult)
+                    for (permissionHandlerListener in permissionHandlerList) {
+                        permissionHandlerListener.invoke(permissionResult)
+                    }
+                    permissionHandlerList.clear()
+                   // runQueueMapCommands()
+                }
+        }
+    }
+
+    /*private fun checkPermission(permissionHandlerListener: PermissionHandlerListener) {
         val isEmptyHandlerList = permissionHandlerList.isEmpty()
         permissionHandlerList.add(permissionHandlerListener)
         if (isEmptyHandlerList) {
@@ -74,131 +275,49 @@ class GoogleMapControl internal constructor(
                     permissionHandlerList.clear()
                 }
         }
-    }
+    }*/
 
-    override fun showMyLocation(
-        zoom: Float,
-        commandStrategy: CommandStrategy
-    ) {
-        checkPermission { permissionResult ->
-            if (permissionResult.isGranted)
-                addAndExecuteCommand(
-                    MapCommand.ShowMyLocation(
-                        zoom,
-                        commandStrategy
-                    )
-                )
+    private fun runQueueMapCommands() {
+        val currentCommandList = arrayListOf<MapCommand>()
+        currentCommandList.addAll(queueCommandList)
+        queueCommandList.clear()
+        for (command in currentCommandList) {
+            when (command) {
+                is MapCommand.ShowMyLocation -> showMyLocation(command)
+                is MapCommand.ShowLocation -> showLocation(command)
+                is MapCommand.GetMapCenterLatLng -> getMapCenterLatLng(command)
+                is MapCommand.GetCurrentZoom -> getCurrentZoom(command)
+                is MapCommand.SetCurrentZoom -> setCurrentZoom(command)
+                is MapCommand.GetZoomConfig -> getZoomConfig(command)
+                is MapCommand.SetZoomConfig -> setZoomConfig(command)
+                is MapCommand.AddMarker -> addMarker(command)
+                is MapCommand.AddMarkers -> addMarkers(command)
+                is GoogleMapCommand.ReadUISettings -> readUiSettings(command)
+                is GoogleMapCommand.WriteUISettings -> writeUiSettings(command)
+            }
         }
-    }
-
-    override fun showLocation(
-        latLng: LatLng,
-        zoom: Float,
-        animation: Boolean,
-        commandStrategy: CommandStrategy
-    ) {
-        addAndExecuteCommand(
-            MapCommand.ShowLocation(
-                latLng,
-                zoom,
-                animation,
-                commandStrategy
-            )
-        )
-    }
-
-    override fun getMapCenterLatLng(callback: (LatLng) -> Unit) {
-        addAndExecuteCommand(
-            MapCommand.GetMapCenterLatLng(
-                callback,
-                CommandStrategy.OncePerformStrategy
-            )
-        )
-    }
-
-    override fun getCurrentZoom(callback: (Float) -> Unit) {
-        addAndExecuteCommand(
-            MapCommand.GetCurrentZoom(
-                callback,
-                CommandStrategy.OncePerformStrategy
-            )
-        )
-    }
-
-    override fun setCurrentZoom(zoom: Float, commandStrategy: CommandStrategy) {
-        addAndExecuteCommand(MapCommand.SetCurrentZoom(zoom, commandStrategy))
-    }
-
-    override fun getZoomConfig(callback: (ZoomConfig) -> Unit) {
-        addAndExecuteCommand(
-            MapCommand.GetZoomConfig(
-                callback,
-                CommandStrategy.OncePerformStrategy
-            )
-        )
-    }
-
-    override fun setZoomConfig(config: ZoomConfig, commandStrategy: CommandStrategy) {
-        addAndExecuteCommand(MapCommand.SetZoomConfig(config, commandStrategy))
-    }
-
-    override fun readUiSettings(callback: (UiSettings) -> Unit) {
-        addAndExecuteCommand(
-            GoogleMapCommand.ReadUISettings(
-                callback,
-                CommandStrategy.OncePerformStrategy
-            )
-        )
-    }
-
-    override fun writeUiSettings(
-        settings: UiSettings,
-        commandStrategy: CommandStrategy
-    ) {
-        checkPermission { permissionResult ->
-            if (permissionResult.isGranted)
-                addAndExecuteCommand(
-                    GoogleMapCommand.WriteUISettings(
-                        settings,
-                        commandStrategy
-                    )
-                )
-        }
-    }
-
-    override fun addMarker(
-        googleMarkerData: MarkerData,
-        callback: ((Marker) -> Unit)?,
-        commandStrategy: CommandStrategy
-    ) {
-        addAndExecuteCommand(
-            MapCommand.AddMarker(
-                googleMarkerData,
-                callback,
-                commandStrategy
-            )
-        )
-    }
-
-    override fun addMarkers(
-        googleMarkerDataList: List<MarkerData>,
-        callback: ((List<Marker>) -> Unit)?,
-        commandStrategy: CommandStrategy
-    ) {
-        addAndExecuteCommand(
-            MapCommand.AddMarkers(
-                googleMarkerDataList,
-                callback,
-                commandStrategy
-            )
-        )
     }
 
     private fun runMapCommands() {
         val currentCommandList = arrayListOf<MapCommand>()
         currentCommandList.addAll(commandList)
-        for (command in currentCommandList) {
+        /*for (command in currentCommandList) {
             executeCommand(command)
+        }*/
+        for (command in currentCommandList) {
+            when (command) {
+                is MapCommand.ShowMyLocation -> showMyLocation(command)
+                is MapCommand.ShowLocation -> showLocation(command)
+                is MapCommand.GetMapCenterLatLng -> getMapCenterLatLng(command)
+                is MapCommand.GetCurrentZoom -> getCurrentZoom(command)
+                is MapCommand.SetCurrentZoom -> setCurrentZoom(command)
+                is MapCommand.GetZoomConfig -> getZoomConfig(command)
+                is MapCommand.SetZoomConfig -> setZoomConfig(command)
+                is MapCommand.AddMarker -> addMarker(command)
+                is MapCommand.AddMarkers -> addMarkers(command)
+                is GoogleMapCommand.ReadUISettings -> readUiSettings(command)
+                is GoogleMapCommand.WriteUISettings -> writeUiSettings(command)
+            }
         }
     }
 
@@ -219,10 +338,13 @@ class GoogleMapControl internal constructor(
         }
     }
 
-    private fun addAndExecuteCommand(command: MapCommand) {
-        addCommand(command)
+    private fun executionCommand(command: MapCommand) {
         if (isMapReady) {
-            executeCommand(command)
+            if (permissionHandlerList.isEmpty()) {
+                executeCommand(command)
+            } else {
+                queueCommandList.add(command)
+            }
         }
     }
 
@@ -239,8 +361,6 @@ class GoogleMapControl internal constructor(
             is MapCommand.SetCurrentZoom -> mapController.setCurrentZoom(zoom = command.zoom)
             is MapCommand.GetZoomConfig -> command.callback.invoke(mapController.getZoomConfig())
             is MapCommand.SetZoomConfig -> mapController.setZoomConfig(config = command.config)
-            is GoogleMapCommand.ReadUISettings -> command.callback.invoke(mapController.readUiSettings())
-            is GoogleMapCommand.WriteUISettings -> mapController.writeUiSettings(settings = command.uiSettings)
             is MapCommand.AddMarker -> {
                 val marker = addMarker(command.googleMarkerData)
                 command.callback?.invoke(marker)
@@ -252,6 +372,8 @@ class GoogleMapControl internal constructor(
                 }
                 command.callback?.invoke(addedMarkers)
             }
+            is GoogleMapCommand.ReadUISettings -> command.callback.invoke(mapController.readUiSettings())
+            is GoogleMapCommand.WriteUISettings -> mapController.writeUiSettings(settings = command.uiSettings)
         }
         if (command.commandStrategy == CommandStrategy.OncePerformStrategy) {
             commandList.remove(command)

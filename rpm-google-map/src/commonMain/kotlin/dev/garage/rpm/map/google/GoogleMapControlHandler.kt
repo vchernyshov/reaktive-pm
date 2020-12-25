@@ -10,6 +10,7 @@ import dev.garage.rpm.map.strategy.CommandStrategy
 interface GoogleMapControlHandler {
 
     val commandList: ArrayList<MapCommand>
+    val queueCommandList: ArrayList<MapCommand>
 
     fun showMyLocation(
         zoom: Float,
@@ -37,12 +38,6 @@ interface GoogleMapControlHandler {
         commandStrategy: CommandStrategy = CommandStrategy.AddSingleStrategy
     )
 
-    fun readUiSettings(callback: (UiSettings) -> Unit)
-    fun writeUiSettings(
-        settings: UiSettings,
-        commandStrategy: CommandStrategy = CommandStrategy.AddSingleStrategy
-    )
-
     fun addMarker(
         googleMarkerData: MarkerData,
         callback: ((Marker) -> Unit)? = null,
@@ -53,5 +48,11 @@ interface GoogleMapControlHandler {
         googleMarkerDataList: List<MarkerData>,
         callback: ((List<Marker>) -> Unit)? = null,
         commandStrategy: CommandStrategy = CommandStrategy.AddStrategy
+    )
+
+    fun readUiSettings(callback: (UiSettings) -> Unit)
+    fun writeUiSettings(
+        settings: UiSettings,
+        commandStrategy: CommandStrategy = CommandStrategy.AddSingleStrategy
     )
 }

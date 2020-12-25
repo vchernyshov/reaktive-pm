@@ -2,27 +2,35 @@ package dev.garage.rpm.app.common.google_map
 
 import dev.garage.rpm.MR
 import dev.garage.rpm.PresentationModel
+import dev.garage.rpm.command
 import dev.garage.rpm.map.LatLng
 import dev.garage.rpm.map.ZoomConfig
 import dev.garage.rpm.map.data.MarkerData
 import dev.garage.rpm.map.google.UiSettings
 import dev.garage.rpm.map.google.googleMapControl
 import dev.garage.rpm.map.google.mapReadyStatusChanges
+import dev.garage.rpm.map.strategy.CommandStrategy
 import dev.garage.rpm.state
 import dev.garage.rpm.widget.dialogControl
 
 class GoogleMapPm : PresentationModel() {
 
+  //  enum class DialogResult { OK }
+
+   // val dialogControl = dialogControl<String, DialogResult>()
+
     val googleMapControl = googleMapControl(
         permissionResultListener = {
-            if (!it.isGranted) {
-                dialogControl.show(it.type.toString())
-            }
+            val a = ""
+           /* if (!it.isGranted) {
+                messageCommand.accept(it.type.toString())
+            }*/
         },
         onFirstMapInit = {
             setCurrentZoom(14f)
             setZoomConfig(ZoomConfig(min = 4f, max = 16f))
             writeUiSettings(UiSettings(myLocationButtonEnabled = true))
+          //  showMyLocation(14f, CommandStrategy.OncePerformStrategy)
             val marketLatLng1 = LatLng(
                 latitude = 41.875725,
                 longitude = -87.623757
@@ -48,7 +56,9 @@ class GoogleMapPm : PresentationModel() {
         }
     )
 
-    val status = state { googleMapControl.mapReadyStatusChanges() }
+   // val status = state { googleMapControl.mapReadyStatusChanges() }
 
-    val dialogControl = dialogControl<String, Unit>()
+  //  val messageCommand = command<String>()
+
+
 }

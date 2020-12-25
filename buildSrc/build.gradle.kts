@@ -9,6 +9,7 @@ repositories {
     google()
 
     maven { url = uri("https://dl.bintray.com/icerockdev/plugins") }
+    maven { url =uri{"https://dl.bintray.com/aakira/maven"} }
 }
 
 dependencies {
