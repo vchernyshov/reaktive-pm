@@ -90,7 +90,7 @@ class LoadingControl<T> internal constructor(
         addDataHandler(dataConsumer, dataTransform)
     }
 
-    override fun addDataHandler(dataConsumer: ((T) -> Unit)?, dataTransform: ((T) -> Any)?) {
+    override fun addDataHandler(dataConsumer: DataConsumer<T>?, dataTransform: DataTransform<T>?) {
         if (dataConsumer != null || dataTransform != null) {
             contentChanges.observable.subscribe { data ->
                 dataConsumer?.let { it.invoke(data) }

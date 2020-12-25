@@ -64,8 +64,8 @@ abstract class BaseLoadingAndPagingControl constructor(
     }
 
     override fun addErrorHandler(
-        errorConsumer: ((Throwable) -> Unit)?,
-        errorTransform: ((Throwable) -> Any)?
+        errorConsumer: ErrorConsumer?,
+        errorTransform: ErrorTransform?
     ) {
         if (errorConsumer != null || errorTransform != null) {
             errorChanges.observable.subscribe { throwable ->
@@ -76,8 +76,8 @@ abstract class BaseLoadingAndPagingControl constructor(
     }
 
     override fun addRefreshErrorHandler(
-        refreshErrorConsumer: ((Throwable) -> Unit)?,
-        refreshErrorTransform: ((Throwable) -> Any)?
+        refreshErrorConsumer: RefreshErrorConsumer?,
+        refreshErrorTransform: RefreshErrorTransform?
     ) {
         if (refreshErrorConsumer != null || refreshErrorTransform != null) {
             refreshErrorChanges.observable.subscribe { throwable ->
@@ -87,7 +87,7 @@ abstract class BaseLoadingAndPagingControl constructor(
         }
     }
 
-    override fun addLoadingHandler(loadingConsumer: ((Boolean) -> Unit)?) {
+    override fun addLoadingHandler(loadingConsumer: LoadingConsumer?) {
         loadingConsumer?.let { consumer ->
             loadingChanges.observable.subscribe {
                 consumer.invoke(it)
@@ -95,7 +95,7 @@ abstract class BaseLoadingAndPagingControl constructor(
         }
     }
 
-    override fun addIsLoadingHandler(isLoadingConsumer: ((Boolean) -> Unit)?) {
+    override fun addIsLoadingHandler(isLoadingConsumer: IsLoadingConsumer?) {
         isLoadingConsumer?.let { consumer ->
             isLoading.observable.subscribe {
                 consumer.invoke(it)
@@ -103,7 +103,7 @@ abstract class BaseLoadingAndPagingControl constructor(
         }
     }
 
-    override fun addIsRefreshingHandler(isRefreshingConsumer: ((Boolean) -> Unit)?) {
+    override fun addIsRefreshingHandler(isRefreshingConsumer: IsRefreshingConsumer?) {
         isRefreshingConsumer?.let { consumer ->
             isRefreshing.observable.subscribe {
                 consumer.invoke(it)
@@ -111,7 +111,7 @@ abstract class BaseLoadingAndPagingControl constructor(
         }
     }
 
-    override fun addRefreshEnabledHandler(refreshEnabledConsumer: ((Boolean) -> Unit)?) {
+    override fun addRefreshEnabledHandler(refreshEnabledConsumer: RefreshEnabledConsumer?) {
         refreshEnabledConsumer?.let { consumer ->
             refreshEnabled.observable.subscribe {
                 consumer.invoke(it)
@@ -119,7 +119,7 @@ abstract class BaseLoadingAndPagingControl constructor(
         }
     }
 
-    override fun addContentVisibleHandler(contentVisibleConsumer: ((Boolean) -> Unit)?) {
+    override fun addContentVisibleHandler(contentVisibleConsumer: ContentVisibleConsumer?) {
         contentVisibleConsumer?.let { consumer ->
             contentViewVisible.observable.subscribe {
                 consumer.invoke(it)
@@ -127,7 +127,7 @@ abstract class BaseLoadingAndPagingControl constructor(
         }
     }
 
-    override fun addErrorVisibleHandler(errorVisibleConsumer: ((Boolean) -> Unit)?) {
+    override fun addErrorVisibleHandler(errorVisibleConsumer: ErrorVisibleConsumer?) {
         errorVisibleConsumer?.let { consumer ->
             errorViewVisible.observable.subscribe {
                 consumer.invoke(it)
@@ -135,7 +135,7 @@ abstract class BaseLoadingAndPagingControl constructor(
         }
     }
 
-    override fun addEmptyVisibleHandler(emptyVisibleConsumer: ((Boolean) -> Unit)?) {
+    override fun addEmptyVisibleHandler(emptyVisibleConsumer: EmptyVisibleConsumer?) {
         emptyVisibleConsumer?.let { consumer ->
             emptyViewVisible.observable.subscribe {
                 consumer.invoke(it)

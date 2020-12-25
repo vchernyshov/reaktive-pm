@@ -118,8 +118,8 @@ class PagingControl<T> internal constructor(
     }
 
     override fun addDataHandler(
-        dataConsumer: ((List<T>) -> Unit)?,
-        dataTransform: ((List<T>) -> Any)?
+        dataConsumer: DataConsumer<T>?,
+        dataTransform: DataTransform<T>?
     ) {
         if (dataConsumer != null || dataTransform != null) {
             contentChanges.observable.subscribe { data ->
@@ -129,7 +129,7 @@ class PagingControl<T> internal constructor(
         }
     }
 
-    override fun addPageLoadingVisibleHandler(pageLoadingVisibleConsumer: ((Boolean) -> Unit)?) {
+    override fun addPageLoadingVisibleHandler(pageLoadingVisibleConsumer: PageLoadingVisibleConsumer?) {
         pageLoadingVisibleConsumer?.let { consumer ->
             pageLoadingVisible.observable.subscribe {
                 consumer.invoke(it)
@@ -137,7 +137,7 @@ class PagingControl<T> internal constructor(
         }
     }
 
-    override fun addPageErrorVisibleHandler(pageErrorVisibleConsumer: ((Boolean) -> Unit)?) {
+    override fun addPageErrorVisibleHandler(pageErrorVisibleConsumer: PageErrorVisibleConsumer?) {
         pageErrorVisibleConsumer?.let { consumer ->
             pageErrorVisible.observable.subscribe {
                 consumer.invoke(it)
@@ -145,7 +145,7 @@ class PagingControl<T> internal constructor(
         }
     }
 
-    override fun addPageErrorHandler(pageErrorConsumer: ((Throwable) -> Unit)?) {
+    override fun addPageErrorHandler(pageErrorConsumer: PageErrorConsumer?) {
         pageErrorConsumer?.let { consumer ->
             pageError.observable.subscribe {
                 consumer.invoke(it)
@@ -153,7 +153,7 @@ class PagingControl<T> internal constructor(
         }
     }
 
-    override fun addPageInActionHandler(pageInActionConsumer: ((Boolean) -> Unit)?) {
+    override fun addPageInActionHandler(pageInActionConsumer: PageInActionConsumer?) {
         pageInActionConsumer?.let { consumer ->
             pageInAction.observable.subscribe {
                 consumer.invoke(it)
@@ -161,7 +161,7 @@ class PagingControl<T> internal constructor(
         }
     }
 
-    override fun addIsEndReachedHandler(isEndReachedConsumer: ((Boolean) -> Unit)?) {
+    override fun addIsEndReachedHandler(isEndReachedConsumer: IsEndReachedConsumer?) {
         isEndReachedConsumer?.let { consumer ->
             isEndReached.observable.subscribe {
                 consumer.invoke(it)
@@ -169,7 +169,7 @@ class PagingControl<T> internal constructor(
         }
     }
 
-    override fun addScrollToTopHandler(scrollToTopConsumer: ((Unit) -> Unit)?) {
+    override fun addScrollToTopHandler(scrollToTopConsumer: ScrollToTopConsumer?) {
         paging.scrollToTop().subscribe {
             scrollToTopConsumer?.let { it.invoke(Unit) }
             scrollToTop.accept(Unit)

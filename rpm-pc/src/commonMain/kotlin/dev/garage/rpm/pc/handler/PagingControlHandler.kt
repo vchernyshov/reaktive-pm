@@ -1,20 +1,21 @@
 package dev.garage.rpm.pc.handler
 
 import dev.garage.rpm.base.lpc.handler.BaseLoadingAndPagingControlHandler
+import dev.garage.rpm.pc.controls.*
 
 interface PagingControlHandler<T> : BaseLoadingAndPagingControlHandler {
 
-    fun addDataHandler(dataConsumer: ((List<T>) -> Unit)?, dataTransform: ((List<T>) -> Any)?)
+    fun addDataHandler(dataConsumer: DataConsumer<T>?, dataTransform: DataTransform<T>?)
 
-    fun addPageLoadingVisibleHandler(pageLoadingVisibleConsumer: ((Boolean) -> Unit)?)
+    fun addPageLoadingVisibleHandler(pageLoadingVisibleConsumer: PageLoadingVisibleConsumer?)
 
-    fun addPageErrorVisibleHandler(pageErrorVisibleConsumer: ((Boolean) -> Unit)?)
+    fun addPageErrorVisibleHandler(pageErrorVisibleConsumer: PageErrorVisibleConsumer?)
 
-    fun addPageErrorHandler(pageErrorConsumer: ((Throwable) -> Unit)?)
+    fun addPageErrorHandler(pageErrorConsumer: PageErrorConsumer?)
 
-    fun addPageInActionHandler(pageInActionConsumer: ((Boolean) -> Unit)?)
+    fun addPageInActionHandler(pageInActionConsumer: PageInActionConsumer?)
 
-    fun addIsEndReachedHandler(isEndReachedConsumer: ((Boolean) -> Unit)?)
+    fun addIsEndReachedHandler(isEndReachedConsumer: IsEndReachedConsumer?)
 
-    fun addScrollToTopHandler(scrollToTopConsumer: ((Unit) -> Unit)?)
+    fun addScrollToTopHandler(scrollToTopConsumer: ScrollToTopConsumer?)
 }

@@ -1,28 +1,30 @@
 package dev.garage.rpm.base.lpc.handler
 
+import dev.garage.rpm.base.lpc.controls.*
+
 interface BaseLoadingAndPagingControlHandler {
 
     fun addErrorHandler(
-        errorConsumer: ((Throwable) -> Unit)?,
-        errorTransform: ((Throwable) -> Any)?
+        errorConsumer: ErrorConsumer?,
+        errorTransform: ErrorTransform?
     )
 
     fun addRefreshErrorHandler(
-        refreshErrorConsumer: ((Throwable) -> Unit)?,
-        refreshErrorTransform: ((Throwable) -> Any)?
+        refreshErrorConsumer: RefreshErrorConsumer?,
+        refreshErrorTransform: RefreshErrorTransform?
     )
 
-    fun addLoadingHandler(loadingConsumer: ((Boolean) -> Unit)?)
+    fun addLoadingHandler(loadingConsumer: LoadingConsumer?)
 
-    fun addIsLoadingHandler(isLoadingConsumer: ((Boolean) -> Unit)?)
+    fun addIsLoadingHandler(isLoadingConsumer: IsLoadingConsumer?)
 
-    fun addIsRefreshingHandler(isRefreshingConsumer: ((Boolean) -> Unit)?)
+    fun addIsRefreshingHandler(isRefreshingConsumer: IsRefreshingConsumer?)
 
-    fun addRefreshEnabledHandler(refreshEnabledConsumer: ((Boolean) -> Unit)?)
+    fun addRefreshEnabledHandler(refreshEnabledConsumer: RefreshEnabledConsumer?)
 
-    fun addContentVisibleHandler(contentVisibleConsumer: ((Boolean) -> Unit)?)
+    fun addContentVisibleHandler(contentVisibleConsumer: ContentVisibleConsumer?)
 
-    fun addErrorVisibleHandler(errorVisibleConsumer: ((Boolean) -> Unit)?)
+    fun addErrorVisibleHandler(errorVisibleConsumer: ErrorVisibleConsumer?)
 
-    fun addEmptyVisibleHandler(emptyVisibleConsumer: ((Boolean) -> Unit)?)
+    fun addEmptyVisibleHandler(emptyVisibleConsumer: EmptyVisibleConsumer?)
 }
