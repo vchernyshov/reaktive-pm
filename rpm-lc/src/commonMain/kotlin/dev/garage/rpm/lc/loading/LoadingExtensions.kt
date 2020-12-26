@@ -4,10 +4,7 @@
 
 package dev.garage.rpm.lc.loading
 
-import com.badoo.reaktive.observable.Observable
-import com.badoo.reaktive.observable.distinctUntilChanged
-import com.badoo.reaktive.observable.filter
-import com.badoo.reaktive.observable.map
+import com.badoo.reaktive.observable.*
 import dev.garage.rpm.base.lpc.contentIsEmpty
 
 fun <T> Loading<T>.contentChanges(): Observable<T> {
@@ -73,4 +70,16 @@ fun <T> Loading<T>.refreshEnabled(): Observable<Boolean> {
         val isContentNull = it.content == null
         if (isContentNull) false else (it.loading && isContentNull).not()
     }.distinctUntilChanged()
+}
+
+fun <T, V> Loading<T>.scrollToTop(): Observable<Unit> {
+    return contentChanges()
+        .filter { it is Collection<*> }
+        .map { it as List<V> }
+        .scan(emptyList<V>() to emptyList<V>()) { pair, list ->
+            pair.second to list
+        }
+        .map { it.second.size <= it.first.size }
+        .filter { it }
+        .map { Unit }
 }

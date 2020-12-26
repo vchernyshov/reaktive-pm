@@ -9,22 +9,12 @@ import dev.garage.rpm.accept
 import dev.garage.rpm.action
 import dev.garage.rpm.base.lpc.controls.*
 import dev.garage.rpm.lc.handler.LoadingControlHandler
-import dev.garage.rpm.lc.loading.Loading
-import dev.garage.rpm.lc.loading.LoadingImpl
-import dev.garage.rpm.lc.loading.contentChanges
-import dev.garage.rpm.lc.loading.contentVisible
-import dev.garage.rpm.lc.loading.emptyVisible
-import dev.garage.rpm.lc.loading.errorChanges
-import dev.garage.rpm.lc.loading.errorVisible
-import dev.garage.rpm.lc.loading.isLoading
-import dev.garage.rpm.lc.loading.isRefreshing
-import dev.garage.rpm.lc.loading.loadingChanges
-import dev.garage.rpm.lc.loading.refreshEnabled
-import dev.garage.rpm.lc.loading.refreshErrorChanges
+import dev.garage.rpm.lc.loading.*
 import dev.garage.rpm.state
 
 typealias DataConsumer<T> = (T) -> Unit
 typealias DataTransform<T> = (T) -> Any
+typealias ScrollToTopConsumer = (Unit) -> Unit
 
 @Suppress("LongParameterList")
 class LoadingControl<T> internal constructor(
@@ -97,6 +87,13 @@ class LoadingControl<T> internal constructor(
                 dataTransform?.let { transformedData.accept(it.invoke(data)) }
             }.untilDestroy()
         }
+    }
+
+    //only for list
+    override fun <V> addScrollToTopHandler(scrollToTopConsumer: ScrollToTopConsumer?) {
+        loading.scrollToTop<T, V>().subscribe {
+            scrollToTopConsumer?.let { it.invoke(Unit) }
+        }.untilDestroy()
     }
 
     internal fun checkDataTransformAvailable() = dataTransform != null
