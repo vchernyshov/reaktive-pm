@@ -33,6 +33,8 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".permissions.PermissionsActivity" />
+        <activity android:name=".loading.LoadingActivity" />
+        <activity android:name=".paging.PagingActivity" />
 
     </application>
 

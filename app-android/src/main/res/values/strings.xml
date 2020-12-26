@@ -9,6 +9,8 @@
     <string name="launch_counter_sample">Counter Sample</string>
     <string name="launch_form_validation_sample">Form Validation</string>
     <string name="launch_permissions_sample">Permissions</string>
+    <string name="launch_loading_sample">Loading Data</string>
+    <string name="launch_paging_sample">Paging Data</string>
 
     <!-- Auth by phone -->
     <string name="auth_by_phone_screen_text">Please confirm your country code and enter your phone number.</string>
