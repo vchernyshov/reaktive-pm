@@ -1,5 +1,6 @@
 package dev.garage.rpm.lc.controls
 
+import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.doOnBeforeNext
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.subscribe
@@ -10,14 +11,15 @@ import dev.garage.rpm.action
 import dev.garage.rpm.base.lpc.controls.*
 import dev.garage.rpm.lc.handler.LoadingControlHandler
 import dev.garage.rpm.lc.loading.*
+import dev.garage.rpm.lc.settings.LoadingControlSettings
 import dev.garage.rpm.state
 
 typealias DataConsumer<T> = (T) -> Unit
 typealias DataTransform<T> = (T) -> Any
-typealias ScrollToTopConsumer = (Unit) -> Unit
 
 @Suppress("LongParameterList")
 class LoadingControl<T> internal constructor(
+    loadingControlSettings: LoadingControlSettings<T>,
     private val dataConsumer: DataConsumer<T>?,
     private val dataTransform: DataTransform<T>?,
     errorConsumer: ErrorConsumer?,
@@ -33,6 +35,7 @@ class LoadingControl<T> internal constructor(
     emptyVisibleConsumer: EmptyVisibleConsumer?,
     sourceData: Single<T>
 ) : BaseLoadingAndPagingControl(
+    loadingControlSettings,
     errorConsumer,
     errorTransform,
     refreshErrorConsumer,
@@ -45,22 +48,32 @@ class LoadingControl<T> internal constructor(
     errorVisibleConsumer,
     emptyVisibleConsumer
 ), LoadingControlHandler<T> {
-    override val errorChanges = state { loading.errorChanges() }
-    override val refreshErrorChanges = state { loading.refreshErrorChanges() }
 
-    override val loadingChanges = state { loading.loadingChanges() }
+    override val loading: LoadingImpl<T> = LoadingImpl(sourceData)
 
-    override val isLoading = state { loading.isLoading() }
+    override val errorChangesObservable = loading.errorChanges()
 
-    override val isRefreshing = state { loading.isRefreshing() }
-    override val refreshEnabled = state { loading.refreshEnabled() }
+    override val refreshErrorChangesObservable: Observable<Throwable> =
+        loading.refreshErrorChanges()
 
-    override val contentViewVisible = state { loading.contentVisible() }
-    override val emptyViewVisible = state { loading.emptyVisible() }
-    override val errorViewVisible = state { loading.errorVisible() }
+    override val loadingChangesObservable: Observable<Boolean> = loading.loadingChanges()
 
-    val contentChanges = state { loading.contentChanges() }
-    val transformedData = state<Any?>(null)
+    override val isLoadingObservable: Observable<Boolean> = loading.isLoading()
+
+    override val isRefreshingObservable: Observable<Boolean> = loading.isRefreshing()
+
+    override val refreshEnabledObservable: Observable<Boolean> = loading.refreshEnabled()
+
+    override val contentViewVisibleObservable: Observable<Boolean> = loading.contentVisible()
+
+    override val emptyViewVisibleObservable: Observable<Boolean> = loading.emptyVisible()
+
+    override val errorViewVisibleObservable: Observable<Boolean> = loading.errorVisible()
+
+    internal val contentChanges =
+        state(diffStrategy = loadingControlSettings.contentChangesDiffStrategy) { loading.contentChanges() }
+    internal val transformedData =
+        state(null, diffStrategy = loadingControlSettings.transformedDataDiffStrategy)
 
     val loadAction = action<Unit> {
         this.map { Loading.Action.REFRESH }
@@ -71,9 +84,6 @@ class LoadingControl<T> internal constructor(
         this.map { Loading.Action.FORCE_REFRESH }
             .doOnBeforeNext { loading.actions.accept(it) }
     }
-
-    private val loading =
-        LoadingImpl(source = sourceData)
 
     override fun onCreate() {
         super.onCreate()
@@ -89,18 +99,12 @@ class LoadingControl<T> internal constructor(
         }
     }
 
-    //only for list
-    override fun <V> addScrollToTopHandler(scrollToTopConsumer: ScrollToTopConsumer?) {
-        loading.scrollToTop<T, V>().subscribe {
-            scrollToTopConsumer?.let { it.invoke(Unit) }
-        }.untilDestroy()
-    }
-
     internal fun checkDataTransformAvailable() = dataTransform != null
 }
 
 @Suppress("LongParameterList")
 fun <T> PresentationModel.loadingControl(
+    loadingControlSettings: LoadingControlSettings<T> = LoadingControlSettings(),
     dataConsumer: DataConsumer<T>? = null,
     dataTransform: DataTransform<T>? = null,
     errorConsumer: ErrorConsumer? = null,
@@ -117,6 +121,7 @@ fun <T> PresentationModel.loadingControl(
     sourceData: Single<T>
 ): LoadingControl<T> {
     return LoadingControl(
+        loadingControlSettings,
         dataConsumer,
         dataTransform,
         errorConsumer,

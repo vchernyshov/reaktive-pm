@@ -1,9 +1,11 @@
 package dev.garage.rpm.base.lpc.controls
 
+import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.subscribe
 import dev.garage.rpm.PresentationModel
 import dev.garage.rpm.State
 import dev.garage.rpm.base.lpc.handler.BaseLoadingAndPagingControlHandler
+import dev.garage.rpm.base.lpc.settings.BaseLoadingAndPagingControlSettings
 import dev.garage.rpm.state
 
 typealias ErrorConsumer = (Throwable) -> Unit
@@ -20,6 +22,7 @@ typealias EmptyVisibleConsumer = (Boolean) -> Unit
 
 @Suppress("LongParameterList")
 abstract class BaseLoadingAndPagingControl constructor(
+    baseLoadingAndPagingControlSettings: BaseLoadingAndPagingControlSettings,
     private val errorConsumer: ErrorConsumer?,
     private val errorTransform: ErrorTransform?,
     private val refreshErrorConsumer: RefreshErrorConsumer?,
@@ -33,22 +36,50 @@ abstract class BaseLoadingAndPagingControl constructor(
     private val emptyVisibleConsumer: EmptyVisibleConsumer?
 ) : PresentationModel(), BaseLoadingAndPagingControlHandler {
 
-    abstract val errorChanges: State<Throwable>
-    abstract val refreshErrorChanges: State<Throwable>
+    protected abstract val errorChangesObservable: Observable<Throwable>
+    internal val errorChanges =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.errorChangesDiffStrategy) { errorChangesObservable }
 
-    abstract val loadingChanges: State<Boolean>
+    protected abstract val refreshErrorChangesObservable: Observable<Throwable>
+    internal val refreshErrorChanges: State<Throwable> =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.refreshErrorChangesDiffStrategy) { refreshErrorChangesObservable }
 
-    abstract val isLoading: State<Boolean>
+    protected abstract val loadingChangesObservable: Observable<Boolean>
+    internal val loadingChanges: State<Boolean> =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.loadingChangesDiffStrategy) { loadingChangesObservable }
 
-    abstract val isRefreshing: State<Boolean>
-    abstract val refreshEnabled: State<Boolean>
+    protected abstract val isLoadingObservable: Observable<Boolean>
+    internal val isLoading: State<Boolean> =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.isLoadingDiffStrategy) { isLoadingObservable }
 
-    abstract val contentViewVisible: State<Boolean>
-    abstract val emptyViewVisible: State<Boolean>
-    abstract val errorViewVisible: State<Boolean>
+    protected abstract val isRefreshingObservable: Observable<Boolean>
+    internal val isRefreshing: State<Boolean> =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.isRefreshingDiffStrategy) { isRefreshingObservable }
 
-    val transformedError = state<Any?>(null)
-    val transformedRefreshError = state<Any?>(null)
+    protected abstract val refreshEnabledObservable: Observable<Boolean>
+    internal val refreshEnabled: State<Boolean> =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.refreshEnabledDiffStrategy) { refreshEnabledObservable }
+
+    protected abstract val contentViewVisibleObservable: Observable<Boolean>
+    internal val contentViewVisible: State<Boolean> =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.contentViewVisibleDiffStrategy) { contentViewVisibleObservable }
+
+    protected abstract val emptyViewVisibleObservable: Observable<Boolean>
+    internal val emptyViewVisible: State<Boolean> =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.emptyViewVisibleDiffStrategy) { emptyViewVisibleObservable }
+
+    protected abstract val errorViewVisibleObservable: Observable<Boolean>
+    internal val errorViewVisible: State<Boolean> =
+        state(diffStrategy = baseLoadingAndPagingControlSettings.errorViewVisibleDiffStrategy) { errorViewVisibleObservable }
+
+    internal val transformedError = state<Any?>(
+        null,
+        diffStrategy = baseLoadingAndPagingControlSettings.transformedErrorDiffStrategy
+    )
+    internal val transformedRefreshError = state<Any?>(
+        null,
+        diffStrategy = baseLoadingAndPagingControlSettings.transformedRefreshErrorDiffStrategy
+    )
 
     override fun onCreate() {
         super.onCreate()

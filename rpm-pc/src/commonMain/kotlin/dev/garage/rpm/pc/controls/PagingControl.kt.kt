@@ -1,5 +1,6 @@
 package dev.garage.rpm.pc.controls
 
+import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.doOnBeforeNext
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.subscribe
@@ -8,6 +9,7 @@ import dev.garage.rpm.*
 import dev.garage.rpm.base.lpc.controls.*
 import dev.garage.rpm.pc.handler.PagingControlHandler
 import dev.garage.rpm.pc.paging.*
+import dev.garage.rpm.pc.settings.PagingControlSettings
 
 typealias DataConsumer<T> = (List<T>) -> Unit
 typealias DataTransform<T> = (List<T>) -> Any
@@ -23,6 +25,7 @@ const val DEFAULT_LIMIT_VALUE = 10
 
 @Suppress("LongParameterList")
 class PagingControl<T> internal constructor(
+    pagingControlSettings: PagingControlSettings<T>,
     private val dataConsumer: DataConsumer<T>?,
     private val dataTransform: DataTransform<T>?,
     private val pageLoadingVisibleConsumer: PageLoadingVisibleConsumer?,
@@ -46,6 +49,7 @@ class PagingControl<T> internal constructor(
     limit: Int,
     pageSource: ((page: Int, limit: Int, offset: Int, lastPage: Paging.Page<T>?) -> Single<Paging.Page<T>>)
 ) : BaseLoadingAndPagingControl(
+    pagingControlSettings,
     errorConsumer,
     errorTransform,
     refreshErrorConsumer,
@@ -58,31 +62,46 @@ class PagingControl<T> internal constructor(
     errorVisibleConsumer,
     emptyVisibleConsumer
 ), PagingControlHandler<T> {
-    override val errorChanges = state { paging.errorChanges() }
-    override val refreshErrorChanges = state { paging.refreshErrorChanges() }
 
-    override val loadingChanges = state { paging.loadingChanges() }
+    override val paging = PagingImpl(page, limit, pageSource = pageSource)
 
-    override val isLoading = state { paging.isLoading() }
+    override val errorChangesObservable = paging.errorChanges()
 
-    override val isRefreshing = state { paging.isRefreshing() }
-    override val refreshEnabled = state { paging.refreshEnabled() }
+    override val refreshErrorChangesObservable: Observable<Throwable> =
+        paging.refreshErrorChanges()
 
-    override val contentViewVisible = state { paging.contentVisible() }
-    override val emptyViewVisible = state { paging.emptyVisible() }
-    override val errorViewVisible = state { paging.errorVisible() }
+    override val loadingChangesObservable: Observable<Boolean> = paging.loadingChanges()
 
-    val contentChanges = state { paging.contentChanges() }
-    val transformedData = state<Any?>(null)
+    override val isLoadingObservable: Observable<Boolean> = paging.isLoading()
 
-    val pageInAction = state { paging.pageInAction() }
-    val pageLoadingVisible = state { paging.pageLoadingVisible() }
-    val pageErrorVisible = state { paging.pagingErrorVisible() }
-    val pageError = state { paging.pagingErrorChanges() }
+    override val isRefreshingObservable: Observable<Boolean> = paging.isRefreshing()
 
-    val isEndReached = state { paging.isEndReached() }
+    override val refreshEnabledObservable: Observable<Boolean> = paging.refreshEnabled()
 
-    val scrollToTop = command<Unit>()
+    override val contentViewVisibleObservable: Observable<Boolean> = paging.contentVisible()
+
+    override val emptyViewVisibleObservable: Observable<Boolean> = paging.emptyVisible()
+
+    override val errorViewVisibleObservable: Observable<Boolean> = paging.errorVisible()
+
+    internal val contentChanges =
+        state(diffStrategy = pagingControlSettings.contentChangesDiffStrategy) { paging.contentChanges() }
+    internal val transformedData =
+        state(null, diffStrategy = pagingControlSettings.transformedDataDiffStrategy)
+
+    internal val pageInAction =
+        state(diffStrategy = pagingControlSettings.pageInActionDiffStrategy) { paging.pageInAction() }
+    internal val pageLoadingVisible =
+        state(diffStrategy = pagingControlSettings.pageLoadingVisibleDiffStrategy) { paging.pageLoadingVisible() }
+    internal val pageErrorVisible =
+        state(diffStrategy = pagingControlSettings.pageErrorVisibleDiffStrategy) { paging.pagingErrorVisible() }
+    internal val pageError =
+        state(diffStrategy = pagingControlSettings.pageErrorDiffStrategy) { paging.pagingErrorChanges() }
+
+    internal val isEndReached =
+        state(diffStrategy = pagingControlSettings.isEndReachedDiffStrategy) { paging.isEndReached() }
+
+    internal val scrollToTop = command<Unit>()
 
     val loadAction = action<Unit> {
         this.map { Paging.Action.REFRESH }
@@ -103,8 +122,6 @@ class PagingControl<T> internal constructor(
         this.map { Paging.Action.RETRY_LOAD_NEXT_PAGE }
             .doOnBeforeNext { paging.actions.accept(it) }
     }
-
-    private val paging = PagingImpl(page, limit, pageSource = pageSource)
 
     override fun onCreate() {
         super.onCreate()
@@ -181,6 +198,7 @@ class PagingControl<T> internal constructor(
 
 @Suppress("LongParameterList")
 fun <T> PresentationModel.pagingControl(
+    pagingControlSettings: PagingControlSettings<T> = PagingControlSettings(),
     dataConsumer: DataConsumer<T>? = null,
     dataTransform: DataTransform<T>? = null,
     pageLoadingVisibleConsumer: PageLoadingVisibleConsumer? = null,
@@ -205,6 +223,7 @@ fun <T> PresentationModel.pagingControl(
     pageSource: ((page: Int, limit: Int, offset: Int, lastPage: Paging.Page<T>?) -> Single<Paging.Page<T>>)
 ): PagingControl<T> {
     return PagingControl(
+        pagingControlSettings,
         dataConsumer,
         dataTransform,
         pageLoadingVisibleConsumer,

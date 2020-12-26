@@ -19,10 +19,6 @@ import dev.garage.rpm.state
 
 class PagingPm : PresentationModel() {
 
-    private val totalCount: Int = 100
-
-    val mode = state(Mode.NORMAL)
-
     val pagingControl = pagingControl<Item>(
         limit = 20,
         pageSource = { _, limit, offset, lastPage ->
@@ -44,6 +40,10 @@ class PagingPm : PresentationModel() {
             .doOnBeforeNext { pagingControl.forceLoadAction.accept(Unit) }
     }
 
+    private val totalCount: Int = 100
+
+    private val mode = state(Mode.NORMAL)
+
     private fun loadPage(limit: Int, last: Item?): Single<ItemsPage> {
         return singleFromFunction { testData(limit, last) }.delay(3000)
     }
@@ -57,9 +57,9 @@ class PagingPm : PresentationModel() {
             }.filter { it.number <= totalCount }, totalCount)
         }
     }
-
-    enum class Mode { NORMAL, ERROR, EMPTY_DATA }
 }
+
+enum class Mode { NORMAL, ERROR, EMPTY_DATA }
 
 data class Item(val number: Int)
 
