@@ -13,6 +13,8 @@ enableFeaturePreview("GRADLE_METADATA")
 
 include(":rpm")
 include(":rpm-permissions")
+include(":rpm-map")
+include(":rpm-google-map")
 include(":app-common")
 include(":app-android")
 
