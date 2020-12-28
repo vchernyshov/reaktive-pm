@@ -1,10 +1,7 @@
 package dev.garage.rpm.app.common.google_map
 
-import com.badoo.reaktive.observable.doOnBeforeNext
 import dev.garage.rpm.MR
 import dev.garage.rpm.PresentationModel
-import dev.garage.rpm.action
-import dev.garage.rpm.command
 import dev.garage.rpm.map.LatLng
 import dev.garage.rpm.map.ZoomConfig
 import dev.garage.rpm.map.command.PermissionRequiredType
@@ -16,25 +13,12 @@ class GoogleMapPm : PresentationModel() {
 
     val googleMapControl = googleMapControl()
 
-    val permissionToastCommand = command<Unit>()
-
-    val continueExecuteCommandAction = action<Unit> {
-        this.doOnBeforeNext {
-            googleMapControl.continueWorkWithMap()
-        }
-    }
-
     override fun onCreate() {
         super.onCreate()
         googleMapControl.setCurrentZoom(14f)
         googleMapControl.writeUiSettings(
             UiSettings(myLocationButtonEnabled = true),
-            permissionRequiredType = PermissionRequiredType.MANDATORY,
-            permissionResultListener = {
-                if (!it.isGranted) {
-                    permissionToastCommand.accept(Unit)
-                }
-            }
+            permissionRequiredType = PermissionRequiredType.NO_MANDATORY
         )
         googleMapControl.setZoomConfig(ZoomConfig(min = 4f, max = 16f))
         val marketLatLng1 = LatLng(
@@ -49,12 +33,7 @@ class GoogleMapPm : PresentationModel() {
         )
         googleMapControl.showMyLocation(
             14f,
-            permissionRequiredType = PermissionRequiredType.MANDATORY,
-            permissionResultListener = {
-                if (!it.isGranted) {
-                    permissionToastCommand.accept(Unit)
-                }
-            }
+            permissionRequiredType = PermissionRequiredType.NO_MANDATORY
         )
         googleMapControl.addMarker(googleMarkerData1)
     }
