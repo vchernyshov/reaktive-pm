@@ -1,64 +1,61 @@
 package dev.garage.rpm.app.common.google_map
 
+import com.badoo.reaktive.observable.doOnBeforeNext
 import dev.garage.rpm.MR
 import dev.garage.rpm.PresentationModel
+import dev.garage.rpm.action
 import dev.garage.rpm.command
 import dev.garage.rpm.map.LatLng
 import dev.garage.rpm.map.ZoomConfig
+import dev.garage.rpm.map.command.PermissionRequiredType
 import dev.garage.rpm.map.data.MarkerData
 import dev.garage.rpm.map.google.UiSettings
 import dev.garage.rpm.map.google.googleMapControl
-import dev.garage.rpm.map.google.mapReadyStatusChanges
-import dev.garage.rpm.map.strategy.CommandStrategy
-import dev.garage.rpm.state
-import dev.garage.rpm.widget.dialogControl
 
 class GoogleMapPm : PresentationModel() {
 
-  //  enum class DialogResult { OK }
+    val googleMapControl = googleMapControl()
 
-   // val dialogControl = dialogControl<String, DialogResult>()
+    val permissionToastCommand = command<Unit>()
 
-    val googleMapControl = googleMapControl(
-        permissionResultListener = {
-            val a = ""
-           /* if (!it.isGranted) {
-                messageCommand.accept(it.type.toString())
-            }*/
-        },
-        onFirstMapInit = {
-            setCurrentZoom(14f)
-            setZoomConfig(ZoomConfig(min = 4f, max = 16f))
-            writeUiSettings(UiSettings(myLocationButtonEnabled = true))
-          //  showMyLocation(14f, CommandStrategy.OncePerformStrategy)
-            val marketLatLng1 = LatLng(
-                latitude = 41.875725,
-                longitude = -87.623757
-            )
-            val marketLatLng2 = LatLng(
-                latitude = 40.875725,
-                longitude = -87.623757
-            )
-            val googleMarkerData1 = MarkerData(
-                MR.images.marker,
-                marketLatLng1,
-                0.0f,
-                "${marketLatLng1.latitude}: ${marketLatLng1.longitude}"
-            )
-            val googleMarkerData2 = MarkerData(
-                MR.images.marker,
-                marketLatLng2,
-                0.0f,
-                "${marketLatLng2.latitude}: ${marketLatLng2.longitude}"
-            )
-            addMarkers(listOf(googleMarkerData1, googleMarkerData2))
-            showLocation(marketLatLng1, 14f, true)
+    val continueExecuteCommandAction = action<Unit> {
+        this.doOnBeforeNext {
+            googleMapControl.continueWorkWithMap()
         }
-    )
+    }
 
-   // val status = state { googleMapControl.mapReadyStatusChanges() }
-
-  //  val messageCommand = command<String>()
-
-
+    override fun onCreate() {
+        super.onCreate()
+        googleMapControl.setCurrentZoom(14f)
+        googleMapControl.writeUiSettings(
+            UiSettings(myLocationButtonEnabled = true),
+            permissionRequiredType = PermissionRequiredType.MANDATORY,
+            permissionResultListener = {
+                if (!it.isGranted) {
+                    permissionToastCommand.accept(Unit)
+                }
+            }
+        )
+        googleMapControl.setZoomConfig(ZoomConfig(min = 4f, max = 16f))
+        val marketLatLng1 = LatLng(
+            latitude = 41.875725,
+            longitude = -87.623757
+        )
+        val googleMarkerData1 = MarkerData(
+            MR.images.marker,
+            marketLatLng1,
+            0.0f,
+            "${marketLatLng1.latitude}: ${marketLatLng1.longitude}"
+        )
+        googleMapControl.showMyLocation(
+            14f,
+            permissionRequiredType = PermissionRequiredType.MANDATORY,
+            permissionResultListener = {
+                if (!it.isGranted) {
+                    permissionToastCommand.accept(Unit)
+                }
+            }
+        )
+        googleMapControl.addMarker(googleMarkerData1)
+    }
 }

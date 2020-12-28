@@ -4,16 +4,21 @@ import dev.garage.rpm.map.LatLng
 import dev.garage.rpm.map.Marker
 import dev.garage.rpm.map.ZoomConfig
 import dev.garage.rpm.map.command.MapCommand
+import dev.garage.rpm.map.command.PermissionRequiredType
+import dev.garage.rpm.map.command.PermissionResultListener
 import dev.garage.rpm.map.data.MarkerData
 import dev.garage.rpm.map.strategy.CommandStrategy
 
 interface GoogleMapControlHandler {
 
     val commandList: ArrayList<MapCommand>
+    val performCommandList: ArrayList<MapCommand>
     val queueCommandList: ArrayList<MapCommand>
 
     fun showMyLocation(
         zoom: Float,
+        permissionRequiredType: PermissionRequiredType,
+        permissionResultListener: PermissionResultListener? = null,
         commandStrategy: CommandStrategy = CommandStrategy.OncePerformStrategy
     )
 
@@ -53,6 +58,11 @@ interface GoogleMapControlHandler {
     fun readUiSettings(callback: (UiSettings) -> Unit)
     fun writeUiSettings(
         settings: UiSettings,
+        permissionRequiredType: PermissionRequiredType,
+        permissionResultListener: PermissionResultListener? = null,
         commandStrategy: CommandStrategy = CommandStrategy.AddSingleStrategy
     )
+
+    //call this method when check permission in custom pm or when the user was notified
+    fun continueWorkWithMap()
 }
