@@ -6,40 +6,40 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import dev.garage.rpm.app.counter.CounterActivity
+import dev.garage.rpm.app.databinding.ActivityLaunchBinding
+import dev.garage.rpm.app.location.LocationSettingsActivity
 import dev.garage.rpm.app.main.MainActivity
 import dev.garage.rpm.app.permissions.PermissionsActivity
 import dev.garage.rpm.app.validation.FormValidationActivity
 
 class LaunchActivity : AppCompatActivity() {
 
-    private lateinit var counterSample: View
-    private lateinit var mainSample: View
-    private lateinit var formValidationSample: View
-    private lateinit var permissionsSample: View
+    private lateinit var binding: ActivityLaunchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_launch)
+        binding = ActivityLaunchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        counterSample = findViewById(R.id.counterSample)
-        mainSample = findViewById(R.id.mainSample)
-        formValidationSample = findViewById(R.id.formValidationSample)
-        permissionsSample = findViewById(R.id.permissionsSample)
+        with(binding) {
+            counterSample.setOnClickListener {
+                launchActivity(CounterActivity::class.java)
+            }
 
-        counterSample.setOnClickListener {
-            launchActivity(CounterActivity::class.java)
-        }
+            mainSample.setOnClickListener {
+                launchActivity(MainActivity::class.java)
+            }
 
-        mainSample.setOnClickListener {
-            launchActivity(MainActivity::class.java)
-        }
+            formValidationSample.setOnClickListener {
+                launchActivity(FormValidationActivity::class.java)
+            }
 
-        formValidationSample.setOnClickListener {
-            launchActivity(FormValidationActivity::class.java)
-        }
-
-        permissionsSample.setOnClickListener {
-            launchActivity(PermissionsActivity::class.java)
+            permissionsSample.setOnClickListener {
+                launchActivity(PermissionsActivity::class.java)
+            }
+            locationSettingsSample.setOnClickListener {
+                launchActivity(LocationSettingsActivity::class.java)
+            }
         }
     }
 

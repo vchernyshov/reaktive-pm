@@ -34,6 +34,7 @@ dependencies {
 
     implementation(project(Deps.Libs.MultiPlatform.rpm.name))
     implementation(project(Deps.Libs.MultiPlatform.rpmPermissions.name))
+    implementation(project(Deps.Libs.MultiPlatform.rpmLocation.name))
     implementation(project(Deps.Libs.MultiPlatform.appCommon.name))
 
     implementation(Deps.Libs.Android.appCompat.name)
