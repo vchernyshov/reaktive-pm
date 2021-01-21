@@ -37,6 +37,16 @@ object Deps {
                 exported = true
             )
 
+            val rpmBitmap = MultiPlatformModule(
+                name = ":rpm-bitmap",
+                exported = true
+            )
+
+            val rpmImagePicker = MultiPlatformModule(
+                name = ":rpm-image-picker",
+                exported = true
+            )
+
             val appCommon = MultiPlatformModule(
                 name = ":app-common"
             )
@@ -78,9 +88,9 @@ object Versions {
 
     val kotlin = "1.3.71"
     val reaktive = "1.1.12"
-    val appCompat = "1.2.0-alpha03"
+    val appCompat = "1.2.0"
     val material = "1.2.0-alpha05"
-    val coreKtx = "1.2.0"
+    val coreKtx = "1.3.1"
     val constraint = "1.1.3"
     val timber = "4.7.1"
     val libphonenumber = "8.11.1"
