@@ -10,6 +10,7 @@
     <string name="launch_form_validation_sample">Form Validation</string>
     <string name="launch_permissions_sample">Permissions</string>
     <string name="launch_location_settings_sample">Location Settings</string>
+    <string name="launch_bluetooth_settings_sample">Bluetooth Settings</string>
 
     <!-- Auth by phone -->
     <string name="auth_by_phone_screen_text">Please confirm your country code and enter your phone number.</string>
@@ -56,5 +57,9 @@
     <!-- Location Settings -->
     <string name="location_settings_screen_title">Location Settings Sample</string>
     <string name="location_settings">Location Settings</string>
+
+    <!-- Bluetooth Settings -->
+    <string name="bluetooth_settings_screen_title">Bluetooth Settings Sample</string>
+    <string name="bluetooth_settings">Bluetooth Settings</string>
 
 </resources>
